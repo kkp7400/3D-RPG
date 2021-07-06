@@ -28,6 +28,7 @@ public class OpenBookCover : MonoBehaviour
             isClose = true;
             Quaternion targetRotation = Quaternion.Euler(0, doorOpenAngle, 0);
             transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, smoot * Time.deltaTime);
+
         }
         else
         {            
@@ -40,7 +41,7 @@ public class OpenBookCover : MonoBehaviour
     }
     public IEnumerator Close()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         Quaternion targetRotation2 = Quaternion.Euler(0, 90, 0);
         transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation2, smoot * Time.deltaTime);
         isClose = false;
