@@ -20,14 +20,14 @@ public class OpenBook : MonoBehaviour
     public float smoot = 2f;
     public bool canOpenDoor;
     public GameObject pivot;
-    private bool isOpen;
+   // private bool isOpen;
     void Awake()
 	{
         for (int i = 0; i < page.Length; i++)
         {
             page[i].startAngle = page[i].num.transform.localRotation.eulerAngles.z;
         }
-        isOpen = false;
+        //isOpen = false;
     }
     void Start()
     {
@@ -40,10 +40,10 @@ public class OpenBook : MonoBehaviour
     }
     void Update()
     {   
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            isOpen = true;
-        }
+        //if (Input.GetKeyDown(KeyCode.LeftControl))
+        //{
+        //    isOpen = true;
+        //}
         if (!GameManager.instance.isOpen)
         {
 			for (int i = 0; i < page.Length; i++)
@@ -53,7 +53,7 @@ public class OpenBook : MonoBehaviour
 		}
         else
         {
-            if (isOpen)
+            if (GameManager.instance.isOpen)
             {
                 StartCoroutine(Open());
                 StartCoroutine(Open2());
@@ -110,7 +110,7 @@ public class OpenBook : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
             page[i].num.transform.localRotation = Quaternion.Slerp(page[i].num.transform.localRotation, Quaternion.Euler(0, 0, page[i].doorCloseAngle), smoot * Time.deltaTime);
         }
-        isOpen = false;
+       // isOpen = false;
     }
 }
 
