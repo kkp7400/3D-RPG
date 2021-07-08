@@ -28,11 +28,9 @@ public class PlayerState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (anim.GetAnimatorTransitionInfo(0).IsUserName("AttackToIdle"))
-            for (int i = 0; i < book.Length; i++)
-            {
-                book[i].SetActive(true);
-            }
+        if (anim.GetAnimatorTransitionInfo(0).IsUserName("AttackToIdle"))           
+           book[1].SetActive(true);
+           
 
         switch (state)
         {
@@ -54,9 +52,11 @@ public class PlayerState : MonoBehaviour
     void ChangeState(Player_State nextState)
     {
         state = nextState;
-
+        
         anim.SetBool("IsCast", false);
         anim.SetBool("IsRun", false);
+
+        book[1].SetActive(false);
         movement.isMove = false;
         // anim.SetBool("Run", false);
         // anim.SetBool("Attack", false);
@@ -102,6 +102,8 @@ public class PlayerState : MonoBehaviour
     }
     void UpdateMove()
     {
+        if (anim.GetAnimatorTransitionInfo(0).IsUserName("toRun"))
+            movement.isMove = true;
         if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
         {
 
@@ -153,6 +155,8 @@ public class PlayerState : MonoBehaviour
     {
         if (!GameManager.instance.isOpen)
         {
+
+            book[0].SetActive(false);
             ChangeState(Player_State.Idle);
             return;
         }
@@ -192,13 +196,13 @@ public class PlayerState : MonoBehaviour
 
     IEnumerator CoroutineIdle()
     {
-
+        book[1].SetActive(true);
         yield break;
     }
     IEnumerator CoroutineMove()
     {
+        book[1].SetActive(true);
         anim.SetBool("IsRun", true);
-        movement.isMove = true;
         yield break;
     }
     IEnumerator CoroutineSpellMove()
@@ -216,6 +220,9 @@ public class PlayerState : MonoBehaviour
     }
     IEnumerator CoroutineCasting()
     {
+
+        book[0].SetActive(true);
+        book[1].SetActive(false);
         anim.SetBool("IsCast", true);
         yield break;
     }
