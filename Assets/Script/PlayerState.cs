@@ -9,7 +9,7 @@ public enum Player_State
 public class PlayerState : MonoBehaviour
 {
 
-    Animator anim;
+    public Animator anim;
     PlayerInput input;
     PlayerMovement movement;
     [SerializeField]
@@ -49,12 +49,13 @@ public class PlayerState : MonoBehaviour
 
         }
     }
-    void ChangeState(Player_State nextState)
+    public void ChangeState(Player_State nextState)
     {
         state = nextState;
         
         anim.SetBool("IsCast", false);
         anim.SetBool("IsRun", false);
+        anim.SetBool("IsSkill", false);
 
         book[1].SetActive(false);
         movement.isMove = false;
@@ -106,7 +107,6 @@ public class PlayerState : MonoBehaviour
             movement.isMove = true;
         if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
         {
-
             ChangeState(Player_State.Idle);
             return;
         }
@@ -162,7 +162,8 @@ public class PlayerState : MonoBehaviour
         }
     }
     void UpdateCasted()
-    {
+    {        
+
     }
     void UpdateSkill()
     {
@@ -228,6 +229,7 @@ public class PlayerState : MonoBehaviour
     }
     IEnumerator CoroutineCasted()
     {
+        anim.SetBool("IsSkill", true);
         yield break;
     }
     IEnumerator CoroutineSkill()

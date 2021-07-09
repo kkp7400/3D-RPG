@@ -2,9 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Reflection;
+using UnityEngine.Playables;
 
 public class SkillManager : MonoBehaviour
 {
+
+    public GameObject[] skillFX;
+    public Camera sceneCamera;
+    private bool onAim;
+    private string useSkillName;
+    public GameObject skillIndicator;
+
     public GameObject attack;
     public GameObject cast;
     public GameObject teleport;
@@ -13,7 +22,9 @@ public class SkillManager : MonoBehaviour
     private PlayerState playerstate;
     private PlayerInput playerInput; // 플레이어 입력을 알려주는 컴포넌트
     private Rigidbody playerRigidbody; // 플레이어 캐릭터의 리지드바디
-    public List<string> SkillIndex = new List<string>();
+    private string useSkill;
+    
+    public List<string> SkillIndex;
     void Awake()
     {
         // 사용할 컴포넌트들의 참조를 가져오기
@@ -23,6 +34,7 @@ public class SkillManager : MonoBehaviour
         }
         SkillIndex.Add("FirePunch");
         SkillIndex.Add("Meteor");
+        onAim = false;
     }
 
     // Update is called once per frame
@@ -32,10 +44,43 @@ public class SkillManager : MonoBehaviour
         {
             cast.GetComponent<ParticleSystem>().Stop();
         }
+
+        if (useSkill != "not")
+        {
+            if (useSkill == "FirePunch")
+            {
+                attack = GameObject.Find("FX_Fire_Explosion_01");
+            }
+            if (useSkill == "Meteor")
+            {
+                useSkillName = useSkill;
+                playerstate.ChangeState(Player_State.Casted);
+                onAim = true;
+            }
+            useSkill = "not";
+        }
+
+
+        //Aiming();
+
+        if (onAim)
+        {
+            Aiming();
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                SpawnSkill();
+            }
+
+        }
+        else
+        {
+            skillIndicator.transform.position = new Vector3(1000, 1000, 1000);
+        }
     }
 
     public void Attack()
     {
+        if (attack == null) return;
         attack.GetComponent<ParticleSystem>().Play();
     }
     public void CastStart()
@@ -59,6 +104,7 @@ public class SkillManager : MonoBehaviour
 
         }
         cast.GetComponent<ParticleSystem>().loop = true;
+
     }
 
     public void TeleportStart()
@@ -73,6 +119,47 @@ public class SkillManager : MonoBehaviour
 
         teleport.GetComponent<ParticleSystem>().Play();
     }
+
+    public void UseSkill(string skill)
+    {
+        useSkill = skill;
+    }
+    public void SpawnSkill()
+    {
+
+        playerstate.anim.SetTrigger("UseSkill");
+        playerstate.ChangeState(Player_State.Idle);
+
+        int index = 0;
+        for (int i = 0; i < skillFX.Length; i++)
+        {
+            if (skillFX[i].name == useSkillName)
+            {
+                index = i;
+            }
+        }
+        Ray ray = sceneCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 200f, 1 << LayerMask.NameToLayer("Ground")))
+        {
+            Instantiate(skillFX[index], hit.point, Quaternion.identity);//풀링 해야함
+        }
+        onAim = false;
+    }
+
+    public void Aiming()
+    {
+        Ray ray = sceneCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 200f, 1 << LayerMask.NameToLayer("Ground")))
+        {
+            skillIndicator.transform.position = hit.point;
+        }
+        else
+        {
+            skillIndicator.transform.position = new Vector3(1000,1000,1000);
+        }
+    }
 }
 
-   
+

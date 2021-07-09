@@ -16,9 +16,10 @@ public class SpellArrow : MonoBehaviour
 		public Image[] arrow = new Image[8];
 		public bool isSpell;
 		public int isClear;
+		public int maxClear;
 	}
 
-
+	public GameObject bookClearFx;
 	public GameObject[] skills;
 	public List<Skill> skill = new List<Skill>();
 	public int inputNum;
@@ -44,6 +45,7 @@ public class SpellArrow : MonoBehaviour
 					if (spellBook.spell[j].name == "FirePunch") skill[i].Profile.sprite = Resources.Load<Sprite>("FirePunch");
 					if (spellBook.spell[j].name == "Meteor") skill[i].Profile.sprite = Resources.Load<Sprite>("Meteor");
 					skill[i].isSpell = true;
+					skill[i].maxClear = spellBook.spell[j].totalArrow;
 					skill[i].isClear = 0;
 
 				}
@@ -77,7 +79,7 @@ public class SpellArrow : MonoBehaviour
 				bookCool = 2f;
 			}
 		}
-		else if (Input.GetKeyUp(KeyCode.LeftControl) && playerState.state == Player_State.Casting)
+		else if (Input.GetKeyUp(KeyCode.LeftControl) && playerState.state == Player_State.Casting || GameManager.instance.isOpen == false)
 		{
 			inputNum = 0;
 			for (int i = 0; i < skill.Count; i++)
@@ -110,6 +112,10 @@ public class SpellArrow : MonoBehaviour
 		{
 			bookCool -= Time.deltaTime;
 		}
+		//for(int i = 0;i < skill.Count; i++)
+  //      {
+			
+  //      }
 		//Debug.Log(bookCool);
 	}
 	public void UseSkill(string key)
@@ -145,7 +151,12 @@ public class SpellArrow : MonoBehaviour
 					skill[i].isSpell = false;
 				}
 
-				if (skill[i].arrow.Length - 1 == skill[i].isClear) ;//이부분에 스킬 사용
+				if (skill[i].isClear == skill[i].maxClear)
+				{
+					skillMgr.UseSkill(skill[i].Profile.sprite.name);
+					bookClearFx.GetComponent<ParticleSystem>().Play();
+					GameManager.instance.isOpen = false;
+				}
 			}
 			
 		}
