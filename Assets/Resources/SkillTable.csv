@@ -3,5 +3,5 @@ Index,Name,Type,Damage,Count,Cool,TotalArrow,ArrowNum_0,ArrowNum_1,ArrowNum_2,Ar
 1,EnergyBall,Normal,5,20,5,6,Up,Up,Down,Down,Left,Right,,
 2,Meteor,Strong,120,1,10,8,Down,Right,Right,Right,Left,Left,Left,Up
 3,Blizard,Strong,60,1,10,8,Up,Left,Left,Left,Right,Right,Right,Down
-4,Shild,Memorize,0,1,30,8,Left,Right,Up,Down,Left,Right,Up,Down
+4,Shild,Memorize,20,1,30,8,Left,Right,Up,Down,Left,Right,Up,Down
 5,Counter,Memorize,40,1,30,8,Down,Down,Up,Up,Left,Left,Down,Down

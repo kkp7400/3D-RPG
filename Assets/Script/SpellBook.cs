@@ -16,12 +16,30 @@ public class Spell
     public List<string> arrow = new List<string>();
 
 }
+
+public class PlayerInfo
+{
+
+    public int Level;
+    public int HP;
+    public int MP;
+    public int ATK;
+    public int SPEED;
+    public int GOLD;
+    public int SP;
+    public int SP_FirePunch;
+    public int SP_EnergyBall;
+    public int SP_Meteor;
+    public int SP_Blizard;
+    public int SP_Shild;
+}
 public class SpellBook : MonoBehaviour
 {
     public string m_strCSVFileName = string.Empty;
-   
-    public List<Spell> spell = new List<Spell>();
+    public string m_strCSVFileName2 = string.Empty;
 
+    public List<Spell> spell = new List<Spell>();
+    public PlayerInfo playerInfo = new PlayerInfo();
     // Start is called before the first frame update
     void Awake()
     {
@@ -54,10 +72,26 @@ public class SpellBook : MonoBehaviour
             }
         }
 
-        int a = 0;
-        
 
-    } 
+        List<Dictionary<string, object>> m_dictionaryData2 = CSVReader.Read(m_strCSVFileName2);
+        for (int i = 0; i < m_dictionaryData2.Count; i++)
+        {
+            playerInfo.Level = int.Parse((m_dictionaryData2[i]["Level"].ToString()));
+            playerInfo.HP = int.Parse((m_dictionaryData2[i]["HP"].ToString()));
+            playerInfo.MP = int.Parse((m_dictionaryData2[i]["MP"].ToString()));
+            playerInfo.ATK = int.Parse((m_dictionaryData2[i]["ATK"].ToString()));
+            playerInfo.SPEED = int.Parse((m_dictionaryData2[i]["SPEED"].ToString()));
+            playerInfo.GOLD = int.Parse((m_dictionaryData2[i]["GOLD"].ToString()));
+            playerInfo.SP = int.Parse((m_dictionaryData2[i]["SP"].ToString()));
+            playerInfo.SP_FirePunch = int.Parse((m_dictionaryData2[i]["SP_FirePunch"].ToString()));
+            playerInfo.SP_EnergyBall = int.Parse((m_dictionaryData2[i]["SP_EnergyBall"].ToString()));
+            playerInfo.SP_Meteor = int.Parse((m_dictionaryData2[i]["SP_Meteor"].ToString()));
+            playerInfo.SP_Blizard = int.Parse((m_dictionaryData2[i]["SP_Blizard"].ToString()));
+            playerInfo.SP_Shild = int.Parse((m_dictionaryData2[i]["SP_Shild"].ToString()));
+
+        }
+    }
+    int a = 014224;
 
     // Update is called once per frame
     void Update()

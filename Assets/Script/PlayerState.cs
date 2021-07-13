@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using UnityEngine.UI;
 [SerializeField]
 public enum Player_State
 {
@@ -8,7 +10,17 @@ public enum Player_State
 }
 public class PlayerState : MonoBehaviour
 {
-
+    [Serializable]
+    public class FlashIcon
+    {
+        public string name;
+        public GameObject icon;
+        public GameObject coolIcon;
+        public float cool;
+        public float MaxCool;
+    }
+    public Camera sceneCamera;
+    public FlashIcon flash;
     public Animator anim;
     PlayerInput input;
     PlayerMovement movement;
@@ -28,10 +40,26 @@ public class PlayerState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (anim.GetAnimatorTransitionInfo(0).IsUserName("AttackToIdle"))           
-           book[1].SetActive(true);
-           
+        if (anim.GetAnimatorTransitionInfo(0).IsUserName("AttackToIdle"))
+            book[1].SetActive(true);
 
+        if(flash.cool >0)
+        {
+            flash.cool -= Time.deltaTime;
+        }
+        if(flash.cool<=0)
+        {
+            flash.icon.GetComponent<Image>().fillAmount = 1f;
+            flash.icon.GetComponent<Image>().color = new Color(255, 255, 255, 1f);
+            flash.coolIcon.SetActive(false);
+        }
+        else if(flash.cool >0)
+        {
+            flash.icon.GetComponent<Image>().fillAmount = flash.cool/flash.MaxCool;
+            flash.icon.GetComponent<Image>().color = new Color(255, 255, 255, 0.5f);
+            flash.coolIcon.SetActive(true) ;
+            flash.coolIcon.GetComponent<Text>().text = flash.cool.ToString();
+        }
         switch (state)
         {
             case Player_State.Idle: UpdateIdle(); break;
@@ -52,7 +80,7 @@ public class PlayerState : MonoBehaviour
     public void ChangeState(Player_State nextState)
     {
         state = nextState;
-        
+
         anim.SetBool("IsCast", false);
         anim.SetBool("IsRun", false);
         anim.SetBool("IsSkill", false);
@@ -121,8 +149,10 @@ public class PlayerState : MonoBehaviour
             ChangeState(Player_State.Casting);
             return;
         }
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space)&&flash.cool <= 0f)
         {
+            flash.icon.GetComponent<Image>().fillAmount = 0f;
+            flash.cool = flash.MaxCool;
             ChangeState(Player_State.Teleport);
             return;
         }
@@ -137,7 +167,21 @@ public class PlayerState : MonoBehaviour
         movement.isMove = false;
         if (Input.GetKey(KeyCode.Mouse0))
         {
+            Ray cameraRay = sceneCamera.ScreenPointToRay(Input.mousePosition);
 
+            Plane GroupPlane = new Plane(Vector3.up, Vector3.zero);
+
+            float rayLength;
+
+            if (GroupPlane.Raycast(cameraRay, out rayLength))
+
+            {
+
+                Vector3 pointTolook = cameraRay.GetPoint(rayLength);
+
+                transform.LookAt(new Vector3(pointTolook.x, transform.position.y, pointTolook.z));
+
+            }
             anim.SetTrigger("OnCombo");
         }
         else if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
@@ -162,8 +206,11 @@ public class PlayerState : MonoBehaviour
         }
     }
     void UpdateCasted()
-    {        
-
+    {
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            ChangeState(Player_State.Idle);
+        }
     }
     void UpdateSkill()
     {
@@ -215,6 +262,21 @@ public class PlayerState : MonoBehaviour
         for (int i = 0; i < book.Length; i++)
         {
             book[i].SetActive(false);
+        }
+        Ray cameraRay = sceneCamera.ScreenPointToRay(Input.mousePosition);
+
+        Plane GroupPlane = new Plane(Vector3.up, Vector3.zero);
+
+        float rayLength;
+
+        if (GroupPlane.Raycast(cameraRay, out rayLength))
+
+        {
+
+            Vector3 pointTolook = cameraRay.GetPoint(rayLength);
+
+            transform.LookAt(new Vector3(pointTolook.x, transform.position.y, pointTolook.z));
+
         }
         anim.SetTrigger("OnCombo");
         yield break;

@@ -4,21 +4,28 @@ using UnityEngine;
 using System;
 using System.Reflection;
 using UnityEngine.Playables;
+using UnityEngine.UI;
 
 public class SkillManager : MonoBehaviour
 {
+    //FX
+
+    public GameObject shiled;
+    bool isShield;
+    public GameObject attack;
+    public GameObject cast;
+    public GameObject teleport;    
+    public GameObject[] bookFx;
+    public GameObject casting;
 
     public GameObject[] skillFX;
+    public GameObject[] skillDamage;
     public Camera sceneCamera;
     private bool onAim;
     private string useSkillName;
     public GameObject skillIndicator;
 
-    public GameObject attack;
-    public GameObject cast;
-    public GameObject teleport;
-    //[SerializeField]
-    public GameObject[] bookFx;
+    public SpellArrow spellArrow;
     private PlayerState playerstate;
     private PlayerInput playerInput; // 플레이어 입력을 알려주는 컴포넌트
     private Rigidbody playerRigidbody; // 플레이어 캐릭터의 리지드바디
@@ -27,14 +34,19 @@ public class SkillManager : MonoBehaviour
     public List<string> SkillIndex;
     void Awake()
     {
-        // 사용할 컴포넌트들의 참조를 가져오기
-        playerInput = GetComponent<PlayerInput>();
+        
+           // 사용할 컴포넌트들의 참조를 가져오기
+           playerInput = GetComponent<PlayerInput>();
         {
             playerstate = GetComponent<PlayerState>();
         }
         SkillIndex.Add("FirePunch");
+        SkillIndex.Add("EnergyBall");
         SkillIndex.Add("Meteor");
+        SkillIndex.Add("Blizard");
+        SkillIndex.Add("Shild");
         onAim = false;
+        isShield = false;
     }
 
     // Update is called once per frame
@@ -49,13 +61,30 @@ public class SkillManager : MonoBehaviour
         {
             if (useSkill == "FirePunch")
             {
-                attack = GameObject.Find("FX_Fire_Explosion_01");
+                attack = GameObject.Find("FirePunch");
             }
+            if (useSkill == "EnergyBall")
+            {
+                attack = GameObject.Find("EnergyBall");
+            }
+            
+
             if (useSkill == "Meteor")
             {
                 useSkillName = useSkill;
                 playerstate.ChangeState(Player_State.Casted);
                 onAim = true;
+            }
+            if (useSkill == "Blizard")
+            {
+                useSkillName = useSkill;
+                playerstate.ChangeState(Player_State.Casted);
+                onAim = true;
+            }
+
+            if (useSkill == "Shild")
+            {
+                isShield = true;
             }
             useSkill = "not";
         }
@@ -68,7 +97,8 @@ public class SkillManager : MonoBehaviour
             Aiming();
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                SpawnSkill();
+                StartCoroutine(SpawnSkill());
+                onAim = false;
             }
 
         }
@@ -76,12 +106,42 @@ public class SkillManager : MonoBehaviour
         {
             skillIndicator.transform.position = new Vector3(1000, 1000, 1000);
         }
+        Shield();
     }
 
     public void Attack()
     {
         if (attack == null) return;
         attack.GetComponent<ParticleSystem>().Play();
+        for (int i = 0; i < spellArrow.skill.Count; i++)
+        {
+            if (spellArrow.skill[i].Profile.sprite.name == attack.name)
+            {
+                if (spellArrow.skill[i].nowCount >= 0)
+                {
+
+                    attack.GetComponent<ParticleSystem>().Play();
+                    spellArrow.skill[i].nowCount -= 1;
+                }
+            }
+        }
+    }
+    public void Shield()
+    {
+        if (isShield == false) return;
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            shiled.GetComponent<ParticleSystem>().Play();
+            isShield = false;
+            for(int i = 0; i< spellArrow.skill.Count;i++)
+            {
+                if(spellArrow.skill[i].Profile.GetComponent<Image>().sprite.name == "Shild")
+                {
+                    if(spellArrow.skill[i].nowCount >=0)
+                        spellArrow.skill[i].nowCount -= 1;
+                }
+            }
+        }
     }
     public void CastStart()
     {
@@ -124,12 +184,14 @@ public class SkillManager : MonoBehaviour
     {
         useSkill = skill;
     }
-    public void SpawnSkill()
+    public IEnumerator SpawnSkill()
     {
 
         playerstate.anim.SetTrigger("UseSkill");
         playerstate.ChangeState(Player_State.Idle);
 
+        if (useSkillName == "Meteor") yield return new WaitForSeconds(1f);
+        if (useSkillName == "Blizard") yield return new WaitForSeconds(2f);
         int index = 0;
         for (int i = 0; i < skillFX.Length; i++)
         {
@@ -142,9 +204,11 @@ public class SkillManager : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 200f, 1 << LayerMask.NameToLayer("Ground")))
         {
-            Instantiate(skillFX[index], hit.point, Quaternion.identity);//풀링 해야함
+            //Instantiate(skillFX[index], hit.point, Quaternion.identity);//풀링 해야함
+            if (useSkillName == "Meteor") StartCoroutine(Meteor(hit.point, index));
+            if (useSkillName == "Blizard") StartCoroutine(Blizard(hit.point, index));
         }
-        onAim = false;
+        yield break;
     }
 
     public void Aiming()
@@ -159,6 +223,54 @@ public class SkillManager : MonoBehaviour
         {
             skillIndicator.transform.position = new Vector3(1000,1000,1000);
         }
+    }
+    public void CastingStart()
+    {
+        casting.GetComponent<ParticleSystem>().Play();
+    }
+    public void CastingEnd()
+    {
+        casting.GetComponent<ParticleSystem>().Stop();
+    }
+    public IEnumerator Blizard(Vector3 point, int index)
+    {
+        for (int i = 0; i < spellArrow.skill.Count; i++)
+        {
+            if (spellArrow.skill[i].Profile.GetComponent<Image>().sprite.name == "Blizard")
+            {
+                if (spellArrow.skill[i].nowCount >= 0)
+                    spellArrow.skill[i].nowCount -= 1;
+            }
+        }
+        spellArrow.skill[index].nowCount -= 1;
+        skillFX[index].transform.position = point;
+        skillFX[index].GetComponent<ParticleSystem>().Play();
+        //yield return new WaitForSeconds(1f);
+        skillDamage[index].transform.position = point;
+        yield return new WaitForSeconds(3f);
+        skillFX[index].GetComponent<ParticleSystem>().Stop();
+        yield return new WaitForSeconds(0.2f);
+        skillDamage[index].transform.position = new Vector3(1000, 1000, 1000);
+        yield break;
+    }
+
+    public IEnumerator Meteor(Vector3 point, int index)
+    {
+        for (int i = 0; i < spellArrow.skill.Count; i++)
+        {
+            if (spellArrow.skill[i].Profile.GetComponent<Image>().sprite.name == "Meteor")
+            {
+                if (spellArrow.skill[i].nowCount >= 0)
+                    spellArrow.skill[i].nowCount -= 1;
+            }
+        }
+        skillFX[index].transform.position = point;
+        skillFX[index].GetComponent<ParticleSystem>().Play();
+        yield return new WaitForSeconds(1f);
+        skillDamage[index].transform.position = point;
+        yield return new WaitForSeconds(5f);
+        skillDamage[index].transform.position = new Vector3(1000,1000,1000);
+        yield break;
     }
 }
 

@@ -30,13 +30,17 @@ public class PlayerMovement : MonoBehaviour
     // 입력값에 따라 캐릭터를 앞뒤로 움직임
     private void Move() {
         // 상대적으로 이동할 거리 계산
-        float moveDistance =
-            playerInput.v * moveSpeed * Time.deltaTime;
-        // 리지드바디를 통해 게임 오브젝트 위치 변경
-        //playerRigidbody.MovePosition(moveDistance,0,0,);
-        float moveDistance2 =
-            playerInput.h * moveSpeed * Time.deltaTime;
-        transform.position += new Vector3(moveDistance2,0, moveDistance);
+        //float moveDistance =
+        //    playerInput.v * moveSpeed * Time.deltaTime;
+        //// 리지드바디를 통해 게임 오브젝트 위치 변경
+        ////playerRigidbody.MovePosition(moveDistance,0,0,);
+        //float moveDistance2 =
+        //    playerInput.h * moveSpeed * Time.deltaTime;
+        //transform.position += new Vector3(moveDistance2,0, moveDistance);
+        Vector3 moveDistance = new Vector3(playerInput.h, 0, playerInput.v).normalized;
+
+        transform.position += moveDistance * moveSpeed * Time.deltaTime;
+
     }
 
     // 입력값에 따라 캐릭터를 좌우로 회전

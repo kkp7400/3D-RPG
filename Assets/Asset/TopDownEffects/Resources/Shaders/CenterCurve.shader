@@ -348,7 +348,8 @@ Node;AmplifyShaderEditor.StaticSwitch;42;-1730.644,1431.276;Float;False;Property
 Node;AmplifyShaderEditor.StaticSwitch;51;-1753.344,1662.678;Float;False;Property;_CameraDepthFadeEnabled;Camera Depth Fade Enabled;45;0;Create;True;0;0;False;0;False;0;1;1;True;;Toggle;2;Key0;Key1;Create;False;9;1;FLOAT;0;False;0;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;4;FLOAT;0;False;5;FLOAT;0;False;6;FLOAT;0;False;7;FLOAT;0;False;8;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;50;-2592.018,1856.435;Float;False;Property;_CameraDepthFadeOffset;Camera Depth Fade Offset;47;0;Create;True;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;43;-1995.047,1542.726;Float;False;Constant;_Float0;Float 0;10;0;Create;True;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;27;-2408.443,1468.209;Float;False;Property;_SoftParticlesExp;Soft Particles Exp;44;0;Create;True;0;0;False;0;False;2;2;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;27;-2408.443,1468.209;Float;False;Property;_SoftParticle
+p;Soft Particles Exp;44;0;Create;True;0;0;False;0;False;2;2;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.PowerNode;28;-2158.936,1415.437;Inherit;False;False;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;49;-2600.584,1746.131;Float;False;Property;_CameraDepthFadeLength;Camera Depth Fade Length;46;0;Create;True;0;0;False;0;False;1;1;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;2;1557.796,-1454.875;Inherit;False;3;3;0;FLOAT;0;False;1;COLOR;0,0,0,0;False;2;FLOAT;0;False;1;COLOR;0
