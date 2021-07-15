@@ -115,7 +115,7 @@ public class SpellArrow : MonoBehaviour
         //if (skill[i].arrow.Length > inputNum) continue;
 
         if (GameManager.instance.isOpen == false && Input.GetKeyDown(KeyCode.LeftControl) &&
-        (playerState.state == Player_State.Idle || playerState.state == Player_State.Move))
+        (playerState.state == Player_State.Idle || playerState.state == Player_State.Move)&&!playerState.onNPC)
         {
             //inputNum = 0;
             if (bookCool <= 0)

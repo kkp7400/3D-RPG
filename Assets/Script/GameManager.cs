@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    //public delegate void BB(string a, string b);
+   // public delegate void BB(string a, string b);
     //public event BB name;
     public bool isOpen;
     private void Awake()
@@ -34,22 +34,4 @@ public class GameManager : MonoBehaviour
     {
        // name();
     }
-
-    public void AXW(string a)
-    {
-        //Debug.Log("aa");
-    }
-
-    public void AXWs(string b, string p)
-    {
-        //Debug.Log("bb@");
-    }
-
-    public void awfiaj(string a, string b, string p)
-    {
-        AXW(a);
-        AXWs(b, p);
-    }
-
-
 }

@@ -27,6 +27,7 @@ public class PlayerState : MonoBehaviour
     [SerializeField]
     public GameObject[] book;
     public Player_State state;
+    public bool onNPC;
     // Start is called before the first frame update
     void Start()
     {
@@ -117,12 +118,12 @@ public class PlayerState : MonoBehaviour
             ChangeState(Player_State.Move);
             return;
         }
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0)&& !onNPC)
         {
             ChangeState(Player_State.Attack);
             return;
         }
-        if (GameManager.instance.isOpen)
+        if (GameManager.instance.isOpen && !onNPC)
         {
 
             ChangeState(Player_State.Casting);
@@ -138,18 +139,18 @@ public class PlayerState : MonoBehaviour
             ChangeState(Player_State.Idle);
             return;
         }
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0) && !onNPC)
         {
             ChangeState(Player_State.Attack);
             return;
         }
-        if (GameManager.instance.isOpen)
+        if (GameManager.instance.isOpen && !onNPC)
         {
 
             ChangeState(Player_State.Casting);
             return;
         }
-        if (Input.GetKey(KeyCode.Space)&&flash.cool <= 0f)
+        if (Input.GetKey(KeyCode.Space)&&flash.cool <= 0f && !onNPC)
         {
             flash.icon.GetComponent<Image>().fillAmount = 0f;
             flash.cool = flash.MaxCool;
