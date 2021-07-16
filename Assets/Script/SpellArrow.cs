@@ -7,8 +7,6 @@ public class SpellArrow : MonoBehaviour
 {
     public List<Spell> spell;
 
-
-
     // Start is called before the first frame update
     [Serializable]
     public class Skill
@@ -32,7 +30,7 @@ public class SpellArrow : MonoBehaviour
     public int inputNum;
     public float bookCool;
     public PlayerState playerState;
-    public SpellBook spellBook;
+    public DataBase spellBook;
     public SkillManager skillMgr;
     void Start()
     {

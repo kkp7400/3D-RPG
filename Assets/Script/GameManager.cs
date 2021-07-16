@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public UI_Equip equip;
+    public UI_Inventory inventory;
     public static GameManager instance;
    // public delegate void BB(string a, string b);
     //public event BB name;
@@ -23,6 +25,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
     }
     // Start is called before the first frame update
     void Start()
@@ -33,5 +36,12 @@ public class GameManager : MonoBehaviour
     void Update()
     {
        // name();
+    }
+
+    public void UpdateUI()
+    {
+        equip.UpdateItem();
+        inventory.UpdateItem();
+
     }
 }

@@ -8,16 +8,20 @@ public class UI_Inventory : MonoBehaviour
 {
     public GameObject inventoryPanel;
     bool isInventory = false;
-    public Slot[] slot;
+    public UI_Inventory_Slot[] slot;
+    public UI_Equip equip;
     public Transform slotHolder;
     // Start is called before the first frame update
-    public SpellBook DB;
+    public DataBase DB;
     public Text InventoryGoldCount;
+    public GameObject potionSlot;
     void Start()
     {
-        slot = slotHolder.GetComponentsInChildren<Slot>();
+        equip = GameObject.Find("Canvas").GetComponent<UI_Equip>();
+        slot = slotHolder.GetComponentsInChildren<UI_Inventory_Slot>();
         inventoryPanel.SetActive(isInventory);
 
+        if (DB.info.Inventory[0] != 0)        
         for(int i = 0; i < DB.info.Inventory.Count;i++)
         {
             slot[i].transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/"+ DB.info.Inventory[i].ToString());
@@ -34,7 +38,12 @@ public class UI_Inventory : MonoBehaviour
 
                 slot[i].itemCount = 0;
                 slot[i].transform.FindChild("Image").gameObject.SetActive(false);
-                slot[i].gameObject.GetComponentInChildren<Text>().gameObject.SetActive(false);
+
+                
+            }
+            if (slot[i].itemCount <= 1)
+            {
+                slot[i].gameObject.GetComponentInChildren<Text>().text = " ";
             }
         }
     }
@@ -50,15 +59,117 @@ public class UI_Inventory : MonoBehaviour
         }        
     }
 
-    public void UseItem(Slot useSlot)
+    public void UseItem(UI_Inventory_Slot useSlot)
     {
-        //if(useSlot.)
-        for(int i = 0; i< slot.Length; i++)
+        if(useSlot.itemType == "Equipment")
         {
-            if (slot[i].itemID != 0)
+            if (useSlot.EquipPart == "Head")//0번
+            {
+                if (equip.slot[0].itemID != 0)
+                {
+                    int tempID = equip.slot[0].itemID; 
+                    equip.slot[0].itemID = useSlot.itemID;
+                    useSlot.itemID = tempID;
+                }
+                else
+                {
+                    equip.slot[0].itemID = useSlot.itemID;
+                    useSlot.itemID = 0;
+                }
+            };
+            if (useSlot.EquipPart == "Staff")//1번
+            {
+                if (equip.slot[1].itemID != 0)
+                {
+                    int tempID = equip.slot[1].itemID;
+                    equip.slot[1].itemID = useSlot.itemID;
+                    useSlot.itemID = tempID;
+                }
+                else
+                {
+                    equip.slot[1].itemID = useSlot.itemID;
+                    useSlot.itemID = 0;
+                }
+            };
+            if (useSlot.EquipPart == "Body")//2번
+            {
+                if (equip.slot[2].itemID != 0)
+                {
+                    int tempID = equip.slot[2].itemID;
+                    equip.slot[2].itemID = useSlot.itemID;
+                    useSlot.itemID = tempID;
+                }
+                else
+                {
+                    equip.slot[2].itemID = useSlot.itemID;
+                    useSlot.itemID = 0;
+                }
+            };
+            if (useSlot.EquipPart == "Foot")//3번
+            {
+                if (equip.slot[3].itemID != 0)
+                {
+                    int tempID = equip.slot[3].itemID;
+                    equip.slot[3].itemID = useSlot.itemID;
+                    useSlot.itemID = tempID;
+                }
+                else
+                {
+                    equip.slot[3].itemID = useSlot.itemID;
+                    useSlot.itemID = 0;
+                }
+            };
+        }
+        else
+        {
+            potionSlot.SetActive(true);
+            potionSlot.transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + useSlot.itemID);
+            potionSlot.transform.FindChild("Text").GetComponent<Text>().text = useSlot.itemCount.ToString();
+            //포션 쓰는건 나중에
+        }
+        
+        equip.UpdateItem();
+        UpdateItem();
+    }
+    public void UpdateItem()
+    {
+        for (int i = 0; i < slot.Length; i++)
+        {
+            if (slot[i].itemID == 0)
+            {
+                slot[i].itemID = 0;
+
+                slot[i].itemCount = 0;
+                slot[i].transform.FindChild("Image").gameObject.SetActive(false);
+            }
+            else if (slot[i].itemID != 0)
             {
 
+                slot[i].transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[i].itemID.ToString());
+                slot[i].transform.GetComponentInChildren<Text>().text = slot[i].itemCount.ToString();
+                slot[i].transform.FindChild("Image").gameObject.SetActive(true);
+
+            }
+            if (slot[i].itemCount <= 1)
+            {
+                slot[i].gameObject.GetComponentInChildren<Text>().text = " ";
+            }
+
+            
+            if (potionSlot.transform.FindChild("Image").GetComponent<Image>().sprite.name == slot[i].itemID.ToString())
+            {
+                potionSlot.transform.FindChild("Text").GetComponent<Text>().text = slot[i].itemCount.ToString();
+                if(slot[i].itemCount<1)
+                {
+                    potionSlot.transform.FindChild("Image").GetComponent<Image>().color = new Color(255, 255, 255, 0.5f);
+                }
+                else if(slot[i].itemCount >= 1)
+                {
+
+                    potionSlot.transform.FindChild("Image").GetComponent<Image>().color = new Color(255, 255, 255, 1f);
+                }
             }
         }
+        InventoryGoldCount.text = DB.info.GOLD.ToString();
     }
 }

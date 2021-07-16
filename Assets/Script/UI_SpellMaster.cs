@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class UI_SpellMaster : MonoBehaviour
 {
-    public SpellBook data;
+    public DataBase data;
     public Text[] text;
 
     // Start is called before the first frame update
@@ -36,6 +36,7 @@ public class UI_SpellMaster : MonoBehaviour
             data.info.SP_FirePunch += 1;
             data.info.SP -= 1;
         }
+        GameManager.instance.UpdateUI();
     }
     public void FirePunchDown()
     {
@@ -44,6 +45,7 @@ public class UI_SpellMaster : MonoBehaviour
             data.info.SP_FirePunch -= 1;
             data.info.SP += 1;
         }
+        GameManager.instance.UpdateUI();
     }
 
     public void EnergyBallUp()
@@ -53,6 +55,7 @@ public class UI_SpellMaster : MonoBehaviour
             data.info.SP_EnergyBall += 1;
             data.info.SP -= 1;
         }
+        GameManager.instance.UpdateUI();
     }
     public void EnergyBallDown()
     {
@@ -61,6 +64,7 @@ public class UI_SpellMaster : MonoBehaviour
             data.info.SP_EnergyBall -= 1;
             data.info.SP += 1;
         }
+        GameManager.instance.UpdateUI();
     }
 
     public void MeteorUp()
@@ -70,6 +74,7 @@ public class UI_SpellMaster : MonoBehaviour
             data.info.SP_Meteor += 1;
             data.info.SP -= 1;
         }
+        GameManager.instance.UpdateUI();
     }
     public void MeteorDown()
     {
@@ -78,6 +83,7 @@ public class UI_SpellMaster : MonoBehaviour
             data.info.SP_Meteor -= 1;
             data.info.SP += 1;
         }
+        GameManager.instance.UpdateUI();
     }
 
     public void BlizardUp()
@@ -87,6 +93,7 @@ public class UI_SpellMaster : MonoBehaviour
             data.info.SP_Blizard += 1;
             data.info.SP -= 1;
         }
+        GameManager.instance.UpdateUI();
     }
     public void BlizardDown()
     {
@@ -95,6 +102,7 @@ public class UI_SpellMaster : MonoBehaviour
             data.info.SP_Blizard -= 1;
             data.info.SP += 1;
         }
+        GameManager.instance.UpdateUI();
     }
 
     public void ShieldUp()
@@ -104,6 +112,7 @@ public class UI_SpellMaster : MonoBehaviour
             data.info.SP_Shild += 1;
             data.info.SP -= 1;
         }
+        GameManager.instance.UpdateUI();
     }
     public void ShieldDown()
     {
@@ -112,5 +121,6 @@ public class UI_SpellMaster : MonoBehaviour
             data.info.SP_Shild -= 1;
             data.info.SP += 1;
         }
+        GameManager.instance.UpdateUI();
     }
 }
