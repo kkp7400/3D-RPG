@@ -16,6 +16,7 @@ public class test : MonoBehaviour
     {
 
     }
+    
 
     void OnParticleCollision(GameObject other)
     {

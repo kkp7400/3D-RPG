@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +11,8 @@ public class UI_Inventory : MonoBehaviour
     public Transform slotHolder;
     // Start is called before the first frame update
     public DataBase DB;
+
+    public int Gold;
     public Text InventoryGoldCount;
     public GameObject potionSlot;
     void Start()
@@ -21,31 +21,32 @@ public class UI_Inventory : MonoBehaviour
         slot = slotHolder.GetComponentsInChildren<UI_Inventory_Slot>();
         inventoryPanel.SetActive(isInventory);
 
-        if (DB.info.Inventory[0] != 0)        
-        for(int i = 0; i < DB.info.Inventory.Count;i++)
-        {
-            slot[i].transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/"+ DB.info.Inventory[i].ToString());
-            slot[i].itemID = DB.info.Inventory[i];
-            slot[i].gameObject.GetComponentInChildren<Text>().text = DB.info.itemCount[i].ToString();
-            slot[i].itemCount = DB.info.itemCount[i];            
-        }
+        if (DB.info.Inventory[0] != 0)
+            for (int i = 0; i < DB.info.Inventory.Count; i++)
+            {
+                slot[i].transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + DB.info.Inventory[i].ToString());
+                slot[i].itemID = DB.info.Inventory[i];
+                slot[i].gameObject.GetComponentInChildren<Text>().text = DB.info.itemCount[i].ToString();
+                slot[i].itemCount = DB.info.itemCount[i];
+            }
         InventoryGoldCount.text = DB.info.GOLD.ToString();
-        for(int i = 0; i < slot.Length;i++)
+        for (int i = 0; i < slot.Length; i++)
         {
-            if(slot[i].transform.FindChild("Image").GetComponent<Image>().sprite ==null)
+            if (slot[i].transform.FindChild("Image").GetComponent<Image>().sprite == null)
             {
                 slot[i].itemID = 0;
 
                 slot[i].itemCount = 0;
                 slot[i].transform.FindChild("Image").gameObject.SetActive(false);
 
-                
+
             }
             if (slot[i].itemCount <= 1)
             {
                 slot[i].gameObject.GetComponentInChildren<Text>().text = " ";
             }
         }
+        Gold = DB.info.GOLD;
     }
 
     // Update is called once per frame
@@ -56,18 +57,18 @@ public class UI_Inventory : MonoBehaviour
         {
             isInventory = !isInventory;
             inventoryPanel.SetActive(isInventory);
-        }        
+        }
     }
 
     public void UseItem(UI_Inventory_Slot useSlot)
     {
-        if(useSlot.itemType == "Equipment")
+        if (useSlot.itemType == "Equipment")
         {
             if (useSlot.EquipPart == "Head")//0번
             {
                 if (equip.slot[0].itemID != 0)
                 {
-                    int tempID = equip.slot[0].itemID; 
+                    int tempID = equip.slot[0].itemID;
                     equip.slot[0].itemID = useSlot.itemID;
                     useSlot.itemID = tempID;
                 }
@@ -120,14 +121,15 @@ public class UI_Inventory : MonoBehaviour
                 }
             };
         }
-        else
+        else if(useSlot.itemType == "Consumable")
         {
             potionSlot.SetActive(true);
+            potionSlot.GetComponent<UI_Inventory_Slot>().itemID = useSlot.itemID;
             potionSlot.transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + useSlot.itemID);
             potionSlot.transform.FindChild("Text").GetComponent<Text>().text = useSlot.itemCount.ToString();
             //포션 쓰는건 나중에
         }
-        
+
         equip.UpdateItem();
         UpdateItem();
     }
@@ -140,13 +142,15 @@ public class UI_Inventory : MonoBehaviour
                 slot[i].itemID = 0;
 
                 slot[i].itemCount = 0;
+                slot[i].transform.FindChild("Image").GetComponent<Image>().color = new Color(255, 255, 255, 0f);
                 slot[i].transform.FindChild("Image").gameObject.SetActive(false);
             }
             else if (slot[i].itemID != 0)
             {
 
-                slot[i].transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[i].itemID.ToString());
                 slot[i].transform.GetComponentInChildren<Text>().text = slot[i].itemCount.ToString();
+                slot[i].transform.FindChild("Image").GetComponent<Image>().color = new Color(255, 255, 255, 1f);
+                slot[i].transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[i].itemID.ToString());
                 slot[i].transform.FindChild("Image").gameObject.SetActive(true);
 
             }
@@ -155,21 +159,27 @@ public class UI_Inventory : MonoBehaviour
                 slot[i].gameObject.GetComponentInChildren<Text>().text = " ";
             }
 
-            
+
+        }
+
+        InventoryGoldCount.text = DB.info.GOLD.ToString();
+        
+        for (int i = 0; i < slot.Length; i++)
+        {
+            if (potionSlot.transform.FindChild("Image").GetComponent<Image>().sprite == null) break;
             if (potionSlot.transform.FindChild("Image").GetComponent<Image>().sprite.name == slot[i].itemID.ToString())
             {
                 potionSlot.transform.FindChild("Text").GetComponent<Text>().text = slot[i].itemCount.ToString();
-                if(slot[i].itemCount<1)
+                if (slot[i].itemCount < 1)
                 {
                     potionSlot.transform.FindChild("Image").GetComponent<Image>().color = new Color(255, 255, 255, 0.5f);
                 }
-                else if(slot[i].itemCount >= 1)
+                else if (slot[i].itemCount >= 1)
                 {
 
                     potionSlot.transform.FindChild("Image").GetComponent<Image>().color = new Color(255, 255, 255, 1f);
                 }
             }
-        }
-        InventoryGoldCount.text = DB.info.GOLD.ToString();
+        }        
     }
 }

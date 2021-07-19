@@ -101,6 +101,8 @@ public class UI_Equip : MonoBehaviour
         {
             isInventory = !isInventory;
             EquipPanel.SetActive(isInventory);
+            UpdateItem();
+            inventory.UpdateItem();
         }
     }
     bool canSwap = true;
@@ -154,51 +156,42 @@ public class UI_Equip : MonoBehaviour
         status[0].GetComponent<Text>().text = "LV: " + DB.info.Level.ToString();
         for (int i = 0; i < DB.itemDB.Count; i++)
         {
-            if (i > DB.itemDB.Count) continue;
-            if (slot[0].itemID == DB.itemDB[i].ID)
+            //if (i > DB.itemDB.Count) continue;
+            //0머리 1무기 2바디 3신발
+            //스탯: 1HP,2MP,3ATK,4SPEED
+            //그러니까 slot[0]=status[2](mp) / slot[1]=status[3](ATK) / slot[2]=status[1](HP) / slot[3]=status[4](SPEED)
+            if (slot[2].itemID == DB.itemDB[i].ID)
             {
                 status[1].GetComponent<Text>().text = "HP: " + DB.itemDB[i].HP.ToString();
             }
-            else
-            {
-                status[1].GetComponent<Text>().text = "HP: 0";
-            }
-            if (slot[1].itemID == DB.itemDB[i].ID)
+            
+            if (slot[0].itemID == DB.itemDB[i].ID)
             {
                 status[2].GetComponent<Text>().text = "MP: " + DB.itemDB[i].MP.ToString();
             }
-            else
-            {
-                status[2].GetComponent<Text>().text = "MP: 0";
-            }
-            if (slot[2].itemID == DB.itemDB[i].ID)
+           
+            if (slot[1].itemID == DB.itemDB[i].ID)
             {
                 status[3].GetComponent<Text>().text = "ATK: " + DB.itemDB[i].ATK.ToString();
             }
-            else
-            {
-                status[3].GetComponent<Text>().text = "ATK: 0";
-            }
+            
             if (slot[3].itemID == DB.itemDB[i].ID)
             {
                 status[4].GetComponent<Text>().text = "SPEED: " + DB.itemDB[i].SPEED.ToString();
             }
-            else
-            {
-                status[4].GetComponent<Text>().text = "SPEED: 0";
-            }
+            
 
             status[5].GetComponent<Text>().text = "SP: " + DB.info.SP.ToString();
         }
-        if (slot[0].itemID == 0)
+        if (slot[2].itemID == 0)
         {
             status[1].GetComponent<Text>().text = "HP: " + 0;
         }
-        if (slot[1].itemID == 0)
+        if (slot[0].itemID == 0)
         {
             status[2].GetComponent<Text>().text = "MP: " + 0;
         }
-        if (slot[2].itemID == 0)
+        if (slot[1].itemID == 0)
         {
             status[3].GetComponent<Text>().text = "ATK: " + 0;
         }

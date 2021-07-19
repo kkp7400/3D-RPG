@@ -1,2 +1,2 @@
-Level,HP,MP,ATK,SPEED,GOLD,SP,SP_FirePunch,SP_EnergyBall,SP_Meteor,SP_Blizard,SP_Shild,Equip_Head,Equip_Foot,Equip_Staff,Equip_Body,Inventory,ItemCount
-1,1,1,1,1,0,1,0,0,0,0,0,0,0,0,0,100|101|102|103|104|105|106|107|108|109|110|111|200|201|202,1|1|1|1|1|1|1|1|1|1|1|1|5|5|5
+Level,HP,MP,ATK,SPEED,GOLD,SP,SP_FirePunch,SP_EnergyBall,SP_Meteor,SP_Blizard,SP_Shild,Equip_Head,Equip_Foot,Equip_Staff,Equip_Body,PotionSlot,Inventory,ItemCount,EXP
+1,1,1,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0

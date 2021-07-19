@@ -117,11 +117,15 @@ public class SkillManager : MonoBehaviour
         {
             if (spellArrow.skill[i].Profile.sprite.name == attack.name)
             {
-                if (spellArrow.skill[i].nowCount >= 0)
+                if (spellArrow.skill[i].nowCount > 0)
                 {
 
                     attack.GetComponent<ParticleSystem>().Play();
                     spellArrow.skill[i].nowCount -= 1;
+                }                
+                else if(spellArrow.skill[i].nowCount <= 0)
+                {
+                    attack.GetComponent<ParticleSystem>().Stop();
                 }
             }
         }

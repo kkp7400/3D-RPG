@@ -1,16 +1,16 @@
-ID,Name,Type,EquipPart,HP,MP,ATK,SPEED,RecoverAmount,ToolTip
-100,Void Staff,Equipment,Staff,,,1.5,,,Damage + 50%
-101,Archangel's Staff,Equipment,Staff,,,2,,,Damage + 100%
-102,Luden's staff,Equipment,Staff,,,3,,,Damage + 200%
-103,Negatron's Robe,Equipment,Body,1.3,,,,,HP + 30%
-104,Spirit's Robe,Equipment,Body,1.6,,,,,HP + 60%
-105,Sunfire Robe,Equipment,Body,2,,,,,HP + 100%
-106,Mystic boots,Equipment,Foot,,,,1.2,,MoveSpeed + 20%
-107,Wizard's Boots,Equipment,Foot,,,,1.4,,MoveSpeed + 40%
-108,Hermes boots,Equipment,Foot,,,,1.6,,MoveSpeed + 60%
-109,Specter's Hood,Equipment,Head,,1.3,,,,MP + 30%
-110,devil's hood,Equipment,Head,,1.6,,,,MP + 60%
-111,Liandry's Hood,Equipment,Head,,2,,,,MP + 100%
-200,Potion,Consumable,,,,,,0.1,Recover HP 10% 
-201,Elixir,Consumable,,,,,,0.3,Recover HP 30%
-202,Power Elixir,Consumable,,,,,,0.6,Recover HP 60%
+ID,Name,Type,EquipPart,HP,MP,ATK,SPEED,RecoverAmount,Price,ToolTip
+100,Void Staff,Equipment,Staff,,,1.5,,,100,Damage + 50%
+101,Archangel's Staff,Equipment,Staff,,,2,,,500,Damage + 100%
+102,Luden's staff,Equipment,Staff,,,3,,,1000,Damage + 200%
+103,Negatron's Robe,Equipment,Body,1.3,,,,,100,HP + 30%
+104,Spirit's Robe,Equipment,Body,1.6,,,,,500,HP + 60%
+105,Sunfire Robe,Equipment,Body,2,,,,,1000,HP + 100%
+106,Mystic boots,Equipment,Foot,,,,1.2,,100,MoveSpeed + 20%
+107,Wizard's Boots,Equipment,Foot,,,,1.4,,500,MoveSpeed + 40%
+108,Hermes boots,Equipment,Foot,,,,1.6,,1000,MoveSpeed + 60%
+109,Specter's Hood,Equipment,Head,,1.3,,,,100,MP + 30%
+110,devil's hood,Equipment,Head,,1.6,,,,500,MP + 60%
+111,Liandry's Hood,Equipment,Head,,2,,,,1000,MP + 100%
+200,Potion,Consumable,,,,,,0.1,10,Recover HP 10% 
+201,Elixir,Consumable,,,,,,0.3,50,Recover HP 30%
+202,Power Elixir,Consumable,,,,,,0.6,100,Recover HP 60%

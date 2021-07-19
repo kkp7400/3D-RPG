@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using static UnityEditor.Progress;
 
 public class UI_Inventory_Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 
@@ -16,7 +17,7 @@ public class UI_Inventory_Slot : MonoBehaviour, IPointerClickHandler, IBeginDrag
     public string EquipPart;
     public DataBase DB;
     public UI_Inventory Inventory;
-    // Start is called before the first frame update
+// Start is called before the first frame update
     void Start() 
     {
         UICamera = GameObject.Find("UICamera").GetComponent<Camera>();
@@ -30,6 +31,20 @@ public class UI_Inventory_Slot : MonoBehaviour, IPointerClickHandler, IBeginDrag
                 EquipPart = DB.itemDB[i].EquipPart;
             }
         }
+        if (transform.FindChild("Image").GetComponent<Image>().sprite == null)
+        {
+            transform.FindChild("Image").GetComponent<Image>().color = new Color(255, 255, 255, 0f);
+            transform.FindChild("Text").GetComponent<Text>().color = new Color(255, 255, 255, 0f);
+        }
+        else
+        {
+            transform.FindChild("Image").GetComponent<Image>().color = new Color(255, 255, 255, 1f);
+
+            transform.FindChild("Text").GetComponent<Text>().color = new Color(255, 255, 255, 1f);
+
+        }
+
+
     }
     // Update is called once per frame
     void Update()
@@ -40,7 +55,7 @@ public class UI_Inventory_Slot : MonoBehaviour, IPointerClickHandler, IBeginDrag
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)//드래그시작할 때
 
     {
-       // defaultposition = this.transform.position;
+       //defaultposition = this.transform.position;
     }
 
     void IDragHandler.OnDrag(PointerEventData eventData)//드래그중일 때
@@ -79,6 +94,20 @@ public class UI_Inventory_Slot : MonoBehaviour, IPointerClickHandler, IBeginDrag
                 itemType = DB.itemDB[i].type;
                 EquipPart = DB.itemDB[i].EquipPart;
             }
+
+        }
+
+        if (transform.FindChild("Image").GetComponent<Image>().sprite == null)
+        {
+            transform.FindChild("Image").GetComponent<Image>().color = new Color(255, 255, 255, 0f);
+            transform.FindChild("Text").GetComponent<Text>().color = new Color(255, 255, 255, 0f);
+        }
+        else
+        {
+            transform.FindChild("Image").GetComponent<Image>().color = new Color(255, 255, 255, 1f);
+
+            transform.FindChild("Text").GetComponent<Text>().color = new Color(255, 255, 255, 1f);
+
         }
     }
 }
