@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Loading.unity
+    guid: b685c9fb52d2bc1439d827629632ff16
+  - enabled: 1
+    path: Assets/Scenes/DunGeon.unity
+    guid: 6337070e0ca181c4c9d1271c5f168f2b
   m_configObjects: {}

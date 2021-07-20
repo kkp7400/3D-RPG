@@ -34,8 +34,8 @@ public class PlayerState : MonoBehaviour
         input = GetComponent<PlayerInput>();
         movement = GetComponent<PlayerMovement>();
         anim = GetComponent<Animator>();
-
-        state = Player_State.Idle;
+        
+        state = Player_State.Idle;        
     }
 
     // Update is called once per frame

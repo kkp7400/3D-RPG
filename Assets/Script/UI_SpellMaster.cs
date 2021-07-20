@@ -7,120 +7,135 @@ using UnityEngine.UI;
 
 public class UI_SpellMaster : MonoBehaviour
 {
-    public DataBase data;
+    public DataBase DB;
     public Text[] text;
-
+    public PlayerState player;
+    public int beforeLv;
+    public int nowLv;
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.Find("Player").GetComponent<PlayerState>();
+        beforeLv = DB.info.Level;
+        nowLv = DB.info.Level;
+        UpdateUI();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        text[0].text = "SP : " + data.info.SP.ToString();
-        text[1].text = data.info.SP_FirePunch.ToString();
-        text[2].text = data.info.SP_EnergyBall.ToString();
-        text[3].text = data.info.SP_Meteor.ToString();
-        text[4].text = data.info.SP_Blizard.ToString();
-        text[5].text = data.info.SP_Shild.ToString();
+        nowLv = DB.info.Level;
+        if (nowLv>beforeLv)
+        {
+            DB.info.SP += nowLv - beforeLv;
+            beforeLv = nowLv;
+        }
 
     }
 
    public void FirePunchUp()
     {
-        if (data.info.SP > 0)
+
+        if (DB.info.SP > 0)
         {
-            data.info.SP_FirePunch += 1;
-            data.info.SP -= 1;
+            DB.info.SP_FirePunch += 1;
+            DB.info.SP -= 1;
         }
         GameManager.instance.UpdateUI();
     }
     public void FirePunchDown()
     {
-        if (data.info.SP_FirePunch > 0)
+        if (DB.info.SP_FirePunch > 0)
         {
-            data.info.SP_FirePunch -= 1;
-            data.info.SP += 1;
+            DB.info.SP_FirePunch -= 1;
+            DB.info.SP += 1;
         }
         GameManager.instance.UpdateUI();
     }
 
     public void EnergyBallUp()
     {
-        if (data.info.SP > 0)
+        if (DB.info.SP > 0)
         {
-            data.info.SP_EnergyBall += 1;
-            data.info.SP -= 1;
+            DB.info.SP_EnergyBall += 1;
+            DB.info.SP -= 1;
         }
         GameManager.instance.UpdateUI();
     }
     public void EnergyBallDown()
     {
-        if (data.info.SP_EnergyBall > 0)
+        if (DB.info.SP_EnergyBall > 0)
         {
-            data.info.SP_EnergyBall -= 1;
-            data.info.SP += 1;
+            DB.info.SP_EnergyBall -= 1;
+            DB.info.SP += 1;
         }
         GameManager.instance.UpdateUI();
     }
 
     public void MeteorUp()
     {
-        if (data.info.SP > 0)
+        if (DB.info.SP > 0)
         {
-            data.info.SP_Meteor += 1;
-            data.info.SP -= 1;
+            DB.info.SP_Meteor += 1;
+            DB.info.SP -= 1;
         }
         GameManager.instance.UpdateUI();
     }
     public void MeteorDown()
     {
-        if (data.info.SP_Meteor > 0)
+        if (DB.info.SP_Meteor > 0)
         {
-            data.info.SP_Meteor -= 1;
-            data.info.SP += 1;
+            DB.info.SP_Meteor -= 1;
+            DB.info.SP += 1;
         }
         GameManager.instance.UpdateUI();
     }
 
     public void BlizardUp()
     {
-        if (data.info.SP > 0)
+        if (DB.info.SP > 0)
         {
-            data.info.SP_Blizard += 1;
-            data.info.SP -= 1;
+            DB.info.SP_Blizard += 1;
+            DB.info.SP -= 1;
         }
         GameManager.instance.UpdateUI();
     }
     public void BlizardDown()
     {
-        if (data.info.SP_Blizard > 0)
+        if (DB.info.SP_Blizard > 0)
         {
-            data.info.SP_Blizard -= 1;
-            data.info.SP += 1;
+            DB.info.SP_Blizard -= 1;
+            DB.info.SP += 1;
         }
         GameManager.instance.UpdateUI();
     }
 
     public void ShieldUp()
     {
-        if (data.info.SP > 0)
+        if (DB.info.SP > 0)
         {
-            data.info.SP_Shild += 1;
-            data.info.SP -= 1;
+            DB.info.SP_Shild += 1;
+            DB.info.SP -= 1;
         }
         GameManager.instance.UpdateUI();
     }
     public void ShieldDown()
     {
-        if (data.info.SP_Shild > 0)
+        if (DB.info.SP_Shild > 0)
         {
-            data.info.SP_Shild -= 1;
-            data.info.SP += 1;
+            DB.info.SP_Shild -= 1;
+            DB.info.SP += 1;
         }
         GameManager.instance.UpdateUI();
+    }
+
+    public void UpdateUI()
+    {
+        text[0].text = "SP : " + DB.info.SP.ToString();
+        text[1].text = DB.info.SP_FirePunch.ToString();
+        text[2].text = DB.info.SP_EnergyBall.ToString();
+        text[3].text = DB.info.SP_Meteor.ToString();
+        text[4].text = DB.info.SP_Blizard.ToString();
+        text[5].text = DB.info.SP_Shild.ToString();
     }
 }

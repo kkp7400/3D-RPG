@@ -20,9 +20,14 @@ public class UI_Inventory_Slot : MonoBehaviour, IPointerClickHandler, IBeginDrag
 // Start is called before the first frame update
     void Start() 
     {
+        
         UICamera = GameObject.Find("UICamera").GetComponent<Camera>();
         Inventory = GameObject.Find("Canvas").GetComponent<UI_Inventory>();
         DB = GameObject.Find("GM").GetComponent<DataBase>();
+        if (transform.name == "PotionSlot")
+        {
+            itemID = DB.info.PotionSlot;
+        }
         for (int i = 0; i < DB.itemDB.Count; i++)
         {
             if (itemID == DB.itemDB[i].ID)

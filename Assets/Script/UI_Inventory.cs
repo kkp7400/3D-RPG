@@ -28,6 +28,7 @@ public class UI_Inventory : MonoBehaviour
                 slot[i].itemID = DB.info.Inventory[i];
                 slot[i].gameObject.GetComponentInChildren<Text>().text = DB.info.itemCount[i].ToString();
                 slot[i].itemCount = DB.info.itemCount[i];
+
             }
         InventoryGoldCount.text = DB.info.GOLD.ToString();
         for (int i = 0; i < slot.Length; i++)
@@ -46,6 +47,7 @@ public class UI_Inventory : MonoBehaviour
                 slot[i].gameObject.GetComponentInChildren<Text>().text = " ";
             }
         }
+        
         Gold = DB.info.GOLD;
     }
 
@@ -174,7 +176,7 @@ public class UI_Inventory : MonoBehaviour
                 {
                     potionSlot.transform.FindChild("Image").GetComponent<Image>().color = new Color(255, 255, 255, 0.5f);
                 }
-                else if (slot[i].itemCount >= 1)
+                if (slot[i].itemCount >= 1)
                 {
 
                     potionSlot.transform.FindChild("Image").GetComponent<Image>().color = new Color(255, 255, 255, 1f);

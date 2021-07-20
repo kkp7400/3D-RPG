@@ -30,6 +30,7 @@ public class CsvFileWriter : CsvFileCommon, IDisposable
 	/// <param name="path">The name of the CSV file to write to</param>
 	public CsvFileWriter(string path)
 	{
+		//File.Delete(path);
 		Writer = new StreamWriter(path);
 	}
 	

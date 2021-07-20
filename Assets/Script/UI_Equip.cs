@@ -10,8 +10,13 @@ public class UI_Equip : MonoBehaviour
     public Transform slotHolder;
     public UI_Equip_Slot[] slot;
     public UI_Inventory inventory;
+    
     public GameObject[] status;
     public DataBase DB;
+    public float HP;
+    public float MP;
+    public float ATK;
+    public float SPEED;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,19 +35,19 @@ public class UI_Equip : MonoBehaviour
         {
             slot[1].itemID = DB.info.Equip_Staff;
             slot[1].EquipPart = "Staff";
-            slot[0].transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[0].itemID.ToString());
+            slot[1].transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[1].itemID.ToString());
         }
         if (DB.info.Equip_Body != 0)
         {
             slot[2].itemID = DB.info.Equip_Body;
             slot[2].EquipPart = "Body";
-            slot[0].transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[0].itemID.ToString());
+            slot[2].transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[2].itemID.ToString());
         }
         if (DB.info.Equip_Foot != 0)
         {
             slot[3].itemID = DB.info.Equip_Foot;
             slot[3].EquipPart = "Foot";
-            slot[0].transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[0].itemID.ToString());
+            slot[3].transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[3].itemID.ToString());
         }
 
         for (int i = 0; i < slot.Length; i++)
@@ -163,21 +168,25 @@ public class UI_Equip : MonoBehaviour
             if (slot[2].itemID == DB.itemDB[i].ID)
             {
                 status[1].GetComponent<Text>().text = "HP: " + DB.itemDB[i].HP.ToString();
+                HP = DB.itemDB[i].HP;
             }
             
             if (slot[0].itemID == DB.itemDB[i].ID)
             {
                 status[2].GetComponent<Text>().text = "MP: " + DB.itemDB[i].MP.ToString();
+                MP = DB.itemDB[i].MP;
             }
            
             if (slot[1].itemID == DB.itemDB[i].ID)
             {
                 status[3].GetComponent<Text>().text = "ATK: " + DB.itemDB[i].ATK.ToString();
+                ATK = DB.itemDB[i].ATK;
             }
             
             if (slot[3].itemID == DB.itemDB[i].ID)
             {
                 status[4].GetComponent<Text>().text = "SPEED: " + DB.itemDB[i].SPEED.ToString();
+                SPEED = DB.itemDB[i].SPEED;
             }
             
 

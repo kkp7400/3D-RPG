@@ -63,6 +63,8 @@ public class DataBase : MonoBehaviour
     public string m_strCSVFileName = string.Empty;
     public string m_strCSVFileName2 = string.Empty;
     public string m_strCSVFileName3 = string.Empty;
+    public string m_strCSVFileName4 = string.Empty;
+    public string m_strCSVFileName5 = string.Empty;
 
     public UI_Inventory inventory;
     public UI_Equip equip;
@@ -115,7 +117,7 @@ public class DataBase : MonoBehaviour
             }
         }
 
-
+        
         List<Dictionary<string, object>> m_dictionaryData2 = CSVReader.Read(m_strCSVFileName2);
         for (int i = 0; i < m_dictionaryData2.Count; i++)
         {
@@ -186,10 +188,14 @@ public class DataBase : MonoBehaviour
         {
             SaveData();
         }
+        if (Input.GetKeyDown(KeyCode.Home))
+        {
+            ResetData();
+        }
     }
     public void SaveData()
     {
-        using (var writer = new CsvFileWriter("Assets/Resources/PlayerInfo2.csv"))
+        using (var writer = new CsvFileWriter("Assets/Resources/PlayerInfo.csv"))
         {
             List<string> columns = new List<string>() { "Level", "HP", "MP", "ATK", "SPEED", "GOLD", "SP", "SP_FirePunch", "SP_EnergyBall", "SP_Meteor", "SP_Blizard", "SP_Shild", "Equip_Head", "Equip_Foot", "Equip_Staff", "Equip_Body","PotionSlot", "Inventory", "ItemCount", "EXP" };// making Index Row
             writer.WriteRow(columns);
@@ -216,20 +222,101 @@ public class DataBase : MonoBehaviour
             for(int i = 0; i< inventory.slot.Length;i++ )
             {                
                 tempInventory += inventory.slot[i].itemID.ToString();
-                if (i < inventory.slot.Length) tempInventory += '|';
+                if (i < inventory.slot.Length-1) tempInventory += '|';
             }
             columns.Add(tempInventory);
             string tempItemCount = "";
             for (int i = 0; i < inventory.slot.Length; i++)
             {
                 tempItemCount += inventory.slot[i].itemCount.ToString();
-                if (i < inventory.slot.Length) tempItemCount += '|';
+                if (i < inventory.slot.Length-1) tempItemCount += '|';
             }
             columns.Add(tempItemCount);
             columns.Add(info.Exp.ToString()); // EXP
 
 
             writer.WriteRow(columns);
+        }
+    }
+
+    public void ResetData()
+    {
+        List<Dictionary<string, object>> m_dictionaryData2 = CSVReader.Read(m_strCSVFileName4);
+        for (int i = 0; i < m_dictionaryData2.Count; i++)
+        {
+            info.Level = int.Parse((m_dictionaryData2[i]["Level"].ToString()));
+            info.HP = int.Parse((m_dictionaryData2[i]["HP"].ToString()));
+            info.MP = int.Parse((m_dictionaryData2[i]["MP"].ToString()));
+            info.ATK = int.Parse((m_dictionaryData2[i]["ATK"].ToString()));
+            info.SPEED = int.Parse((m_dictionaryData2[i]["SPEED"].ToString()));
+            info.GOLD = int.Parse((m_dictionaryData2[i]["GOLD"].ToString()));
+            info.SP = int.Parse((m_dictionaryData2[i]["SP"].ToString()));
+            info.SP_FirePunch = int.Parse((m_dictionaryData2[i]["SP_FirePunch"].ToString()));
+            info.SP_EnergyBall = int.Parse((m_dictionaryData2[i]["SP_EnergyBall"].ToString()));
+            info.SP_Meteor = int.Parse((m_dictionaryData2[i]["SP_Meteor"].ToString()));
+            info.SP_Blizard = int.Parse((m_dictionaryData2[i]["SP_Blizard"].ToString()));
+            info.SP_Shild = int.Parse((m_dictionaryData2[i]["SP_Shild"].ToString()));
+            info.Equip_Head = int.Parse((m_dictionaryData2[i]["Equip_Head"].ToString()));
+            info.Equip_Foot = int.Parse((m_dictionaryData2[i]["Equip_Foot"].ToString()));
+            info.Equip_Staff = int.Parse((m_dictionaryData2[i]["Equip_Staff"].ToString()));
+            info.Equip_Body = int.Parse((m_dictionaryData2[i]["Equip_Body"].ToString()));
+            info.PotionSlot = int.Parse((m_dictionaryData2[i]["PotionSlot"].ToString()));
+            string tempInventory = m_dictionaryData2[i]["Inventory"].ToString();
+            string[] tempInventory2 = tempInventory.Split('|');
+            for (int k = 0; k < tempInventory2.Length; k++)
+            {
+                info.Inventory.Add(int.Parse(tempInventory2[k]));
+            }
+
+            string itemCount = m_dictionaryData2[i]["ItemCount"].ToString();
+            string[] itemCount2 = itemCount.Split('|');
+
+            for (int k = 0; k < itemCount2.Length; k++)
+            {
+                info.itemCount.Add(int.Parse(itemCount2[k]));
+            }
+
+            info.Exp = int.Parse((m_dictionaryData2[i]["EXP"].ToString()));
+        }
+    }
+    public void CheatData()
+    {
+        List<Dictionary<string, object>> m_dictionaryData2 = CSVReader.Read(m_strCSVFileName5);
+        for (int i = 0; i < m_dictionaryData2.Count; i++)
+        {
+            info.Level = int.Parse((m_dictionaryData2[i]["Level"].ToString()));
+            info.HP = int.Parse((m_dictionaryData2[i]["HP"].ToString()));
+            info.MP = int.Parse((m_dictionaryData2[i]["MP"].ToString()));
+            info.ATK = int.Parse((m_dictionaryData2[i]["ATK"].ToString()));
+            info.SPEED = int.Parse((m_dictionaryData2[i]["SPEED"].ToString()));
+            info.GOLD = int.Parse((m_dictionaryData2[i]["GOLD"].ToString()));
+            info.SP = int.Parse((m_dictionaryData2[i]["SP"].ToString()));
+            info.SP_FirePunch = int.Parse((m_dictionaryData2[i]["SP_FirePunch"].ToString()));
+            info.SP_EnergyBall = int.Parse((m_dictionaryData2[i]["SP_EnergyBall"].ToString()));
+            info.SP_Meteor = int.Parse((m_dictionaryData2[i]["SP_Meteor"].ToString()));
+            info.SP_Blizard = int.Parse((m_dictionaryData2[i]["SP_Blizard"].ToString()));
+            info.SP_Shild = int.Parse((m_dictionaryData2[i]["SP_Shild"].ToString()));
+            info.Equip_Head = int.Parse((m_dictionaryData2[i]["Equip_Head"].ToString()));
+            info.Equip_Foot = int.Parse((m_dictionaryData2[i]["Equip_Foot"].ToString()));
+            info.Equip_Staff = int.Parse((m_dictionaryData2[i]["Equip_Staff"].ToString()));
+            info.Equip_Body = int.Parse((m_dictionaryData2[i]["Equip_Body"].ToString()));
+            info.PotionSlot = int.Parse((m_dictionaryData2[i]["PotionSlot"].ToString()));
+            string tempInventory = m_dictionaryData2[i]["Inventory"].ToString();
+            string[] tempInventory2 = tempInventory.Split('|');
+            for (int k = 0; k < tempInventory2.Length; k++)
+            {
+                info.Inventory.Add(int.Parse(tempInventory2[k]));
+            }
+
+            string itemCount = m_dictionaryData2[i]["ItemCount"].ToString();
+            string[] itemCount2 = itemCount.Split('|');
+
+            for (int k = 0; k < itemCount2.Length; k++)
+            {
+                info.itemCount.Add(int.Parse(itemCount2[k]));
+            }
+
+            info.Exp = int.Parse((m_dictionaryData2[i]["EXP"].ToString()));
         }
     }
 }

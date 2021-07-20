@@ -3,7 +3,7 @@
 // 플레이어 캐릭터를 사용자 입력에 따라 움직이는 스크립트
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f; // 앞뒤 움직임의 속도
+    public float moveSpeed; // 앞뒤 움직임의 속도
     public float rotateSpeed = 180f; // 좌우 회전 속도
     public bool isMove;
     private Animator playerAnimator; // 플레이어 캐릭터의 애니메이터
@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody>();
         playerAnimator = GetComponent<Animator>();
         isMove = false;
+        moveSpeed = GameManager.instance.Speed;
     }
 
     // FixedUpdate는 물리 갱신 주기에 맞춰 실행됨
@@ -24,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Move();
             Rotate();
+            moveSpeed = GameManager.instance.Speed;
         }
     }
 
@@ -37,9 +39,10 @@ public class PlayerMovement : MonoBehaviour
         //float moveDistance2 =
         //    playerInput.h * moveSpeed * Time.deltaTime;
         //transform.position += new Vector3(moveDistance2,0, moveDistance);
+
         Vector3 moveDistance = new Vector3(playerInput.h, 0, playerInput.v).normalized;
 
-        transform.position += moveDistance * moveSpeed * Time.deltaTime;
+        transform.position += moveDistance * GameManager.instance.Speed * Time.deltaTime;
 
     }
 

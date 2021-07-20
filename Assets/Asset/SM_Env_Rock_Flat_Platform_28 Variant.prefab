@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &405159603854319888
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 121434, guid: 52479909d06576f439663a8b246cb683, type: 3}
+      propertyPath: m_Name
+      value: SM_Env_Rock_Flat_Platform_28
+      objectReference: {fileID: 0}
+    - target: {fileID: 121434, guid: 52479909d06576f439663a8b246cb683, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 437520, guid: 52479909d06576f439663a8b246cb683, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 437520, guid: 52479909d06576f439663a8b246cb683, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -65.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 437520, guid: 52479909d06576f439663a8b246cb683, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -7.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 437520, guid: 52479909d06576f439663a8b246cb683, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 48.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 437520, guid: 52479909d06576f439663a8b246cb683, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9143877
+      objectReference: {fileID: 0}
+    - target: {fileID: 437520, guid: 52479909d06576f439663a8b246cb683, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 437520, guid: 52479909d06576f439663a8b246cb683, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.4048398
+      objectReference: {fileID: 0}
+    - target: {fileID: 437520, guid: 52479909d06576f439663a8b246cb683, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 52479909d06576f439663a8b246cb683, type: 3}
