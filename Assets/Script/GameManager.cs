@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     // public delegate void BB(string a, string b);
     //public event BB name;
     public bool isOpen;
+    public bool onShield;
+    private bool statusUpdate = true;
     private void Awake()
     {
         //name += AXW;
@@ -41,9 +43,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        onShield = false;
         DB = GameObject.Find("GM").GetComponent<DataBase>();
         isOpen = false;
-        maxExp = DB.info.Level * 100;
+        maxExp = DB.info.Level * 20;
         maxHP = 100 + (equip.HP * 100);
         maxMP = 100 + (equip.MP * 100);
         nowHP = maxHP;
@@ -53,7 +56,9 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isOpen)
+        
+        UpdateUI(); 
+        if (isOpen)
         {
             nowMP -= Time.deltaTime*30f;
             if(nowMP<=0)
@@ -73,16 +78,29 @@ public class GameManager : MonoBehaviour
         }
         MpBar.fillAmount = nowMP / maxMP;
         HpBar.fillAmount = nowHP / maxHP;
+        if (SceneManager.GetActiveScene().name == "SampleScene")
+        {
+            nowHP = maxHP;
+        }
     }
 
     public void UpdateUI()
     {
-        Speed = 1 + (equip.SPEED * 1);
-        maxHP = equip.HP * 100;
-        maxMP = equip.MP * 100;
+        Speed = 5 + (equip.SPEED * 5);
+        maxHP = 100 + (equip.HP * 100);
+        if (nowHP > maxHP) nowHP = maxHP;
+        maxMP = 100 + (equip.MP * 100);
+        if (nowMP > maxMP) nowMP = maxMP;
+        maxExp = DB.info.Level * 100;
         equip.UpdateItem();
         inventory.UpdateItem();
-        spellM.UpdateUI();
+        //spellM.UpdateUI();
 
+    }
+
+    public void OnDamage(float damage)
+    {
+        if(!onShield)
+        nowHP -= damage;
     }
 }

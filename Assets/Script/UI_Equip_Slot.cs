@@ -41,7 +41,7 @@ public class UI_Equip_Slot : MonoBehaviour, IPointerClickHandler
             if (itemID != 0)
             {
                 Equip.UseItem(this);
-                UpdateSlot();
+                GameManager.instance.UpdateUI();
             }
         }
         lastTimeClick = currentTimeClick;

@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator playerAnimator; // 플레이어 캐릭터의 애니메이터
     private PlayerInput playerInput; // 플레이어 입력을 알려주는 컴포넌트
     private Rigidbody playerRigidbody; // 플레이어 캐릭터의 리지드바디
-
+    
     private void Start() {
         // 사용할 컴포넌트들의 참조를 가져오기
         playerInput = GetComponent<PlayerInput>();
@@ -51,7 +51,9 @@ public class PlayerMovement : MonoBehaviour
 	private void Rotate()
     {
         Vector3 moveDistance = new Vector3(playerInput.h, 0f, playerInput.v);
-        transform.transform.LookAt(transform.position + moveDistance);
+       // transform.transform.LookAt(transform.position + moveDistance);
+        Quaternion targetRotation = Quaternion.LookRotation(moveDistance, Vector3.up);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 5 * Time.deltaTime);
 
     }
 }

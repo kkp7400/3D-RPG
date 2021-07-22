@@ -16,6 +16,7 @@ public class UI_SpellMaster : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<PlayerState>();
+        DB = GameObject.Find("GM").GetComponent<DataBase>();
         beforeLv = DB.info.Level;
         nowLv = DB.info.Level;
         UpdateUI();
@@ -41,7 +42,7 @@ public class UI_SpellMaster : MonoBehaviour
             DB.info.SP_FirePunch += 1;
             DB.info.SP -= 1;
         }
-        GameManager.instance.UpdateUI();
+        UpdateUI();
     }
     public void FirePunchDown()
     {
@@ -50,7 +51,7 @@ public class UI_SpellMaster : MonoBehaviour
             DB.info.SP_FirePunch -= 1;
             DB.info.SP += 1;
         }
-        GameManager.instance.UpdateUI();
+        UpdateUI();
     }
 
     public void EnergyBallUp()
@@ -60,7 +61,7 @@ public class UI_SpellMaster : MonoBehaviour
             DB.info.SP_EnergyBall += 1;
             DB.info.SP -= 1;
         }
-        GameManager.instance.UpdateUI();
+        UpdateUI();
     }
     public void EnergyBallDown()
     {
@@ -69,7 +70,7 @@ public class UI_SpellMaster : MonoBehaviour
             DB.info.SP_EnergyBall -= 1;
             DB.info.SP += 1;
         }
-        GameManager.instance.UpdateUI();
+        UpdateUI();
     }
 
     public void MeteorUp()
@@ -79,7 +80,7 @@ public class UI_SpellMaster : MonoBehaviour
             DB.info.SP_Meteor += 1;
             DB.info.SP -= 1;
         }
-        GameManager.instance.UpdateUI();
+        UpdateUI();
     }
     public void MeteorDown()
     {
@@ -88,7 +89,7 @@ public class UI_SpellMaster : MonoBehaviour
             DB.info.SP_Meteor -= 1;
             DB.info.SP += 1;
         }
-        GameManager.instance.UpdateUI();
+        UpdateUI();
     }
 
     public void BlizardUp()
@@ -98,7 +99,7 @@ public class UI_SpellMaster : MonoBehaviour
             DB.info.SP_Blizard += 1;
             DB.info.SP -= 1;
         }
-        GameManager.instance.UpdateUI();
+        UpdateUI();
     }
     public void BlizardDown()
     {
@@ -107,7 +108,7 @@ public class UI_SpellMaster : MonoBehaviour
             DB.info.SP_Blizard -= 1;
             DB.info.SP += 1;
         }
-        GameManager.instance.UpdateUI();
+        UpdateUI();
     }
 
     public void ShieldUp()
@@ -117,7 +118,7 @@ public class UI_SpellMaster : MonoBehaviour
             DB.info.SP_Shild += 1;
             DB.info.SP -= 1;
         }
-        GameManager.instance.UpdateUI();
+        UpdateUI();
     }
     public void ShieldDown()
     {
@@ -126,7 +127,7 @@ public class UI_SpellMaster : MonoBehaviour
             DB.info.SP_Shild -= 1;
             DB.info.SP += 1;
         }
-        GameManager.instance.UpdateUI();
+        UpdateUI();
     }
 
     public void UpdateUI()

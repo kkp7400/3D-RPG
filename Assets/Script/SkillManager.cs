@@ -17,7 +17,7 @@ public class SkillManager : MonoBehaviour
     public GameObject teleport;    
     public GameObject[] bookFx;
     public GameObject casting;
-
+    public GameObject shieldDamage;
     public GameObject[] skillFX;
     public GameObject[] skillDamage;
     public Camera sceneCamera;
@@ -52,6 +52,8 @@ public class SkillManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (playerstate.state == Player_State.Die) return;
+
         if (playerstate.state != Player_State.Casting)
         {
             cast.GetComponent<ParticleSystem>().Stop();
@@ -106,7 +108,7 @@ public class SkillManager : MonoBehaviour
         {
             skillIndicator.transform.position = new Vector3(1000, 1000, 1000);
         }
-        Shield();
+        StartCoroutine(Shield());
     }
 
     public void Attack()
@@ -130,12 +132,13 @@ public class SkillManager : MonoBehaviour
             }
         }
     }
-    public void Shield()
+    IEnumerator Shield()
     {
-        if (isShield == false) return;
+        if (isShield == false) yield break;
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             shiled.GetComponent<ParticleSystem>().Play();
+            shieldDamage.SetActive(true);
             isShield = false;
             for(int i = 0; i< spellArrow.skill.Count;i++)
             {
@@ -145,6 +148,12 @@ public class SkillManager : MonoBehaviour
                         spellArrow.skill[i].nowCount -= 1;
                 }
             }
+            GameManager.instance.onShield = true;
+            yield return new WaitForSeconds(0.1f);
+            shieldDamage.SetActive(false);
+            yield return new WaitForSeconds(5.5f);
+
+            GameManager.instance.onShield = false;
         }
     }
     public void CastStart()

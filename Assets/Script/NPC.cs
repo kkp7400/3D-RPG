@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
+    public GameObject KeyDownG;
     public GameObject playerCamera;
     public GameObject npcCamera;
     public GameObject mainCamera;
     public GameObject ui;
     public GameObject player;
+    public DataBase DB;
     // Start is called before the first frame update
     void Start()
     {
-
+        DB = GameObject.Find("GM").GetComponent<DataBase>();
+        KeyDownG.SetActive(false);
     }
 
     // Update is called once per frame
@@ -20,10 +23,16 @@ public class NPC : MonoBehaviour
     {
         
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        DB.SaveData();
+        KeyDownG.SetActive(true);
+    }
     private void OnTriggerStay(Collider other)
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
+            KeyDownG.SetActive(false);
             mainCamera.SetActive(false); 
             playerCamera.SetActive(false);
             npcCamera.SetActive(true);
@@ -37,6 +46,8 @@ public class NPC : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
+        DB.SaveData();
+        KeyDownG.SetActive(false);
         mainCamera.SetActive(true);
         playerCamera.SetActive(true);
         npcCamera.SetActive(false);

@@ -14,7 +14,6 @@ public class GoToDungeon : MonoBehaviour
         if(other.tag == "Player")
         {
             LoadingSceneManager.LoadScene("Dungeon");
-
         }
         
     }

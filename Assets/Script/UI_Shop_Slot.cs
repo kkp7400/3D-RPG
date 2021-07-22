@@ -35,6 +35,8 @@ public class UI_Shop_Slot : MonoBehaviour//, IPointerClickHandler
         currentTimeClick = Time.time;
         if (Mathf.Abs(currentTimeClick - lastTimeClick) < 0.75f)
         {
+            UseItem();
+            GameManager.instance.UpdateUI();
         }
         lastTimeClick = currentTimeClick;
     }

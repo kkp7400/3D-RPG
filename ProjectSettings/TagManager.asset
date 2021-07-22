@@ -7,6 +7,14 @@ TagManager:
   - Collide
   - Ground
   - Building
+  - EnergyBall
+  - FirePunch
+  - Shield
+  - Ghost
+  - Skeleton
+  - Dog
+  - Meteor
+  - Blizard
   layers:
   - Default
   - TransparentFX

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 [SerializeField]
 public enum Player_State
 {
@@ -26,11 +27,15 @@ public class PlayerState : MonoBehaviour
     PlayerMovement movement;
     [SerializeField]
     public GameObject[] book;
+    public DataBase DB;
     public Player_State state;
     public bool onNPC;
+    public bool isAlive;
     // Start is called before the first frame update
     void Start()
     {
+        DB = GameObject.Find("GM").GetComponent<DataBase>();
+        isAlive = false;
         input = GetComponent<PlayerInput>();
         movement = GetComponent<PlayerMovement>();
         anim = GetComponent<Animator>();
@@ -43,6 +48,13 @@ public class PlayerState : MonoBehaviour
     {
         if (anim.GetAnimatorTransitionInfo(0).IsUserName("AttackToIdle"))
             book[1].SetActive(true);
+
+        if(GameManager.instance.nowHP <= 0 && !isAlive)
+        {
+
+            ChangeState(Player_State.Die);
+            isAlive = true;
+        }
 
         if(flash.cool >0)
         {
@@ -113,6 +125,9 @@ public class PlayerState : MonoBehaviour
 
     void UpdateIdle()
     {
+
+        if (state == Player_State.Die) return;
+
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
             ChangeState(Player_State.Move);
@@ -239,6 +254,14 @@ public class PlayerState : MonoBehaviour
     }
     void UpdateDie()
     {
+        if (SceneManager.GetActiveScene().name == "SampleScene")
+        {
+            anim.SetTrigger("OnAlive");
+
+            ChangeState(Player_State.Idle);
+        }
+        
+        return;
 
     }
 
@@ -318,6 +341,13 @@ public class PlayerState : MonoBehaviour
     }
     IEnumerator CoroutineDie()
     {
+        anim.SetTrigger("OnDie");
+        
+        yield return new WaitForSeconds(3f);
+        if (SceneManager.GetActiveScene().name == "DunGeon") LoadingSceneManager.LoadScene("SampleScene");
+        GameManager.instance.nowHP = GameManager.instance.maxHP;
+        isAlive = false;
+        DB.SaveData();
         yield break;
     }
 }

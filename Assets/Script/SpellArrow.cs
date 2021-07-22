@@ -270,6 +270,7 @@ public class SpellArrow : MonoBehaviour
                 }
             }
         }
+       
     }
 }
 

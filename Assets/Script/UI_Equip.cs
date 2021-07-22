@@ -104,10 +104,13 @@ public class UI_Equip : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
+            DB.SaveData();
             isInventory = !isInventory;
             EquipPanel.SetActive(isInventory);
             UpdateItem();
             inventory.UpdateItem();
+
+            GameManager.instance.UpdateUI();
         }
     }
     bool canSwap = true;

@@ -85,6 +85,7 @@ public class UI_Inventory_Slot : MonoBehaviour, IPointerClickHandler, IBeginDrag
             {
 
                 Inventory.UseItem(this);
+                GameManager.instance.UpdateUI();
                 UpdateSlot();
             }
         }

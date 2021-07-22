@@ -99,6 +99,7 @@ public class UI_Shop : MonoBehaviour
             }
         }
 
+        GameManager.instance.UpdateUI();
         equip.UpdateItem();
         inventory.UpdateItem();
     }

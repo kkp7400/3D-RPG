@@ -42,12 +42,22 @@ public class UI_Inventory : MonoBehaviour
 
 
             }
+            //if (slot[i].itemID == potionSlot.GetComponent<UI_Inventory_Slot>().itemID)
+            //{
+            //    potionSlot.SetActive(true);
+            //    potionSlot.GetComponent<UI_Inventory_Slot>().itemID = slot[i].itemID;
+            //    potionSlot.GetComponent<UI_Inventory_Slot>().itemCount = slot[i].itemCount;
+            //    potionSlot.transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[i].itemID);
+            //    potionSlot.transform.FindChild("Text").GetComponent<Text>().text = slot[i].itemCount.ToString();
+            //}
             if (slot[i].itemCount <= 1)
             {
                 slot[i].gameObject.GetComponentInChildren<Text>().text = " ";
             }
         }
-        
+
+        potionSlot.GetComponent<UI_Inventory_Slot>().itemID = DB.info.PotionSlot;
+        potionSlot.transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + DB.info.PotionSlot.ToString());
         Gold = DB.info.GOLD;
     }
 
@@ -57,9 +67,46 @@ public class UI_Inventory : MonoBehaviour
         InventoryGoldCount.text = DB.info.GOLD.ToString();
         if (Input.GetKeyDown(KeyCode.I))
         {
-            isInventory = !isInventory;
+            DB.SaveData();
+               isInventory = !isInventory;
             inventoryPanel.SetActive(isInventory);
+
+            GameManager.instance.UpdateUI();
         }
+        if (GameManager.instance.maxHP > GameManager.instance.nowHP)
+        {
+            if (Input.GetKeyDown(KeyCode.F1))
+            {
+                for (int i = 0; i < slot.Length; i++)
+                {
+                    if (slot[i].itemID == potionSlot.GetComponent<UI_Inventory_Slot>().itemID
+                        && potionSlot.GetComponent<UI_Inventory_Slot>().itemCount > 0)
+                    {
+                        potionSlot.GetComponent<UI_Inventory_Slot>().itemCount = slot[i].itemCount;
+                        potionSlot.GetComponent<UI_Inventory_Slot>().itemCount -= 1;
+                        slot[i].itemCount = potionSlot.GetComponent<UI_Inventory_Slot>().itemCount;
+                        for (int j = 0; j < DB.itemDB.Count; j++)
+                        {
+                            if (DB.itemDB[j].ID == potionSlot.GetComponent<UI_Inventory_Slot>().itemID)
+                            {
+                                GameManager.instance.nowHP += DB.itemDB[j].RecoverAmount * GameManager.instance.maxHP;
+                                if (GameManager.instance.nowHP > GameManager.instance.maxHP)
+                                {
+                                    GameManager.instance.nowHP = GameManager.instance.maxHP;
+                                    GameManager.instance.UpdateUI();
+                                    break;
+                                }
+
+                            }
+                        }
+
+                        break;
+                    }
+                }
+
+            }
+        }
+
     }
 
     public void UseItem(UI_Inventory_Slot useSlot)
@@ -123,10 +170,11 @@ public class UI_Inventory : MonoBehaviour
                 }
             };
         }
-        else if(useSlot.itemType == "Consumable")
+        if (useSlot.itemType == "Consumable")
         {
             potionSlot.SetActive(true);
             potionSlot.GetComponent<UI_Inventory_Slot>().itemID = useSlot.itemID;
+            potionSlot.GetComponent<UI_Inventory_Slot>().itemCount = useSlot.itemCount;
             potionSlot.transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + useSlot.itemID);
             potionSlot.transform.FindChild("Text").GetComponent<Text>().text = useSlot.itemCount.ToString();
             //포션 쓰는건 나중에
@@ -160,28 +208,32 @@ public class UI_Inventory : MonoBehaviour
             {
                 slot[i].gameObject.GetComponentInChildren<Text>().text = " ";
             }
-
-
         }
 
         InventoryGoldCount.text = DB.info.GOLD.ToString();
-        
+
         for (int i = 0; i < slot.Length; i++)
         {
             if (potionSlot.transform.FindChild("Image").GetComponent<Image>().sprite == null) break;
             if (potionSlot.transform.FindChild("Image").GetComponent<Image>().sprite.name == slot[i].itemID.ToString())
             {
+                potionSlot.GetComponent<UI_Inventory_Slot>().itemID = slot[i].itemID;
+                potionSlot.GetComponent<UI_Inventory_Slot>().itemCount = slot[i].itemCount;
                 potionSlot.transform.FindChild("Text").GetComponent<Text>().text = slot[i].itemCount.ToString();
                 if (slot[i].itemCount < 1)
                 {
                     potionSlot.transform.FindChild("Image").GetComponent<Image>().color = new Color(255, 255, 255, 0.5f);
+
+                    potionSlot.transform.FindChild("Text").GetComponent<Text>().color = new Color(255, 255, 255, 0f);
                 }
                 if (slot[i].itemCount >= 1)
                 {
 
                     potionSlot.transform.FindChild("Image").GetComponent<Image>().color = new Color(255, 255, 255, 1f);
+
+                    potionSlot.transform.FindChild("Text").GetComponent<Text>().color = new Color(255, 255, 255, 1f);
                 }
             }
-        }        
+        }
     }
 }
