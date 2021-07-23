@@ -57,6 +57,9 @@ public class MonsterAI : MonoBehaviour
         Star = transform.FindChild("Star").gameObject;
         damageText = transform.FindChild("DamageText").GetComponent<TextMesh>();
         ChangeState(state);
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Monster"), true);
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Monster"), LayerMask.NameToLayer("Monster"), true);
+
     }
 
     // Update is called once per frame
@@ -190,7 +193,7 @@ public class MonsterAI : MonoBehaviour
 
     IEnumerator CoroutineDeath()
     {
-
+       // gameObject.GetComponent<CapsuleCollider>().enabled = false;
         anim.SetTrigger("Death");
         spawner.deathMonsterAmount++;
         yield return new WaitForSeconds(1f);
@@ -217,7 +220,8 @@ public class MonsterAI : MonoBehaviour
             DB.info.Exp += 3;
         }
         yield return new WaitForSeconds(2f);
-        objPool.ReturnToPool(gameObject.name, gameObject);
+       // gameObject.GetComponent<CapsuleCollider>().enabled = true;
+        objPool.ReturnToPool(gameObject.tag, gameObject);
         yield break;
     }
 

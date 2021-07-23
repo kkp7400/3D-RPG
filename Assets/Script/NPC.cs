@@ -15,6 +15,19 @@ public class NPC : MonoBehaviour
     void Start()
     {
         DB = GameObject.Find("GM").GetComponent<DataBase>();
+        KeyDownG = GameObject.Find("Canvas").transform.FindChild("KeyDownG").gameObject;
+        playerCamera = GameObject.Find("PlayerCamera");
+        npcCamera = transform.FindChild("NpcCamera").gameObject;
+        mainCamera = GameObject.Find("Main Camera");
+        if(transform.name == "SpellMaster")
+		{
+            ui = GameObject.Find("Canvas").transform.FindChild("SpellMaster").gameObject;
+		}
+        if (transform.name == "PotionShop")
+        {
+            ui = GameObject.Find("Canvas").transform.FindChild("Shop").gameObject;
+        }
+        player = GameObject.FindGameObjectWithTag("Player");
         KeyDownG.SetActive(false);
     }
 

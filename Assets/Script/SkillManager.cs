@@ -273,7 +273,7 @@ public class SkillManager : MonoBehaviour
         {
             if (spellArrow.skill[i].Profile.GetComponent<Image>().sprite.name == "Meteor")
             {
-                if (spellArrow.skill[i].nowCount >= 0)
+                //if (spellArrow.skill[i].nowCount >= 0)
                     spellArrow.skill[i].nowCount -= 1;
             }
         }

@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public UI_SpellMaster spellM;
     public Image HpBar;
     public Image MpBar;
+    public Image ExpBar;
     public DataBase DB;
     public float maxExp;
     public float maxHP;
@@ -56,7 +57,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        ExpBar.fillAmount = DB.info.Exp / maxExp;
         UpdateUI(); 
         if (isOpen)
         {
