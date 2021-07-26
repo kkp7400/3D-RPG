@@ -20,7 +20,7 @@ Shader "taecg/SkillIndicator/Circle"
         _Duration("Duration",range(0,1)) = 0
 
         [Header(Blend)]
-        //��Ϸ�ʽ
+        //��Ϸ��?
         [Enum(UnityEngine.Rendering.BlendMode)] _SrcBlend("Src Blend Mode", Float) = 1
         [Enum(UnityEngine.Rendering.BlendMode)] _DstBlend("Dst Blend Mode", Float) = 1
     }
@@ -179,7 +179,7 @@ Shader "taecg/SkillIndicator/Circle"
 
                 //�����и�
                 fixed sector = lerp(1.0, 1.0 - ceil(atan2UV - _Angle * 0.002777778), _Sector);
-                //��һ����������������ߵ�����
+                //��һ����������������ߵ�����?
                 fixed sectorBig = lerp(1.0, 1.0 - ceil(atan2UV - (_Angle + _Outline) * 0.002777778), _Sector);
                 fixed outline = (sectorBig -sector) * mainTex.g * _OutlineAlpha;
 
@@ -188,7 +188,7 @@ Shader "taecg/SkillIndicator/Circle"
                 col = mainTex.r * _Color * sector + outline * _Color;
 
                 //Բ�ε�����
-                fixed flowCircleInner = smoothstep(_Duration - _FlowFade, _Duration, length(centerUV));	//�������Ȧ
+                fixed flowCircleInner = smoothstep(_Duration - _FlowFade, _Duration, length(centerUV));	//��������?
                 fixed flowCircleMask = step(length(centerUV), _Duration);	//Ӳ������
                 fixed4 flow = flowCircleInner * flowCircleMask * _FlowColor * mainTex.g * sector;
 

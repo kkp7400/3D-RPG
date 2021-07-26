@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 using System.Reflection;
 using UnityEngine.Playables;
 using UnityEngine.UI;
+using System;
 
 public class SkillManager : MonoBehaviour
 {
@@ -14,7 +14,7 @@ public class SkillManager : MonoBehaviour
     bool isShield;
     public GameObject attack;
     public GameObject cast;
-    public GameObject teleport;    
+    public GameObject teleport;
     public GameObject[] bookFx;
     public GameObject casting;
     public GameObject shieldDamage;
@@ -30,13 +30,18 @@ public class SkillManager : MonoBehaviour
     private PlayerInput playerInput; // 플레이어 입력을 알려주는 컴포넌트
     private Rigidbody playerRigidbody; // 플레이어 캐릭터의 리지드바디
     private string useSkill;
-    
+
+
+
+
+    Coroutine runningCoroutine = null;
+
     public List<string> SkillIndex;
     void Awake()
     {
-        
-           // 사용할 컴포넌트들의 참조를 가져오기
-           playerInput = GetComponent<PlayerInput>();
+
+        // 사용할 컴포넌트들의 참조를 가져오기
+        playerInput = GetComponent<PlayerInput>();
         {
             playerstate = GetComponent<PlayerState>();
         }
@@ -48,6 +53,8 @@ public class SkillManager : MonoBehaviour
         onAim = false;
         isShield = false;
     }
+
+
 
     // Update is called once per frame
     void Update()
@@ -63,13 +70,35 @@ public class SkillManager : MonoBehaviour
         {
             if (useSkill == "FirePunch")
             {
+                if (attack && attack.name == "EnergyBall")
+                {
+                    for (int i = 0; i < spellArrow.skill.Count; i++)
+                    {
+                        if (spellArrow.skill[i].Profile.sprite.name == "EnergyBall")
+                        {
+                            spellArrow.skill[i].nowCount = 0;
+                            break;
+                        }
+                    }
+                }
                 attack = GameObject.Find("FirePunch");
             }
             if (useSkill == "EnergyBall")
             {
+                if (attack && attack.name == "FirePunch")
+                {
+                    for (int i = 0; i < spellArrow.skill.Count; i++)
+                    {
+                        if (spellArrow.skill[i].Profile.sprite.name == "FirePunch")
+                        {
+                            spellArrow.skill[i].nowCount = 0;
+                            break;
+                        }
+                    }
+                }
                 attack = GameObject.Find("EnergyBall");
             }
-            
+
 
             if (useSkill == "Meteor")
             {
@@ -109,11 +138,18 @@ public class SkillManager : MonoBehaviour
             skillIndicator.transform.position = new Vector3(1000, 1000, 1000);
         }
         StartCoroutine(Shield());
+
+        
     }
 
     public void Attack()
     {
         if (attack == null) return;
+        if (runningCoroutine != null)
+        {
+            StopCoroutine(runningCoroutine);
+        }
+        runningCoroutine = StartCoroutine(Shake(0.1f, 0.07f));
         attack.GetComponent<ParticleSystem>().Play();
         for (int i = 0; i < spellArrow.skill.Count; i++)
         {
@@ -121,11 +157,10 @@ public class SkillManager : MonoBehaviour
             {
                 if (spellArrow.skill[i].nowCount > 0)
                 {
-
                     attack.GetComponent<ParticleSystem>().Play();
                     spellArrow.skill[i].nowCount -= 1;
-                }                
-                else if(spellArrow.skill[i].nowCount <= 0)
+                }
+                else if (spellArrow.skill[i].nowCount <= 0)
                 {
                     attack.GetComponent<ParticleSystem>().Stop();
                 }
@@ -137,14 +172,21 @@ public class SkillManager : MonoBehaviour
         if (isShield == false) yield break;
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
+            StartCoroutine(Shake2(0.2f, 0.1f));
+
+            if (runningCoroutine != null)
+            {
+                StopCoroutine(runningCoroutine);
+            }
+            runningCoroutine = StartCoroutine(Shake(0.1f, 0.07f));
             shiled.GetComponent<ParticleSystem>().Play();
             shieldDamage.SetActive(true);
             isShield = false;
-            for(int i = 0; i< spellArrow.skill.Count;i++)
+            for (int i = 0; i < spellArrow.skill.Count; i++)
             {
-                if(spellArrow.skill[i].Profile.GetComponent<Image>().sprite.name == "Shild")
+                if (spellArrow.skill[i].Profile.GetComponent<Image>().sprite.name == "Shild")
                 {
-                    if(spellArrow.skill[i].nowCount >=0)
+                    if (spellArrow.skill[i].nowCount >= 0)
                         spellArrow.skill[i].nowCount -= 1;
                 }
             }
@@ -234,7 +276,7 @@ public class SkillManager : MonoBehaviour
         }
         else
         {
-            skillIndicator.transform.position = new Vector3(1000,1000,1000);
+            skillIndicator.transform.position = new Vector3(1000, 1000, 1000);
         }
     }
     public void CastingStart()
@@ -260,6 +302,7 @@ public class SkillManager : MonoBehaviour
         skillFX[index].GetComponent<ParticleSystem>().Play();
         //yield return new WaitForSeconds(1f);
         skillDamage[index].transform.position = point;
+        StartCoroutine(Shake2(0.2f, 3f));
         yield return new WaitForSeconds(3f);
         skillFX[index].GetComponent<ParticleSystem>().Stop();
         yield return new WaitForSeconds(0.2f);
@@ -274,17 +317,47 @@ public class SkillManager : MonoBehaviour
             if (spellArrow.skill[i].Profile.GetComponent<Image>().sprite.name == "Meteor")
             {
                 //if (spellArrow.skill[i].nowCount >= 0)
-                    spellArrow.skill[i].nowCount -= 1;
+                spellArrow.skill[i].nowCount -= 1;
             }
         }
         skillFX[index].transform.position = point;
         skillFX[index].GetComponent<ParticleSystem>().Play();
         yield return new WaitForSeconds(1f);
         skillDamage[index].transform.position = point;
+        StartCoroutine(Shake2(0.3f, 0.3f));
         yield return new WaitForSeconds(5f);
-        skillDamage[index].transform.position = new Vector3(1000,1000,1000);
+        skillDamage[index].transform.position = new Vector3(1000, 1000, 1000);
         yield break;
     }
+
+    public IEnumerator Shake(float _amount, float _duration)
+    {
+        float timer = 0;
+        while (timer <= _duration)
+        {
+            sceneCamera.transform.localPosition = (Vector3)UnityEngine.Random.insideUnitCircle * _amount + sceneCamera.transform.localPosition;
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        sceneCamera.transform.localPosition = sceneCamera.transform.localPosition;
+
+    }
+    public IEnumerator Shake2(float _amount, float _duration)
+    {
+        float timer = 0;
+        while (timer <= _duration)
+        {
+            sceneCamera.transform.localPosition = (Vector3)UnityEngine.Random.insideUnitCircle * _amount + sceneCamera.transform.localPosition;
+
+            timer += Time.deltaTime;
+
+            yield return null;
+        }
+        sceneCamera.transform.localPosition = sceneCamera.transform.localPosition;
+
+    }
+
 }
 
 

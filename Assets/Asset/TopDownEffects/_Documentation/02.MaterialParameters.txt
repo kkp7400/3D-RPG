@@ -8,7 +8,7 @@ General Material Parameters / DissolveParticleAdvanced:
 Final parameters are mostly used to adjust the result look of the effect, its emission power, color (if not using Ramp), and opacity
 
 Final Color - Emission color of affected particles
-Final Power - Final brightness of the image, you need to lower this value if you using ‚ÄúGamma Rendering‚Äù Mode
+Final Power - Final brightness of the image, you need to lower this value if you using ?úGamma Rendering??Mode
 Final Opacity Power - Adjust the opacity of the effect without changing its emission power
 Final Opacity Exp - Control the smoothness(curve) of opacity mask, higher numbers will lead to more sharp transitions.
 
@@ -16,7 +16,7 @@ Final Opacity Exp - Control the smoothness(curve) of opacity mask, higher number
 Other Ramp parameters just used to further customize the gradient coloring mode
 
 Ramp Enabled - Use ramp gradient texture to colorize particles
-Ramp - Gradient texture, located in ‚ÄúVFXTextures‚Äù folder
+Ramp - Gradient texture, located in ?úVFXTextures??folder
 Ramp Color Tint - Multiply ramp texture by this color
 Ramp Affected By Dynamics - How much Dynamics (dissolving and appear effects) will affect the ramp texture. So, when the particle begins to dissolve, the color of dissolve areas will change according to the ramp gradient.
 Ramp Offset Multiply - Multiply the Ramp position, use it to offset ramp colors
@@ -89,7 +89,7 @@ Crystal:
 
 Inner Rim - Glowing inside of a crystal, you can control how much of crystal original normals are influencing this effect. You can also apply a texture mask the the whole effect.
 Vertical Gradient - Vertical emission gradient in the local mesh coordinates.
-Appear Gradient - Same as Vertical Gradient, but it will stay at the same playce, when changing the ‚ÄúAppear Vertex Y Offset‚Äù parameter to move crystal on the local Y-axis.
+Appear Gradient - Same as Vertical Gradient, but it will stay at the same playce, when changing the ?úAppear Vertex Y Offset??parameter to move crystal on the local Y-axis.
 Parallax Noise - Noise inside the crystal, try to chane the texture and the scale of it.
 
 
@@ -107,7 +107,7 @@ Vertical Gradient - Applying the vertical gradient to the shield effect. You can
 Inner Rim - Simple Rim/Fresnel effect
 Waves - Generating waves for offset and emission
 Depth Mask - Depth Blend effect, similar to Soft Particles effect, but in this case it will boost the emission when the mesh instersect other opque geometry.
-Appear Gradient - This section if used mainly for appear/disappear effects. Animate the ‚ÄúAppear Gradient Offset‚Äù parameter and see the results.
+Appear Gradient - This section if used mainly for appear/disappear effects. Animate the ?úAppear Gradient Offset??parameter and see the results.
 
 
 Props:
@@ -119,7 +119,7 @@ Dissolve - This section controls the dissolve/appear effect of the mesh, check t
 
 MaskedDoubleSidedAdvanced:
 
-Most parameters in this shield/barrier effect shader are self explanetory. It uses many Noise textures to make the effect, you can tweak all the parameters in real-time to see what they do. Check the effects like FireBarrier or WaterBarrier to see this shader in action. The main parameter is ‚ÄúAppear Progress‚Äù it is animated with a regular Unity animation system.
+Most parameters in this shield/barrier effect shader are self explanetory. It uses many Noise textures to make the effect, you can tweak all the parameters in real-time to see what they do. Check the effects like FireBarrier or WaterBarrier to see this shader in action. The main parameter is ?úAppear Progress??it is animated with a regular Unity animation system.
 
 
 DissolveParticleMV:
@@ -127,8 +127,8 @@ DissolveParticleMV:
 MV Main Mask - Main flip book mask
 MV Main Mask Motion Vectors - Motion vectors, for the smooth slow-motion animation
 MV Random Frame - Start the animation from random frame when particle is spawned
-MV Distortion Frame Offset - Don‚Äôt change this parameter, it is used for setting up the right value for smooth Motion Vectors transition technique
-MV Particle Frame Control Enabled - Use particle system custom vertex stream instead of ‚ÄúMV Animation Speed‚Äù to control the animation of flip book
+MV Distortion Frame Offset - Don?ôt change this parameter, it is used for setting up the right value for smooth Motion Vectors transition technique
+MV Particle Frame Control Enabled - Use particle system custom vertex stream instead of ?úMV Animation Speed??to control the animation of flip book
 
 
 DissolveParticleGroundPacked:

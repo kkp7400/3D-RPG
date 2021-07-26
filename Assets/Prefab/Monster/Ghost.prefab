@@ -13151,6 +13151,8 @@ GameObject:
   - component: {fileID: 1304969105408173013}
   - component: {fileID: 1304969105408173015}
   - component: {fileID: 1304969105774775015}
+  - component: {fileID: 1741940251}
+  - component: {fileID: 1741940250}
   m_Layer: 7
   m_Name: Ghost
   m_TagString: Ghost
@@ -13231,6 +13233,7 @@ MonoBehaviour:
   DB: {fileID: 0}
   equip: {fileID: 0}
   isDead: 0
+  dissolve: {fileID: 0}
   state: 0
   enemy: {fileID: 0}
   nav: {fileID: 0}
@@ -13289,6 +13292,61 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!23 &1741940251
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304969104976189863}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1741940250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304969104976189863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b1400b7a7b74b3438a843bb97c82f50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startDissolve: 0
+  speed: 0.5
 --- !u!1 &1304969104976190243
 GameObject:
   m_ObjectHideFlags: 0
@@ -14667,13 +14725,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11b84f6e8e1190b46b3d40c72c9fe522, type: 3}
---- !u!1 &1304969105025836197 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 102960, guid: 11b84f6e8e1190b46b3d40c72c9fe522, type: 3}
-  m_PrefabInstance: {fileID: 1304969105025873557}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1304969105025779935 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 458314, guid: 11b84f6e8e1190b46b3d40c72c9fe522, type: 3}
+  m_PrefabInstance: {fileID: 1304969105025873557}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1304969105025836197 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 102960, guid: 11b84f6e8e1190b46b3d40c72c9fe522, type: 3}
   m_PrefabInstance: {fileID: 1304969105025873557}
   m_PrefabAsset: {fileID: 0}

@@ -19,6 +19,12 @@ public class UI_SpellMaster : MonoBehaviour
         DB = GameObject.Find("GM").GetComponent<DataBase>();
         beforeLv = DB.info.Level;
         nowLv = DB.info.Level;
+        DB.info.SP = nowLv;
+        DB.info.SP -= DB.info.SP_FirePunch;
+        DB.info.SP -= DB.info.SP_Blizard;
+        DB.info.SP -= DB.info.SP_EnergyBall;
+        DB.info.SP -= DB.info.SP_Meteor;
+        DB.info.SP -= DB.info.SP_Shild;
         UpdateUI();
     }
 

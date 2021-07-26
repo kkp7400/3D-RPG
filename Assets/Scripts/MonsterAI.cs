@@ -18,6 +18,7 @@ public class MonsterAI : MonoBehaviour
     public DataBase DB;
     public UI_Equip equip;
     public bool isDead = false;
+    
     [SerializeField]
     AI_State state;
 
@@ -42,6 +43,7 @@ public class MonsterAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         if (this.tag == "Dog") HP = 500f;
         if (this.tag == "Skeleton") HP = 1500f;
         if (this.tag == "Ghost") HP = 2000f;
@@ -196,6 +198,7 @@ public class MonsterAI : MonoBehaviour
        // gameObject.GetComponent<CapsuleCollider>().enabled = false;
         anim.SetTrigger("Death");
         spawner.deathMonsterAmount++;
+        
         yield return new WaitForSeconds(1f);
        //float x = Random.Range(-0.1f, 0.1f);
        //float z = Random.Range(-0.1f, 0.1f);
