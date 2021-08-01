@@ -257,7 +257,7 @@ public class PlayerState : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "SampleScene")
         {
             anim.SetTrigger("OnAlive");
-
+            if (GameManager.instance.isOpen) GameManager.instance.isOpen = false;
             ChangeState(Player_State.Idle);
         }
         

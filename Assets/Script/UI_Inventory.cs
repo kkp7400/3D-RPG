@@ -58,7 +58,7 @@ public class UI_Inventory : MonoBehaviour
 
         potionSlot.GetComponent<UI_Inventory_Slot>().itemID = DB.info.PotionSlot;
         potionSlot.transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + DB.info.PotionSlot.ToString());
-        Gold = DB.info.GOLD;
+       
     }
 
     // Update is called once per frame

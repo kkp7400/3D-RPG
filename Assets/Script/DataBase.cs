@@ -206,7 +206,7 @@ public class DataBase : MonoBehaviour
             columns.Add(info.MP.ToString()); // MP
             columns.Add(info.ATK.ToString()); // ATK
             columns.Add(info.SPEED.ToString()); // SPEED
-            columns.Add(inventory.Gold.ToString()); // GOLD
+            columns.Add(info.GOLD.ToString()); // GOLD
             columns.Add(info.SP.ToString()); // SP
             columns.Add(info.SP_FirePunch.ToString()); // SP_FirePunch
             columns.Add(info.SP_EnergyBall.ToString()); // SP_EnergyBall

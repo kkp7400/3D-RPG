@@ -77,7 +77,7 @@ public class MonsterAI : MonoBehaviour
             isDead = true;
         }
 
-        if(state != AI_State.Hit)
+        if (state != AI_State.Hit)
             damageText.gameObject.SetActive(false);
         var enemyPos = enemy.transform.position;
         enemyPos.y = transform.position.y;
@@ -119,6 +119,7 @@ public class MonsterAI : MonoBehaviour
 
     void UpdateTrace()
     {
+        if (isDead) return;
         Vector3 dir = targetPos - transform.position;
         float dist = dir.magnitude;
 
@@ -165,6 +166,7 @@ public class MonsterAI : MonoBehaviour
         anim.SetBool("Attack", false);
         anim.SetBool("Hit", false);
 
+        if (isDead) return;
         StopAllCoroutines();
 
         switch (state)
@@ -198,7 +200,7 @@ public class MonsterAI : MonoBehaviour
        // gameObject.GetComponent<CapsuleCollider>().enabled = false;
         anim.SetTrigger("Death");
         spawner.deathMonsterAmount++;
-        
+        isDead = true;
         yield return new WaitForSeconds(1f);
        //float x = Random.Range(-0.1f, 0.1f);
        //float z = Random.Range(-0.1f, 0.1f);
@@ -209,21 +211,22 @@ public class MonsterAI : MonoBehaviour
         Star.GetComponent<ParticleSystem>().Play();
         if (this.tag == "Skeleton")
         {
-            DB.info.GOLD += 10;
+            DB.info.GOLD += 100;
             DB.info.Exp += 1;
         }
         if (this.tag == "Dog") 
         {
-            DB.info.GOLD += 5;
+            DB.info.GOLD += 50;
             DB.info.Exp += 2;
         }
         if (this.tag == "Ghost")
         {
-            DB.info.GOLD += 3;
+            DB.info.GOLD += 30;
             DB.info.Exp += 3;
         }
         yield return new WaitForSeconds(2f);
-       // gameObject.GetComponent<CapsuleCollider>().enabled = true;
+        // gameObject.GetComponent<CapsuleCollider>().enabled = true;
+        isDead = false;
         objPool.ReturnToPool(gameObject.tag, gameObject);
         yield break;
     }

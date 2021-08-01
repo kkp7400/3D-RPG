@@ -10,9 +10,9 @@ public class MonsterWeapon : MonoBehaviour
     void Start()
     {
         DB = GameObject.Find("GM").GetComponent<DataBase>();
-        if (transform.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.tag == "Ghost") atk = 3;
-        if (transform.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.tag == "Skeleton") atk = 2;
-        if (transform.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.tag == "Dog") atk = 1;
+        if (transform.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.tag == "Ghost") atk = 0.3f;
+        if (transform.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.tag == "Skeleton") atk = 0.2f;
+        if (transform.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.tag == "Dog") atk = 0.1f;
 
     }
 

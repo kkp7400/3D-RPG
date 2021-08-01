@@ -47,7 +47,8 @@ public class UI_Shop : MonoBehaviour
 
     public void UseItem(UI_Shop_Slot useSlot)
     {
-        if (inventory.Gold >= useSlot.Price)
+        
+        if (DB.info.GOLD >= useSlot.Price)
         {
             if (useSlot.itemID != 0)
             {
@@ -59,7 +60,7 @@ public class UI_Shop : MonoBehaviour
                         if (inventory.slot[i].itemID == useSlot.itemID)
                         {
                             inventory.slot[i].itemCount++;
-                            inventory.Gold -= useSlot.Price;
+                            DB.info.GOLD -= useSlot.Price;
                             equip.UpdateItem();
                             inventory.UpdateItem();
                             return;
@@ -72,7 +73,7 @@ public class UI_Shop : MonoBehaviour
                         {
                             inventory.slot[i].itemID = useSlot.itemID;
                             inventory.slot[i].itemCount = 1;
-                            inventory.Gold -= useSlot.Price;
+                            DB.info.GOLD -= useSlot.Price;
 
                             equip.UpdateItem();
                             inventory.UpdateItem();
@@ -88,7 +89,7 @@ public class UI_Shop : MonoBehaviour
                         {
                             inventory.slot[i].itemID = useSlot.itemID;
                             inventory.slot[i].itemCount = 1;
-                            inventory.Gold -= useSlot.Price;
+                            DB.info.GOLD -= useSlot.Price;
                             equip.UpdateItem();
                             inventory.UpdateItem();
                             return;
@@ -98,7 +99,6 @@ public class UI_Shop : MonoBehaviour
                 StartCoroutine(Error());
             }
         }
-
         GameManager.instance.UpdateUI();
         equip.UpdateItem();
         inventory.UpdateItem();

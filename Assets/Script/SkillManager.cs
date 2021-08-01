@@ -36,6 +36,8 @@ public class SkillManager : MonoBehaviour
 
     Coroutine runningCoroutine = null;
 
+    Coroutine runningCoroutine2 = null;
+
     public List<string> SkillIndex;
     void Awake()
     {
@@ -173,12 +175,6 @@ public class SkillManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             StartCoroutine(Shake2(0.2f, 0.1f));
-
-            if (runningCoroutine != null)
-            {
-                StopCoroutine(runningCoroutine);
-            }
-            runningCoroutine = StartCoroutine(Shake(0.1f, 0.07f));
             shiled.GetComponent<ParticleSystem>().Play();
             shieldDamage.SetActive(true);
             isShield = false;
@@ -324,7 +320,7 @@ public class SkillManager : MonoBehaviour
         skillFX[index].GetComponent<ParticleSystem>().Play();
         yield return new WaitForSeconds(1f);
         skillDamage[index].transform.position = point;
-        StartCoroutine(Shake2(0.3f, 0.3f));
+        StartCoroutine(Shake(0.3f, 0.3f));
         yield return new WaitForSeconds(5f);
         skillDamage[index].transform.position = new Vector3(1000, 1000, 1000);
         yield break;
