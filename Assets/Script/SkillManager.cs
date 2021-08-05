@@ -328,19 +328,23 @@ public class SkillManager : MonoBehaviour
 
     public IEnumerator Shake(float _amount, float _duration)
     {
+        Vector3 lastTransform = sceneCamera.transform.localPosition;
         float timer = 0;
         while (timer <= _duration)
         {
+            
             sceneCamera.transform.localPosition = (Vector3)UnityEngine.Random.insideUnitCircle * _amount + sceneCamera.transform.localPosition;
 
             timer += Time.deltaTime;
-            yield return null;
         }
-        sceneCamera.transform.localPosition = sceneCamera.transform.localPosition;
+        yield return null;
+        //yield break ;
+        sceneCamera.transform.localPosition = lastTransform;
 
     }
     public IEnumerator Shake2(float _amount, float _duration)
     {
+        Vector3 lastTransform = sceneCamera.transform.localPosition;
         float timer = 0;
         while (timer <= _duration)
         {
@@ -350,7 +354,8 @@ public class SkillManager : MonoBehaviour
 
             yield return null;
         }
-        sceneCamera.transform.localPosition = sceneCamera.transform.localPosition;
+        yield break;
+        sceneCamera.transform.localPosition = lastTransform;
 
     }
 

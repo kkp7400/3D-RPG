@@ -36,16 +36,16 @@ public class UI_Inventory_Slot : MonoBehaviour, IPointerClickHandler, IBeginDrag
                 EquipPart = DB.itemDB[i].EquipPart;
             }
         }
-        if (transform.FindChild("Image").GetComponent<Image>().sprite == null)
+        if (transform.Find("Image").GetComponent<Image>().sprite == null)
         {
-            transform.FindChild("Image").GetComponent<Image>().color = new Color(255, 255, 255, 0f);
-            transform.FindChild("Text").GetComponent<Text>().color = new Color(255, 255, 255, 0f);
+            transform.Find("Image").GetComponent<Image>().color = new Color(255, 255, 255, 0f);
+            transform.Find("Text").GetComponent<Text>().color = new Color(255, 255, 255, 0f);
         }
         else
         {
-            transform.FindChild("Image").GetComponent<Image>().color = new Color(255, 255, 255, 1f);
+            transform.Find("Image").GetComponent<Image>().color = new Color(255, 255, 255, 1f);
 
-            transform.FindChild("Text").GetComponent<Text>().color = new Color(255, 255, 255, 1f);
+            transform.Find("Text").GetComponent<Text>().color = new Color(255, 255, 255, 1f);
 
         }
 
@@ -57,19 +57,19 @@ public class UI_Inventory_Slot : MonoBehaviour, IPointerClickHandler, IBeginDrag
     }
 
     public static Vector3 defaultposition;
-    void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)//µå·¡±×½ÃÀÛÇÒ ¶§
+    void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)//ï¿½å·¡ï¿½×½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 
     {
        //defaultposition = this.transform.position;
     }
 
-    void IDragHandler.OnDrag(PointerEventData eventData)//µå·¡±×ÁßÀÏ ¶§
+    void IDragHandler.OnDrag(PointerEventData eventData)//ï¿½å·¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
     {
         //var screenPoint = Input.mousePosition;
         //screenPoint.z = 100f;        
         //this.transform.position = UICamera.ScreenToWorldPoint(screenPoint);
     }
-    void IEndDragHandler.OnEndDrag(PointerEventData eventData)//µå·¡±× ³¡³µÀ» ¶§
+    void IEndDragHandler.OnEndDrag(PointerEventData eventData)//ï¿½å·¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
     {
         //Vector3 mousePos = UICamera.ScreenToWorldPoint(Input.mousePosition);
         //this.transform.position = defaultposition;
@@ -103,16 +103,16 @@ public class UI_Inventory_Slot : MonoBehaviour, IPointerClickHandler, IBeginDrag
 
         }
 
-        if (transform.FindChild("Image").GetComponent<Image>().sprite == null)
+        if (transform.Find("Image").GetComponent<Image>().sprite == null)
         {
-            transform.FindChild("Image").GetComponent<Image>().color = new Color(255, 255, 255, 0f);
-            transform.FindChild("Text").GetComponent<Text>().color = new Color(255, 255, 255, 0f);
+            transform.Find("Image").GetComponent<Image>().color = new Color(255, 255, 255, 0f);
+            transform.Find("Text").GetComponent<Text>().color = new Color(255, 255, 255, 0f);
         }
         else
         {
-            transform.FindChild("Image").GetComponent<Image>().color = new Color(255, 255, 255, 1f);
+            transform.Find("Image").GetComponent<Image>().color = new Color(255, 255, 255, 1f);
 
-            transform.FindChild("Text").GetComponent<Text>().color = new Color(255, 255, 255, 1f);
+            transform.Find("Text").GetComponent<Text>().color = new Color(255, 255, 255, 1f);
 
         }
     }

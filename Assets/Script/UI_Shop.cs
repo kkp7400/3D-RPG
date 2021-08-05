@@ -28,11 +28,11 @@ public class UI_Shop : MonoBehaviour
         for (int i = 0; i < DB.itemDB.Count; i++)
         {
             slot[i].itemID = DB.itemDB[i].ID;
-            slot[i].transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[i].itemID.ToString());
+            slot[i].transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[i].itemID.ToString());
             slot[i].name = DB.itemDB[i].name;
             slot[i].Price = DB.itemDB[i].Price;
             slot[i].Type = DB.itemDB[i].type;
-            slot[i].transform.FindChild("Price").GetComponent<Text>().text = slot[i].Price.ToString();
+            slot[i].transform.Find("Price").GetComponent<Text>().text = slot[i].Price.ToString();
             slot[i].ToolTip = DB.itemDB[i].ToolTip;
         }        
         anchor.GetComponent<Image>().rectTransform.anchoredPosition = new Vector3(-636, 20, 0);

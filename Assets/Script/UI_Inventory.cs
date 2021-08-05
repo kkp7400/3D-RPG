@@ -24,7 +24,7 @@ public class UI_Inventory : MonoBehaviour
         if (DB.info.Inventory[0] != 0)
             for (int i = 0; i < DB.info.Inventory.Count; i++)
             {
-                slot[i].transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + DB.info.Inventory[i].ToString());
+                slot[i].transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + DB.info.Inventory[i].ToString());
                 slot[i].itemID = DB.info.Inventory[i];
                 slot[i].gameObject.GetComponentInChildren<Text>().text = DB.info.itemCount[i].ToString();
                 slot[i].itemCount = DB.info.itemCount[i];
@@ -33,12 +33,12 @@ public class UI_Inventory : MonoBehaviour
         InventoryGoldCount.text = DB.info.GOLD.ToString();
         for (int i = 0; i < slot.Length; i++)
         {
-            if (slot[i].transform.FindChild("Image").GetComponent<Image>().sprite == null)
+            if (slot[i].transform.Find("Image").GetComponent<Image>().sprite == null)
             {
                 slot[i].itemID = 0;
 
                 slot[i].itemCount = 0;
-                slot[i].transform.FindChild("Image").gameObject.SetActive(false);
+                slot[i].transform.Find("Image").gameObject.SetActive(false);
 
 
             }
@@ -57,7 +57,7 @@ public class UI_Inventory : MonoBehaviour
         }
 
         potionSlot.GetComponent<UI_Inventory_Slot>().itemID = DB.info.PotionSlot;
-        potionSlot.transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + DB.info.PotionSlot.ToString());
+        potionSlot.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + DB.info.PotionSlot.ToString());
        
     }
 
@@ -113,7 +113,7 @@ public class UI_Inventory : MonoBehaviour
     {
         if (useSlot.itemType == "Equipment")
         {
-            if (useSlot.EquipPart == "Head")//0¹ø
+            if (useSlot.EquipPart == "Head")//0ï¿½ï¿½
             {
                 if (equip.slot[0].itemID != 0)
                 {
@@ -127,7 +127,7 @@ public class UI_Inventory : MonoBehaviour
                     useSlot.itemID = 0;
                 }
             };
-            if (useSlot.EquipPart == "Staff")//1¹ø
+            if (useSlot.EquipPart == "Staff")//1ï¿½ï¿½
             {
                 if (equip.slot[1].itemID != 0)
                 {
@@ -141,7 +141,7 @@ public class UI_Inventory : MonoBehaviour
                     useSlot.itemID = 0;
                 }
             };
-            if (useSlot.EquipPart == "Body")//2¹ø
+            if (useSlot.EquipPart == "Body")//2ï¿½ï¿½
             {
                 if (equip.slot[2].itemID != 0)
                 {
@@ -155,7 +155,7 @@ public class UI_Inventory : MonoBehaviour
                     useSlot.itemID = 0;
                 }
             };
-            if (useSlot.EquipPart == "Foot")//3¹ø
+            if (useSlot.EquipPart == "Foot")//3ï¿½ï¿½
             {
                 if (equip.slot[3].itemID != 0)
                 {
@@ -175,9 +175,9 @@ public class UI_Inventory : MonoBehaviour
             potionSlot.SetActive(true);
             potionSlot.GetComponent<UI_Inventory_Slot>().itemID = useSlot.itemID;
             potionSlot.GetComponent<UI_Inventory_Slot>().itemCount = useSlot.itemCount;
-            potionSlot.transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + useSlot.itemID);
-            potionSlot.transform.FindChild("Text").GetComponent<Text>().text = useSlot.itemCount.ToString();
-            //Æ÷¼Ç ¾²´Â°Ç ³ªÁß¿¡
+            potionSlot.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + useSlot.itemID);
+            potionSlot.transform.Find("Text").GetComponent<Text>().text = useSlot.itemCount.ToString();
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½
         }
 
         equip.UpdateItem();
@@ -192,16 +192,16 @@ public class UI_Inventory : MonoBehaviour
                 slot[i].itemID = 0;
 
                 slot[i].itemCount = 0;
-                slot[i].transform.FindChild("Image").GetComponent<Image>().color = new Color(255, 255, 255, 0f);
-                slot[i].transform.FindChild("Image").gameObject.SetActive(false);
+                slot[i].transform.Find("Image").GetComponent<Image>().color = new Color(255, 255, 255, 0f);
+                slot[i].transform.Find("Image").gameObject.SetActive(false);
             }
             else if (slot[i].itemID != 0)
             {
 
                 slot[i].transform.GetComponentInChildren<Text>().text = slot[i].itemCount.ToString();
-                slot[i].transform.FindChild("Image").GetComponent<Image>().color = new Color(255, 255, 255, 1f);
-                slot[i].transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[i].itemID.ToString());
-                slot[i].transform.FindChild("Image").gameObject.SetActive(true);
+                slot[i].transform.Find("Image").GetComponent<Image>().color = new Color(255, 255, 255, 1f);
+                slot[i].transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[i].itemID.ToString());
+                slot[i].transform.Find("Image").gameObject.SetActive(true);
 
             }
             if (slot[i].itemCount <= 1)
@@ -214,24 +214,24 @@ public class UI_Inventory : MonoBehaviour
 
         for (int i = 0; i < slot.Length; i++)
         {
-            if (potionSlot.transform.FindChild("Image").GetComponent<Image>().sprite == null) break;
-            if (potionSlot.transform.FindChild("Image").GetComponent<Image>().sprite.name == slot[i].itemID.ToString())
+            if (potionSlot.transform.Find("Image").GetComponent<Image>().sprite == null) break;
+            if (potionSlot.transform.Find("Image").GetComponent<Image>().sprite.name == slot[i].itemID.ToString())
             {
                 potionSlot.GetComponent<UI_Inventory_Slot>().itemID = slot[i].itemID;
                 potionSlot.GetComponent<UI_Inventory_Slot>().itemCount = slot[i].itemCount;
-                potionSlot.transform.FindChild("Text").GetComponent<Text>().text = slot[i].itemCount.ToString();
+                potionSlot.transform.Find("Text").GetComponent<Text>().text = slot[i].itemCount.ToString();
                 if (slot[i].itemCount < 1)
                 {
-                    potionSlot.transform.FindChild("Image").GetComponent<Image>().color = new Color(255, 255, 255, 0.5f);
+                    potionSlot.transform.Find("Image").GetComponent<Image>().color = new Color(255, 255, 255, 0.5f);
 
-                    potionSlot.transform.FindChild("Text").GetComponent<Text>().color = new Color(255, 255, 255, 0f);
+                    potionSlot.transform.Find("Text").GetComponent<Text>().color = new Color(255, 255, 255, 0f);
                 }
                 if (slot[i].itemCount >= 1)
                 {
 
-                    potionSlot.transform.FindChild("Image").GetComponent<Image>().color = new Color(255, 255, 255, 1f);
+                    potionSlot.transform.Find("Image").GetComponent<Image>().color = new Color(255, 255, 255, 1f);
 
-                    potionSlot.transform.FindChild("Text").GetComponent<Text>().color = new Color(255, 255, 255, 1f);
+                    potionSlot.transform.Find("Text").GetComponent<Text>().color = new Color(255, 255, 255, 1f);
                 }
             }
         }

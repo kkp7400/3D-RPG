@@ -55,9 +55,9 @@ public class MonsterAI : MonoBehaviour
         objPool = GameObject.Find("DungeonManager").GetComponent<ObjectPool>();
         state = AI_State.Idle;
 
-        Coin = transform.FindChild("Coin").gameObject;
-        Star = transform.FindChild("Star").gameObject;
-        damageText = transform.FindChild("DamageText").GetComponent<TextMesh>();
+        Coin = transform.Find("Coin").gameObject;
+        Star = transform.Find("Star").gameObject;
+        damageText = transform.Find("DamageText").GetComponent<TextMesh>();
         ChangeState(state);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Monster"), true);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Monster"), LayerMask.NameToLayer("Monster"), true);
@@ -82,7 +82,7 @@ public class MonsterAI : MonoBehaviour
         var enemyPos = enemy.transform.position;
         enemyPos.y = transform.position.y;
         targetPos = enemyPos;
-        // ¸Å ÇÁ·¹ÀÓ ½ÇÇàµÇ´Â ÄÚµå
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½Úµï¿½
         switch (state)
         {
             case AI_State.Idle: UpdateIdle(); break;
@@ -181,13 +181,13 @@ public class MonsterAI : MonoBehaviour
 
     IEnumerator CoroutineHit()
     {
-        // ÃÖÃÊ¿¡ ÇÑ¹ø ½ÇÇàµÇ´Â ÄÚµå
+        // ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½Ñ¹ï¿½ ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½Úµï¿½
         anim.SetTrigger("Hit");
         yield break;
     }
     IEnumerator CoroutineIdle()
     {
-        // ÃÖÃÊ¿¡ ÇÑ¹ø ½ÇÇàµÇ´Â ÄÚµå
+        // ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½Ñ¹ï¿½ ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½Úµï¿½
         anim.SetBool("Idle", true);
 
         moveValue = 0f;
@@ -233,12 +233,12 @@ public class MonsterAI : MonoBehaviour
 
     IEnumerator CoroutineTrace()
     {
-        // ÃÖÃÊ¿¡ ÇÑ¹ø ½ÇÇàµÇ´Â ÄÚµå
+        // ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½Ñ¹ï¿½ ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½Úµï¿½
         Vector3 dir = targetPos - transform.position;
         float dist = dir.magnitude;
         if(dist >= 2f) anim.SetBool("Run", true);
 
-        // Å¸°Ù À§Ä¡¸¦ ÀûÀÇ À§Ä¡·Î ¼³Á¤
+        // Å¸ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         
 
         yield break;
@@ -253,7 +253,7 @@ public class MonsterAI : MonoBehaviour
 
     IEnumerator CoroutineAttack()
     {
-        // ÃÖÃÊ¿¡ ÇÑ¹ø ½ÇÇàµÇ´Â ÄÚµå
+        // ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½Ñ¹ï¿½ ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½Úµï¿½
         anim.SetBool("Attack", true);
 
         moveValue = 0f;
@@ -262,7 +262,7 @@ public class MonsterAI : MonoBehaviour
         {
 
             yield break;
-            // TODO : ¾Ö´Ï¸ÞÀÌ¼Ç Á¾·á È®ÀÎ ÈÄ »óÅÂ ÀüÈ¯
+            // TODO : ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
             //yield return new WaitWhile(()=>);
             //ChangeState(AI_State.Idle);
         }
@@ -323,7 +323,7 @@ public class MonsterAI : MonoBehaviour
 
     void OnParticleCollision(GameObject other)
     {
-        //Debug.Log("Ãæµ¹µÇµû!");
+        //Debug.Log("ï¿½æµ¹ï¿½Çµï¿½!");
         if (other.tag == "FirePunch")
         {
             HP -= (DB.info.SP_FirePunch * 0.1f + 1f) * (equip.ATK + 1f) * DB.spell[0].damage;

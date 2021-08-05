@@ -24,38 +24,38 @@ public class UI_Equip : MonoBehaviour
         slot = slotHolder.GetComponentsInChildren<UI_Equip_Slot>();
         EquipPanel.SetActive(isInventory);
         DB = GameObject.Find("GM").GetComponent<DataBase>();
-        //¸Ó¸®0 ¹«±â1 ¸ö2 ½Å¹ß3
+        //ï¿½Ó¸ï¿½0 ï¿½ï¿½ï¿½ï¿½1 ï¿½ï¿½2 ï¿½Å¹ï¿½3
         if (DB.info.Equip_Head != 0)
         {
             slot[0].itemID = DB.info.Equip_Head;
             slot[0].EquipPart = "Head";
-            slot[0].transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[0].itemID.ToString());
+            slot[0].transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[0].itemID.ToString());
         }
         if (DB.info.Equip_Staff != 0)
         {
             slot[1].itemID = DB.info.Equip_Staff;
             slot[1].EquipPart = "Staff";
-            slot[1].transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[1].itemID.ToString());
+            slot[1].transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[1].itemID.ToString());
         }
         if (DB.info.Equip_Body != 0)
         {
             slot[2].itemID = DB.info.Equip_Body;
             slot[2].EquipPart = "Body";
-            slot[2].transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[2].itemID.ToString());
+            slot[2].transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[2].itemID.ToString());
         }
         if (DB.info.Equip_Foot != 0)
         {
             slot[3].itemID = DB.info.Equip_Foot;
             slot[3].EquipPart = "Foot";
-            slot[3].transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[3].itemID.ToString());
+            slot[3].transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[3].itemID.ToString());
         }
 
         for (int i = 0; i < slot.Length; i++)
         {
-            if (slot[i].transform.FindChild("Image").GetComponent<Image>().sprite == null)
+            if (slot[i].transform.Find("Image").GetComponent<Image>().sprite == null)
             {
                 slot[i].itemID = 0;
-                slot[i].transform.FindChild("Image").gameObject.SetActive(false);
+                slot[i].transform.Find("Image").gameObject.SetActive(false);
             }
         }
         status[0].GetComponent<Text>().text = "LV: " + DB.info.Level.ToString();
@@ -141,7 +141,7 @@ public class UI_Equip : MonoBehaviour
         }
         if (!canSwap)
         {
-            Debug.Log("ÅÛ ¸øž«±è");
+            Debug.Log("ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
         }
         tempSlot = 0;
         UpdateItem();
@@ -153,21 +153,21 @@ public class UI_Equip : MonoBehaviour
         {
             if (slot[i].itemID != 0)
             {
-                slot[i].transform.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[i].itemID.ToString());
-                slot[i].transform.FindChild("Image").gameObject.SetActive(true);
+                slot[i].transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Item/" + slot[i].itemID.ToString());
+                slot[i].transform.Find("Image").gameObject.SetActive(true);
             }
             else if (slot[i].itemID == 0)
             {
-                slot[i].transform.FindChild("Image").gameObject.SetActive(false);
+                slot[i].transform.Find("Image").gameObject.SetActive(false);
             }
         }
         status[0].GetComponent<Text>().text = "LV: " + DB.info.Level.ToString();
         for (int i = 0; i < DB.itemDB.Count; i++)
         {
             //if (i > DB.itemDB.Count) continue;
-            //0¸Ó¸® 1¹«±â 2¹Ùµð 3½Å¹ß
-            //½ºÅÈ: 1HP,2MP,3ATK,4SPEED
-            //±×·¯´Ï±î slot[0]=status[2](mp) / slot[1]=status[3](ATK) / slot[2]=status[1](HP) / slot[3]=status[4](SPEED)
+            //0ï¿½Ó¸ï¿½ 1ï¿½ï¿½ï¿½ï¿½ 2ï¿½Ùµï¿½ 3ï¿½Å¹ï¿½
+            //ï¿½ï¿½ï¿½ï¿½: 1HP,2MP,3ATK,4SPEED
+            //ï¿½×·ï¿½ï¿½Ï±ï¿½ slot[0]=status[2](mp) / slot[1]=status[3](ATK) / slot[2]=status[1](HP) / slot[3]=status[4](SPEED)
             if (slot[2].itemID == DB.itemDB[i].ID)
             {
                 status[1].GetComponent<Text>().text = "HP: " + DB.itemDB[i].HP.ToString();
