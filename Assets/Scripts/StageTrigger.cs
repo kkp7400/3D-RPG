@@ -20,6 +20,7 @@ public class StageTrigger : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            Debug.Log("¤·¤»");
             isStart = true;
             transform.position = new Vector3(700, 700, 700);
         }

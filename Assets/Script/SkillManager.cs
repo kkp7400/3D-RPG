@@ -31,13 +31,6 @@ public class SkillManager : MonoBehaviour
     private Rigidbody playerRigidbody; // 플레이어 캐릭터의 리지드바디
     private string useSkill;
 
-
-
-
-    Coroutine runningCoroutine = null;
-
-    Coroutine runningCoroutine2 = null;
-
     public List<string> SkillIndex;
     void Awake()
     {
@@ -146,12 +139,9 @@ public class SkillManager : MonoBehaviour
 
     public void Attack()
     {
-        if (attack == null) return;
-        if (runningCoroutine != null)
-        {
-            StopCoroutine(runningCoroutine);
-        }
-        runningCoroutine = StartCoroutine(Shake(0.1f, 0.07f));
+        if (attack == null) 
+            return;
+        sceneCamera.GetComponent<CameraShaker>().StartCameraShake(0.1f, 0.07f);
         attack.GetComponent<ParticleSystem>().Play();
         for (int i = 0; i < spellArrow.skill.Count; i++)
         {
@@ -165,7 +155,9 @@ public class SkillManager : MonoBehaviour
                 else if (spellArrow.skill[i].nowCount <= 0)
                 {
                     attack.GetComponent<ParticleSystem>().Stop();
+                    attack = null;
                 }
+                break;
             }
         }
     }
@@ -174,7 +166,7 @@ public class SkillManager : MonoBehaviour
         if (isShield == false) yield break;
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            StartCoroutine(Shake2(0.2f, 0.1f));
+            sceneCamera.GetComponent<CameraShaker>().StartCameraShake(0.2f, 0.1f);
             shiled.GetComponent<ParticleSystem>().Play();
             shieldDamage.SetActive(true);
             isShield = false;
@@ -298,7 +290,8 @@ public class SkillManager : MonoBehaviour
         skillFX[index].GetComponent<ParticleSystem>().Play();
         //yield return new WaitForSeconds(1f);
         skillDamage[index].transform.position = point;
-        StartCoroutine(Shake2(0.2f, 3f));
+
+        sceneCamera.GetComponent<CameraShaker>().StartCameraShake(0.2f, 0.3f);
         yield return new WaitForSeconds(3f);
         skillFX[index].GetComponent<ParticleSystem>().Stop();
         yield return new WaitForSeconds(0.2f);
@@ -320,44 +313,13 @@ public class SkillManager : MonoBehaviour
         skillFX[index].GetComponent<ParticleSystem>().Play();
         yield return new WaitForSeconds(1f);
         skillDamage[index].transform.position = point;
-        StartCoroutine(Shake(0.3f, 0.3f));
+        sceneCamera.GetComponent<CameraShaker>().StartCameraShake(0.3f, 0.3f);
         yield return new WaitForSeconds(5f);
         skillDamage[index].transform.position = new Vector3(1000, 1000, 1000);
         yield break;
     }
 
-    public IEnumerator Shake(float _amount, float _duration)
-    {
-        Vector3 lastTransform = sceneCamera.transform.localPosition;
-        float timer = 0;
-        while (timer <= _duration)
-        {
-            
-            sceneCamera.transform.localPosition = (Vector3)UnityEngine.Random.insideUnitCircle * _amount + sceneCamera.transform.localPosition;
 
-            timer += Time.deltaTime;
-        }
-        yield return null;
-        //yield break ;
-        sceneCamera.transform.localPosition = lastTransform;
-
-    }
-    public IEnumerator Shake2(float _amount, float _duration)
-    {
-        Vector3 lastTransform = sceneCamera.transform.localPosition;
-        float timer = 0;
-        while (timer <= _duration)
-        {
-            sceneCamera.transform.localPosition = (Vector3)UnityEngine.Random.insideUnitCircle * _amount + sceneCamera.transform.localPosition;
-
-            timer += Time.deltaTime;
-
-            yield return null;
-        }
-        yield break;
-        sceneCamera.transform.localPosition = lastTransform;
-
-    }
 
 }
 

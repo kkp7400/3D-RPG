@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public float maxMP;
     public float nowMP;
     public float Speed;
-
+    public bool keyLock;
     public Image image;
     // public delegate void BB(string a, string b);
     //public event BB name;
@@ -51,7 +51,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        onShield = false;
+        keyLock = false;
+           onShield = false;
         DB = GameObject.Find("GM").GetComponent<DataBase>();
         isOpen = false;
         maxExp = DB.info.Level * 20;

@@ -46,6 +46,7 @@ public class PlayerState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.instance.keyLock == true) return;
         if (anim.GetAnimatorTransitionInfo(0).IsUserName("AttackToIdle"))
             book[1].SetActive(true);
 

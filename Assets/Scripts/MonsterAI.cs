@@ -60,7 +60,7 @@ public class MonsterAI : MonoBehaviour
         damageText = transform.Find("DamageText").GetComponent<TextMesh>();
         ChangeState(state);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Monster"), true);
-        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Monster"), LayerMask.NameToLayer("Monster"), true);
+        //Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Monster"), LayerMask.NameToLayer("Monster"), true);
 
     }
 
@@ -363,4 +363,6 @@ public class MonsterAI : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
     }
+
+
 }
