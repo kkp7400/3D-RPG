@@ -18,7 +18,7 @@ public class NPC : MonoBehaviour
         KeyDownG = GameObject.Find("Canvas").transform.Find("KeyDownG").gameObject;
         playerCamera = GameObject.Find("PlayerCamera");
         npcCamera = transform.Find("NpcCamera").gameObject;
-        mainCamera = GameObject.Find("Main Camera");
+        mainCamera = GameObject.Find("PlayerCamera");
         if(transform.name == "SpellMaster")
 		{
             ui = GameObject.Find("Canvas").transform.Find("SpellMaster").gameObject;

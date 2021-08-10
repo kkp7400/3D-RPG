@@ -20,11 +20,12 @@ public class CameraShaker : MonoBehaviour
 
     public void StartCameraShake(float _amount, float _duration)
     {
-        if (runningCoroutine != null)
-        {
-            StopCoroutine(runningCoroutine);
-        }
-        runningCoroutine = StartCoroutine(Shake(0.1f, 0.07f));
+       if (runningCoroutine != null)
+       {
+           StopCoroutine(runningCoroutine);
+       }
+        
+        runningCoroutine = StartCoroutine(Shake(_amount, _duration));
     }
 
     public IEnumerator Shake(float _amount, float _duration)

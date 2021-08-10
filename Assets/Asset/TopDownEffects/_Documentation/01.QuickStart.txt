@@ -3,7 +3,8 @@ First of all, you need to unpack the right packages for your specific setup of U
 IMPORTANT NOTES:
 
 - (URP) Make sure, you enable HDR, Depth, and Opaque textures in URP Asset settings.
-- (Standard) Turn on “HDR” on your Camera, Shaders requires it.
+- (Standard) Turn on “HDR” on your 
+, Shaders requires it.
 - (All) This VFX Asset looks much better in “Linear” Color Space, but if you using “Gamma” Color Space, you need to slightly decrease the Final Power (Emission Power) material parameter of each effect. You can check it in the “Edit > Project Settings > Player” TAB.
 - (All) Image Effects are necessary in order to make a great-looking game, as well as our asset. Be sure to use “ACES Tone Mapping” and “Bloom”.
 - (All) Your camera must render Depth texture in order for some effects to appear correctly.

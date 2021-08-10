@@ -141,7 +141,7 @@ public class SkillManager : MonoBehaviour
     {
         if (attack == null) 
             return;
-        sceneCamera.GetComponent<CameraShaker>().StartCameraShake(0.1f, 0.07f);
+        sceneCamera.GetComponent<CameraShaker>().StartCameraShake(0.5f, 1.07f);
         attack.GetComponent<ParticleSystem>().Play();
         for (int i = 0; i < spellArrow.skill.Count; i++)
         {
