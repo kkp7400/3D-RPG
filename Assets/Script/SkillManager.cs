@@ -141,7 +141,7 @@ public class SkillManager : MonoBehaviour
     {
         if (attack == null) 
             return;
-        sceneCamera.GetComponent<CameraShaker>().StartCameraShake(0.5f, 1.07f);
+        sceneCamera.GetComponent<CameraShaker>().StartCineCameraShake(0.5f, 0.05f);
         attack.GetComponent<ParticleSystem>().Play();
         for (int i = 0; i < spellArrow.skill.Count; i++)
         {
@@ -166,7 +166,7 @@ public class SkillManager : MonoBehaviour
         if (isShield == false) yield break;
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            sceneCamera.GetComponent<CameraShaker>().StartCameraShake(0.2f, 0.1f);
+            sceneCamera.GetComponent<CameraShaker>().StartCineCameraShake(0.7f, 0.08f);
             shiled.GetComponent<ParticleSystem>().Play();
             shieldDamage.SetActive(true);
             isShield = false;
@@ -291,7 +291,7 @@ public class SkillManager : MonoBehaviour
         //yield return new WaitForSeconds(1f);
         skillDamage[index].transform.position = point;
 
-        sceneCamera.GetComponent<CameraShaker>().StartCameraShake(0.2f, 0.3f);
+        sceneCamera.GetComponent<CameraShaker>().StartCineCameraShake(1f, 4f);
         yield return new WaitForSeconds(3f);
         skillFX[index].GetComponent<ParticleSystem>().Stop();
         yield return new WaitForSeconds(0.2f);
@@ -313,7 +313,7 @@ public class SkillManager : MonoBehaviour
         skillFX[index].GetComponent<ParticleSystem>().Play();
         yield return new WaitForSeconds(1f);
         skillDamage[index].transform.position = point;
-        sceneCamera.GetComponent<CameraShaker>().StartCameraShake(0.3f, 0.3f);
+        sceneCamera.GetComponent<CameraShaker>().StartCineCameraShake(1.5f, 2f);
         yield return new WaitForSeconds(5f);
         skillDamage[index].transform.position = new Vector3(1000, 1000, 1000);
         yield break;

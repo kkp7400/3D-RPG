@@ -46,7 +46,12 @@ public class PlayerState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.instance.keyLock == true) return;
+        if (GameManager.instance.keyLock)
+        {
+            state = Player_State.Idle;
+            ChangeState(Player_State.Idle);
+            return;
+        }
         if (anim.GetAnimatorTransitionInfo(0).IsUserName("AttackToIdle"))
             book[1].SetActive(true);
 
@@ -129,17 +134,17 @@ public class PlayerState : MonoBehaviour
 
         if (state == Player_State.Die) return;
 
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))&&!GameManager.instance.keyLock)
         {
             ChangeState(Player_State.Move);
             return;
         }
-        if (Input.GetKey(KeyCode.Mouse0)&& !onNPC)
+        if (Input.GetKey(KeyCode.Mouse0)&& !onNPC && !GameManager.instance.keyLock)
         {
             ChangeState(Player_State.Attack);
             return;
         }
-        if (GameManager.instance.isOpen && !onNPC)
+        if (GameManager.instance.isOpen && !onNPC && !GameManager.instance.keyLock)
         {
 
             ChangeState(Player_State.Casting);
@@ -148,6 +153,7 @@ public class PlayerState : MonoBehaviour
     }
     void UpdateMove()
     {
+
         if (anim.GetAnimatorTransitionInfo(0).IsUserName("toRun"))
             movement.isMove = true;
         if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))

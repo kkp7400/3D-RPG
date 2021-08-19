@@ -1,47 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-9048068257707847990
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d21dcc2386d650c4597f3633c75a1f98, type: 3}
-  m_Name: Animation Track
-  m_EditorClassIdentifier: 
-  m_Version: 3
-  m_AnimClip: {fileID: 0}
-  m_Locked: 0
-  m_Muted: 0
-  m_CustomPlayableFullTypename: 
-  m_Curves: {fileID: 0}
-  m_Parent: {fileID: 11400000}
-  m_Children: []
-  m_Clips: []
-  m_Markers:
-    m_Objects: []
-  m_InfiniteClipPreExtrapolation: 1
-  m_InfiniteClipPostExtrapolation: 1
-  m_InfiniteClipOffsetPosition: {x: 158.73, y: 17.05, z: 89.66}
-  m_InfiniteClipOffsetEulerAngles: {x: 42.896606, y: 245.44693, z: 0.000009323429}
-  m_InfiniteClipTimeOffset: 0
-  m_InfiniteClipRemoveOffset: 0
-  m_InfiniteClipApplyFootIK: 1
-  mInfiniteClipLoop: 0
-  m_MatchTargetFields: 63
-  m_Position: {x: 0, y: 0, z: 0}
-  m_EulerAngles: {x: 0, y: 0, z: 0}
-  m_AvatarMask: {fileID: 0}
-  m_ApplyAvatarMask: 1
-  m_TrackOffset: 0
-  m_InfiniteClip: {fileID: -3754004953997427292}
-  m_OpenClipOffsetRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_ApplyOffsets: 0
---- !u!74 &-3754004953997427292
+--- !u!74 &-2356187174035946201
 AnimationClip:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -61,7 +20,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 0.0003604889, y: 0.008865356, z: 0.8469391}
+        value: {x: 0.0021810532, y: 0, z: 2.196457}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -69,22 +28,22 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 2.3166666
-        value: {x: -0.0010127935, y: 0.005527759, z: -5.636387}
-        inSlope: {x: -0.0005565831, y: -0.0013527083, z: -8.714599}
-        outSlope: {x: -0.0005565831, y: -0.0013527083, z: -8.714599}
+        time: 1.5166667
+        value: {x: 0.0005620618, y: 0, z: 12.504545}
+        inSlope: {x: -0.001061569, y: 0, z: 21.58679}
+        outSlope: {x: -0.001061569, y: 0, z: 21.58679}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
-        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.18205698}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.45628}
       - serializedVersion: 3
-        time: 3
-        value: {x: -0.0012216568, y: 0.0050201416, z: -16.30188}
-        inSlope: {x: 0, y: 0, z: -7.8533897}
-        outSlope: {x: 0, y: 0, z: -7.8533897}
+        time: 2.0166667
+        value: {x: 0.00026750565, y: 0, z: 26.39412}
+        inSlope: {x: 0, y: 0, z: 33.60314}
+        outSlope: {x: 0, y: 0, z: 33.60314}
         tangentMode: 0
         weightedMode: 0
-        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.28626764}
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.39616776}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -113,7 +72,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 3
+    m_StopTime: 2.0166667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -134,7 +93,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.0003604889
+        value: 0.0021810532
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -142,8 +101,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 3
-        value: -0.0012216568
+        time: 2.0166667
+        value: 0.00026750565
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -162,7 +121,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.008865356
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -170,8 +129,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 3
-        value: 0.0050201416
+        time: 2.0166667
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -190,7 +149,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.8469391
+        value: 2.196457
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -198,22 +157,22 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 2.3166666
-        value: -5.636387
-        inSlope: -8.714599
-        outSlope: -8.714599
+        time: 1.5166667
+        value: 12.504545
+        inSlope: 21.58679
+        outSlope: 21.58679
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.18205698
+        outWeight: 0.45628
       - serializedVersion: 3
-        time: 3
-        value: -16.30188
-        inSlope: -7.8533897
-        outSlope: -7.8533897
+        time: 2.0166667
+        value: 26.39412
+        inSlope: 33.60314
+        outSlope: 33.60314
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.28626764
+        inWeight: 0.39616776
         outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -226,6 +185,47 @@ AnimationClip:
   m_HasGenericRootTransform: 1
   m_HasMotionFloatCurves: 0
   m_Events: []
+--- !u!114 &-310608287501585775
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21dcc2386d650c4597f3633c75a1f98, type: 3}
+  m_Name: Animation Track
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: 11400000}
+  m_Children: []
+  m_Clips: []
+  m_Markers:
+    m_Objects: []
+  m_InfiniteClipPreExtrapolation: 1
+  m_InfiniteClipPostExtrapolation: 1
+  m_InfiniteClipOffsetPosition: {x: 123.9, y: 11.67, z: 70.78}
+  m_InfiniteClipOffsetEulerAngles: {x: -0, y: 61.977997, z: 0}
+  m_InfiniteClipTimeOffset: 0
+  m_InfiniteClipRemoveOffset: 0
+  m_InfiniteClipApplyFootIK: 1
+  mInfiniteClipLoop: 0
+  m_MatchTargetFields: 63
+  m_Position: {x: 0, y: 0, z: 0}
+  m_EulerAngles: {x: 0, y: 0, z: 0}
+  m_AvatarMask: {fileID: 0}
+  m_ApplyAvatarMask: 1
+  m_TrackOffset: 0
+  m_InfiniteClip: {fileID: -2356187174035946201}
+  m_OpenClipOffsetRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
+  m_ApplyOffsets: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,14 +240,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Version: 0
   m_Tracks:
-  - {fileID: -9048068257707847990}
+  - {fileID: -310608287501585775}
   m_FixedDuration: 0
   m_EditorSettings:
     m_Framerate: 60
     m_ScenePreview: 1
   m_DurationMode: 0
-  m_MarkerTrack: {fileID: 3792974915856843811}
---- !u!114 &3792974915856843811
+  m_MarkerTrack: {fileID: 8169735105889785964}
+--- !u!114 &8169735105889785964
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
