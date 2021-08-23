@@ -11,14 +11,19 @@ public class BossEvent : MonoBehaviour
     public GameObject StartTrigger;
     public GameObject[] StartCam;
     public Transform playerEventPos;
-    GameObject UIObj;
+    GameObject BookObj;
+    GameObject PlayerUI;
     public GameObject boss;
+    GameObject bossText;
     // Start is called before the first frame update
     void Start()
     {
         playerCharacter = GameObject.Find("Player").gameObject;
-        UIObj = GameObject.Find("UIObj").gameObject;
+        BookObj = GameObject.Find("BookObj").gameObject;
+
+        PlayerUI = GameObject.Find("PlayerUI").gameObject;
         playerCamera = GameObject.Find("PlayerCamera").gameObject;
+        bossText = GameObject.Find("BossText").gameObject;
     }
 
     // Update is called once per frame
@@ -28,16 +33,13 @@ public class BossEvent : MonoBehaviour
         {
             StartCoroutine(StartEvent());
         }
-
-
-
-
-
     }
 
     public IEnumerator StartEvent()
     {
-        UIObj.SetActive(false);
+        BookObj.SetActive(false);
+        PlayerUI.SetActive(false);
+
         playerCharacter.transform.position = playerEventPos.position;
         GameManager.instance.keyLock = true;
         StartTrigger.GetComponent<StageTrigger>().isStart = false;
@@ -66,10 +68,11 @@ public class BossEvent : MonoBehaviour
         StartCam[2].GetComponent<PlayableDirector>().Play();
         float currtime = 0f;
         
-        while (StartCam[2].GetComponent<PlayableDirector>().time < 1.8f)
+        while (StartCam[2].GetComponent<PlayableDirector>().time < 1.9f)
         {
             yield return null;
         }
+        bossText.GetComponent<OnBossText>().onBossText = true;
         while (currtime < 3f)
         {
             currtime += Time.deltaTime;
@@ -111,6 +114,6 @@ public class BossEvent : MonoBehaviour
         //playerCamera.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y = 15;
         //playerCamera.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset.y = 12;
         GameManager.instance.keyLock = false;
-        UIObj.SetActive(true);
+        BookObj.SetActive(true);
     }
 }
