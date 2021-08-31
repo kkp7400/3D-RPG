@@ -19,10 +19,10 @@ public class AxeEffect : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Vector3 pos = collision.contacts[0].point;
+        ContactPoint contact = collision.contacts[0];
         if (collision.gameObject.tag == "Ground")
         {
-            AxeFX.transform.position = pos;
+            AxeFX.transform.position = contact.point;
             AxeFX.Play();
         }
     }

@@ -15,6 +15,9 @@ public class BossEvent : MonoBehaviour
     GameObject PlayerUI;
     public GameObject boss;
     GameObject bossText;
+    public GameObject[] bridge;
+
+    public bool bossBattleStart = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -84,15 +87,35 @@ public class BossEvent : MonoBehaviour
         StartCam[3].SetActive(true);
         StartCam[3].GetComponent<PlayableDirector>().Play();
         bool shake1 = true;
-        while (StartCam[3].GetComponent<PlayableDirector>().time < 2.9f)
-        {
-            if(StartCam[3].GetComponent<PlayableDirector>().time < 1f && shake1)
-            {
-                shake1 = false;
-                StartCam[3].GetComponent<CameraShaker>().StartCameraShake(10f, 2.5f);
-                boss.GetComponent<Animator>().SetTrigger("OnStart");
-            }
+        while (StartCam[3].GetComponent<PlayableDirector>().time < 1.4f)
+        {   
             yield return null;
+        }
+        boss.GetComponent<Animator>().SetTrigger("OnStart");
+        StartCam[3].GetComponent<PlayableDirector>().Stop();
+        float shakeTime = 0f;
+        if (shake1)
+        {
+            StartCam[3].GetComponent<CameraShaker>().StartCameraShake(0.5f, 2.5f);
+            for(int i = 0; i < bridge.Length; i++)
+            {
+                bridge[i].AddComponent<Rigidbody>();
+
+                bridge[i].GetComponent<MeshCollider>().enabled = false;
+                bridge[i].GetComponent<Rigidbody>().useGravity = true;
+                int x = Random.Range(100, 500);
+                int y = Random.Range(100, 500);
+                int z = Random.Range(100, 500);
+                bridge[i].GetComponent<Rigidbody>().AddForce(0, y,0);
+
+                //bridge[i].GetComponent<Rigidbody>().mass = 3;
+            }
+            shake1 = false;
+            while (shakeTime < 2.5f)
+            {
+                shakeTime += Time.deltaTime;
+                yield return null;
+            }
         }
         while (currtime < 4.5f)
         {
@@ -102,7 +125,7 @@ public class BossEvent : MonoBehaviour
         StartCam[3].SetActive(false);
         playerCamera.SetActive(true);
 
-        while (playerCamera.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y <= 15f)
+        while (playerCamera.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y <= 14f)
         {
         
             //if(playerCamera.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y <= 15f)
@@ -115,5 +138,7 @@ public class BossEvent : MonoBehaviour
         //playerCamera.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset.y = 12;
         GameManager.instance.keyLock = false;
         BookObj.SetActive(true);
+        PlayerUI.SetActive(true);
+        bossBattleStart = true;
     }
 }
