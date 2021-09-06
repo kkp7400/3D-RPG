@@ -31,6 +31,7 @@ public class PlayerState : MonoBehaviour
     public Player_State state;
     public bool onNPC;
     public bool isAlive;
+    public bool onHit;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +40,7 @@ public class PlayerState : MonoBehaviour
         input = GetComponent<PlayerInput>();
         movement = GetComponent<PlayerMovement>();
         anim = GetComponent<Animator>();
-        
+        onHit = false;
         state = Player_State.Idle;        
     }
 
@@ -61,7 +62,12 @@ public class PlayerState : MonoBehaviour
             ChangeState(Player_State.Die);
             isAlive = true;
         }
-
+        if(onHit)
+        {
+            ChangeState(Player_State.Hit);
+            //state = Player_State.Hit;
+            onHit = false;
+        }
         if(flash.cool >0)
         {
             flash.cool -= Time.deltaTime;
@@ -336,6 +342,7 @@ public class PlayerState : MonoBehaviour
     }
     IEnumerator CoroutineHit()
     {
+        anim.SetTrigger("OnHit");
         yield break;
     }
     IEnumerator CoroutineDown()
@@ -356,5 +363,13 @@ public class PlayerState : MonoBehaviour
         isAlive = false;
         DB.SaveData();
         yield break;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Bird" || other.tag == "Strike" || other.tag == "Slash")
+        {
+            onHit = true;
+        }
     }
 }

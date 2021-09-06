@@ -16,6 +16,9 @@ TagManager:
   - Meteor
   - Blizard
   - MOB
+  - Slash
+  - Strike
+  - Chop
   layers:
   - Default
   - TransparentFX

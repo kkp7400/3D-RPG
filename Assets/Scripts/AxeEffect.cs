@@ -3,27 +3,71 @@ using System.Collections.Generic;
 using UnityEngine;
 public class AxeEffect : MonoBehaviour
 {
-    public ParticleSystem AxeFX;
-    // Start is called before the first frame update
+    public EffectInfo[] Effects;
+    public GameObject damageBox;
+    [System.Serializable]
+
+    public class EffectInfo
+    {
+        public GameObject Effect;
+        public Transform StartPositionRotation;
+        public float DestroyAfter = 10;
+        public bool UseLocalPosition = true;
+    }
     void Start()
     {
 
     }
 
-    // Update is called once per frame
-    void Update()
+    void PassEffectInfo(int effectNum)
     {
+        StartCoroutine(PassPlayEffect(Effects[effectNum]));
+        StartCoroutine(DamageBox(effectNum));
 
     }
 
-
-    private void OnCollisionEnter(Collision collision)
+    IEnumerator PassPlayEffect(EffectInfo effect)
     {
-        ContactPoint contact = collision.contacts[0];
-        if (collision.gameObject.tag == "Ground")
+        Transform startPos = effect.Effect.transform;
+        float afterTime = effect.DestroyAfter;
+
+        effect.Effect.transform.position = effect.StartPositionRotation.position;
+        effect.Effect.transform.rotation = effect.StartPositionRotation.rotation;
+
+        ParticleSystem[] particle;
+
+        particle = effect.Effect.transform.GetComponentsInChildren<ParticleSystem>();
+
+        for (int i = 0; i < particle.Length; i++)
         {
-            AxeFX.transform.position = contact.point;
-            AxeFX.Play();
+            particle[i].Play();
         }
+
+        while (afterTime >= 0)
+        {
+            afterTime -= Time.deltaTime;
+            yield return null;
+        }
+
+        effect.Effect.transform.position = startPos.position;
+        effect.Effect.transform.rotation = startPos.rotation;
+
+        yield break;
     }
+    IEnumerator DamageBox(int skillNum)
+    {
+        
+        float afterTime = 3f;
+        Transform startPos = damageBox.transform;
+        damageBox.transform.position = this.transform.position;
+        damageBox.transform.rotation = this.transform.rotation;
+        while (afterTime >= 0)
+        {
+            afterTime -= Time.deltaTime;
+            damageBox.transform.position += Vector3.forward * 0.5f;
+            yield return null;
+        }
+        damageBox.transform.position = startPos.position;
+    }
+
 }

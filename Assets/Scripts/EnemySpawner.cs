@@ -61,6 +61,7 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         int currWave = stage[nowStage].nowWave;
         if (stage[nowStage].stageTrigger.isStart && stage[nowStage].wave[currWave].isEnemySpawn == true)
         {

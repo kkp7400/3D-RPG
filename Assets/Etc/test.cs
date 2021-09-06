@@ -50,4 +50,10 @@ public class test : MonoBehaviour
             Debug.Log("나이스!");
         }
     }
+
+    private void OnParticleTrigger()
+    {
+
+        Debug.Log("되나?");
+    }
 }

@@ -82,7 +82,7 @@ public class MonsterAI : MonoBehaviour
         var enemyPos = enemy.transform.position;
         enemyPos.y = transform.position.y;
         targetPos = enemyPos;
-        // �� ������ ����Ǵ� �ڵ�
+        // �� ������ ����Ǵ�?�ڵ�
         switch (state)
         {
             case AI_State.Idle: UpdateIdle(); break;
@@ -181,13 +181,13 @@ public class MonsterAI : MonoBehaviour
 
     IEnumerator CoroutineHit()
     {
-        // ���ʿ� �ѹ� ����Ǵ� �ڵ�
+        // ���ʿ� �ѹ� ����Ǵ�?�ڵ�
         anim.SetTrigger("Hit");
         yield break;
     }
     IEnumerator CoroutineIdle()
     {
-        // ���ʿ� �ѹ� ����Ǵ� �ڵ�
+        // ���ʿ� �ѹ� ����Ǵ�?�ڵ�
         anim.SetBool("Idle", true);
 
         moveValue = 0f;
@@ -233,7 +233,7 @@ public class MonsterAI : MonoBehaviour
 
     IEnumerator CoroutineTrace()
     {
-        // ���ʿ� �ѹ� ����Ǵ� �ڵ�
+        // ���ʿ� �ѹ� ����Ǵ�?�ڵ�
         Vector3 dir = targetPos - transform.position;
         float dist = dir.magnitude;
         if(dist >= 2f) anim.SetBool("Run", true);
@@ -253,7 +253,7 @@ public class MonsterAI : MonoBehaviour
 
     IEnumerator CoroutineAttack()
     {
-        // ���ʿ� �ѹ� ����Ǵ� �ڵ�
+        // ���ʿ� �ѹ� ����Ǵ�?�ڵ�
         anim.SetBool("Attack", true);
 
         moveValue = 0f;

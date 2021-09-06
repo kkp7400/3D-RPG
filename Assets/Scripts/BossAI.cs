@@ -60,7 +60,7 @@ public class BossAI : MonoBehaviour
         coolTime -= Time.deltaTime;
         if (coolTime<=0)
         {
-            int useSkill = Random.Range(2, 4);
+            int useSkill = Random.Range(2, 5);
             if(useSkill == 2) ChangeState(BossAI_State.Slash);
             else if (useSkill == 3) ChangeState(BossAI_State.Strike);
             else if (useSkill == 4) ChangeState(BossAI_State.Chop);
