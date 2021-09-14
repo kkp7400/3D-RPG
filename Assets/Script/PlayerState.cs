@@ -255,7 +255,11 @@ public class PlayerState : MonoBehaviour
     }
     void UpdateHit()
     {
-
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
+        {
+            ChangeState(Player_State.Idle);
+            return;
+        }
     }
     void UpdateDown()
     {
@@ -367,9 +371,9 @@ public class PlayerState : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Bird" || other.tag == "Strike" || other.tag == "Slash")
+        if (other.tag == "Chop" || other.tag == "Strike" || other.tag == "Slash")
         {
             onHit = true;
         }
-    }
+    }   
 }

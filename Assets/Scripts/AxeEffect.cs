@@ -6,8 +6,9 @@ public class AxeEffect : MonoBehaviour
     public delegate void StartDamageBox();
     StartDamageBox startDamageBox;
     public EffectInfo[] Effects;
-    public GameObject damageBox;
-    public GameObject damageSyl;
+    public GameObject damageBoxSlash;
+    public GameObject damageBoxChop;
+    public GameObject damageSylStrike;
     [System.Serializable]
 
     public class EffectInfo
@@ -63,34 +64,49 @@ public class AxeEffect : MonoBehaviour
     IEnumerator DamageBox(int skillNum)
     {
         float afterTime = 3f;
-        if (skillNum == 0 || skillNum == 1)
+        if (skillNum == 0)
         {
 
-            Transform startPos = damageBox.transform;
-            damageBox.transform.position = this.transform.position;
-            damageBox.transform.rotation = this.transform.rotation;
+            Transform startPos = damageBoxSlash.transform;
+            damageBoxSlash.transform.position = this.transform.position;
+            damageBoxSlash.transform.rotation = this.transform.rotation;
             while (afterTime >= 0)
             {
                 afterTime -= Time.deltaTime;
-                damageBox.transform.position += damageBox.transform.forward * 1f;
+                damageBoxSlash.transform.position += damageBoxSlash.transform.forward * 1f;
                 yield return null;
             }
 
-            damageBox.transform.position = startPos.position;
+            damageBoxSlash.transform.position = startPos.position;
+        }
+        else if (skillNum == 1)
+        {
+
+            Transform startPos = damageBoxChop.transform;
+            damageBoxChop.transform.position = this.transform.position;
+            damageBoxChop.transform.rotation = this.transform.rotation;
+            while (afterTime >= 0)
+            {
+                afterTime -= Time.deltaTime;
+                damageBoxChop.transform.position += damageBoxChop.transform.forward * 1f;
+                yield return null;
+            }
+
+            damageBoxChop.transform.position = startPos.position;
         }
         else if(skillNum == 3)
         {
-            Transform startPos2 = damageSyl.transform;
-            damageSyl.transform.position = this.transform.position;
-            damageSyl.transform.rotation = this.transform.rotation;
-            while (damageSyl.transform.localScale.x <= 14f)
+            Transform startPos2 = damageSylStrike.transform;
+            damageSylStrike.transform.position = this.transform.position;
+            damageSylStrike.transform.rotation = this.transform.rotation;
+            while (damageSylStrike.transform.localScale.x <= 17f)
             {
-                damageSyl.transform.localScale += new Vector3(0.6f, 0, 0.6f);
+                damageSylStrike.transform.localScale += new Vector3(0.6f, 0, 0.6f);
                 yield return null;
             }
 
-            damageSyl.transform.position = new Vector3(1000,1000,1000);
-            damageSyl.transform.localScale = new Vector3(2,5,2);
+            damageSylStrike.transform.position = new Vector3(1000,1000,1000);
+            damageSylStrike.transform.localScale = new Vector3(2,5,2);
         }
     }
 
