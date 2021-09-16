@@ -19,7 +19,7 @@ public class BossAI : MonoBehaviour
     public float HP;
     private GameObject player;
     public float coolTime;
-    bool onPhaseTwo = false;
+    public bool isHalf = false;
     public TextMesh damageText;
     public DataBase DB;
     public UI_Equip equip;
@@ -59,10 +59,10 @@ public class BossAI : MonoBehaviour
 
     void UpdateIdle()
     {
-        if (HP <= 5000 && !onPhaseTwo)
+        if (HP <= 5000 && !isHalf)
         {
             ChangeState(BossAI_State.PhaseTwo);
-            onPhaseTwo = true;
+            isHalf = true;
             
         }
         coolTime -= Time.deltaTime;

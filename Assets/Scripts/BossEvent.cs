@@ -47,6 +47,10 @@ public class BossEvent : MonoBehaviour
         {
             BossUI.SetActive(false);
         }
+        if(boss.GetComponent<BossAI>().isHalf)
+        {
+            StartCoroutine(HalfEvent());
+        }
     }
 
     public IEnumerator StartEvent()
@@ -152,5 +156,12 @@ public class BossEvent : MonoBehaviour
         PlayerUI.SetActive(true);
         BossUI.SetActive(true);
         bossBattleStart = true;
+    }
+
+
+    public IEnumerator HalfEvent()
+    {
+        boss.GetComponent<Animator>().SetTrigger("OnHalf");
+        yield return null;
     }
 }
