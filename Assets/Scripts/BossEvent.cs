@@ -98,11 +98,11 @@ public class BossEvent : MonoBehaviour
         StartCam[3].SetActive(true);
         StartCam[3].GetComponent<PlayableDirector>().Play();
         bool shake1 = true;
+        boss.GetComponent<Animator>().SetTrigger("OnStart");
         while (StartCam[3].GetComponent<PlayableDirector>().time < 1.4f)
         {   
             yield return null;
         }
-        boss.GetComponent<Animator>().SetTrigger("OnStart");
         StartCam[3].GetComponent<PlayableDirector>().Stop();
         float shakeTime = 0f;
         if (shake1)

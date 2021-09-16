@@ -21,7 +21,7 @@ public class BossMeteorSpawner : MonoBehaviour
         isBossHpHalf = false;
         coolTime = Random.Range(5,10);
         transform.localRotation = Quaternion.Euler(90, 0, 0);
-        indicator = transform.FindChild("CircleIndicator").gameObject;
+        indicator = transform.Find("CircleIndicator").gameObject;
         effect = transform.GetComponent<ParticleSystem>();
     }
 

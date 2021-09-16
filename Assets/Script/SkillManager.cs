@@ -21,7 +21,7 @@ public class SkillManager : MonoBehaviour
     public GameObject[] skillFX;
     public GameObject[] skillDamage;
     public Camera sceneCamera;
-    private bool onAim;
+    public bool onAim;
     private string useSkillName;
     public GameObject skillIndicator;
 
@@ -274,6 +274,10 @@ public class SkillManager : MonoBehaviour
     public void CastingEnd()
     {
         casting.GetComponent<ParticleSystem>().Stop();
+        for(int i = 0; i < bookFx.Length; i++)
+        {
+            bookFx[i].SetActive(false);
+        }
     }
     public IEnumerator Blizard(Vector3 point, int index)
     {

@@ -110,7 +110,9 @@ public class PlayerState : MonoBehaviour
         anim.SetBool("IsRun", false);
         anim.SetBool("IsSkill", false);
 
+        book[0].SetActive(false);
         book[1].SetActive(false);
+
         movement.isMove = false;
         // anim.SetBool("Run", false);
         // anim.SetBool("Attack", false);
@@ -194,6 +196,9 @@ public class PlayerState : MonoBehaviour
     {
 
         movement.isMove = false;
+
+        book[0].SetActive(false);
+        book[1].SetActive(false);
         if (Input.GetKey(KeyCode.Mouse0))
         {
             Ray cameraRay = sceneCamera.ScreenPointToRay(Input.mousePosition);
@@ -255,6 +260,14 @@ public class PlayerState : MonoBehaviour
     }
     void UpdateHit()
     {
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
+        {
+            GameManager.instance.isOpen = false;
+            book[0].SetActive(false);
+            book[1].SetActive(false);
+            return;
+        }
+
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
         {
             ChangeState(Player_State.Idle);
@@ -290,6 +303,9 @@ public class PlayerState : MonoBehaviour
     }
     IEnumerator CoroutineMove()
     {
+        transform.GetComponent<SkillManager>().CastingEnd();
+
+        book[0].SetActive(false);
         book[1].SetActive(true);
         anim.SetBool("IsRun", true);
         yield break;
@@ -347,6 +363,8 @@ public class PlayerState : MonoBehaviour
     IEnumerator CoroutineHit()
     {
         anim.SetTrigger("OnHit");
+        transform.GetComponent<SkillManager>().CastingEnd();
+        transform.GetComponent<SkillManager>().onAim = false;
         GameManager.instance.isOpen = false;
         yield break;
     }

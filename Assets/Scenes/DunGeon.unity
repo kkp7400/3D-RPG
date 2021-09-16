@@ -1124,7 +1124,7 @@ MonoBehaviour:
   atk: 0
   Center: {fileID: 1142429195}
   DB: {fileID: 0}
-  knockPower: 10
+  knockPower: 5
   knockCool: 0
   player: {fileID: 0}
 --- !u!4 &210991553 stripped
@@ -3953,7 +3953,7 @@ MonoBehaviour:
   atk: 0
   Center: {fileID: 1142429195}
   DB: {fileID: 0}
-  knockPower: 10
+  knockPower: 5
   knockCool: 0
   player: {fileID: 0}
 --- !u!4 &876065338 stripped
@@ -5299,7 +5299,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1163423265}
-  m_Text: 44545455
+  m_Text: 
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1
@@ -5739,19 +5739,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4104008504991462, guid: 170cd7184503c124895727d3348aa99a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.7764909
+      value: 0.060021523
       objectReference: {fileID: 0}
     - target: {fileID: 4104008504991462, guid: 170cd7184503c124895727d3348aa99a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.63012844
+      value: -0.9981971
       objectReference: {fileID: 0}
     - target: {fileID: 4488968717229804, guid: 170cd7184503c124895727d3348aa99a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8235557
+      value: -0.1381876
       objectReference: {fileID: 0}
     - target: {fileID: 4488968717229804, guid: 170cd7184503c124895727d3348aa99a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.5672354
+      value: 0.9904061
       objectReference: {fileID: 0}
     - target: {fileID: 4776281580378858, guid: 170cd7184503c124895727d3348aa99a, type: 3}
       propertyPath: m_LocalScale.x
@@ -8400,7 +8400,7 @@ MonoBehaviour:
   atk: 0
   Center: {fileID: 1142429195}
   DB: {fileID: 0}
-  knockPower: 10
+  knockPower: 5
   knockCool: 0
   player: {fileID: 0}
 --- !u!1001 &1893585352
