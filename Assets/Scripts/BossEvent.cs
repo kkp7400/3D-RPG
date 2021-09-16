@@ -20,6 +20,12 @@ public class BossEvent : MonoBehaviour
     public GameObject BossUI;
     public GameObject BossHP;
     public bool bossBattleStart = false;
+    bool onHalfLoop;
+    public GameObject Center;
+    public GameObject[] wall;
+    public ParticleSystem[] bombs;
+    public BossMeteorSpawner[] fireBall;
+    bool halfEvent;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +36,10 @@ public class BossEvent : MonoBehaviour
         bossText = GameObject.Find("BossText").gameObject;
         BossUI = GameObject.Find("Canvas").transform.Find("BossUI").gameObject;
         BossHP = GameObject.Find("Canvas").transform.Find("BossUI").transform.Find("BossHP").gameObject;
+        bombs = GameObject.Find("Bomb").transform.GetComponentsInChildren<ParticleSystem>();
+        fireBall = GameObject.Find("BossFireBallPack").transform.GetComponentsInChildren<BossMeteorSpawner>();
+        onHalfLoop = false;
+        halfEvent = false;
     }
 
     // Update is called once per frame
@@ -39,17 +49,27 @@ public class BossEvent : MonoBehaviour
         {
             StartCoroutine(StartEvent());
         }
-        if(bossBattleStart)
+        if (bossBattleStart)
         {
             BossHP.GetComponent<Image>().fillAmount = boss.GetComponent<BossAI>().HP / boss.GetComponent<BossAI>().MaxHP;
-         }
-        if(GameManager.instance.nowHP<=0f)
+        }
+        if (GameManager.instance.nowHP <= 0f)
         {
             BossUI.SetActive(false);
         }
-        if(boss.GetComponent<BossAI>().isHalf)
+        if (boss.GetComponent<BossAI>().isHalf && !halfEvent)
         {
             StartCoroutine(HalfEvent());
+            halfEvent = true;
+            onHalfLoop = true;
+        }
+
+        if (onHalfLoop)
+        {
+            Vector3 dir = StartCam[4].GetComponent<Transform>().position - transform.position;
+            Quaternion targetRotation = Quaternion.LookRotation(dir, Vector3.up);
+            transform.rotation =
+                Quaternion.Slerp(transform.rotation, targetRotation, 1.5f * Time.deltaTime);
         }
     }
 
@@ -85,7 +105,7 @@ public class BossEvent : MonoBehaviour
         StartCam[2].SetActive(true);
         StartCam[2].GetComponent<PlayableDirector>().Play();
         float currtime = 0f;
-        
+
         while (StartCam[2].GetComponent<PlayableDirector>().time < 1.9f)
         {
             yield return null;
@@ -104,7 +124,7 @@ public class BossEvent : MonoBehaviour
         bool shake1 = true;
         boss.GetComponent<Animator>().SetTrigger("OnStart");
         while (StartCam[3].GetComponent<PlayableDirector>().time < 1.4f)
-        {   
+        {
             yield return null;
         }
         StartCam[3].GetComponent<PlayableDirector>().Stop();
@@ -112,7 +132,7 @@ public class BossEvent : MonoBehaviour
         if (shake1)
         {
             StartCam[3].GetComponent<CameraShaker>().StartCameraShake(0.5f, 2.5f);
-            for(int i = 0; i < bridge.Length; i++)
+            for (int i = 0; i < bridge.Length; i++)
             {
                 bridge[i].AddComponent<Rigidbody>();
 
@@ -121,7 +141,7 @@ public class BossEvent : MonoBehaviour
                 int x = Random.Range(100, 500);
                 int y = Random.Range(100, 500);
                 int z = Random.Range(100, 500);
-                bridge[i].GetComponent<Rigidbody>().AddForce(0, y,0);
+                bridge[i].GetComponent<Rigidbody>().AddForce(0, y, 0);
 
                 //bridge[i].GetComponent<Rigidbody>().mass = 3;
             }
@@ -142,9 +162,9 @@ public class BossEvent : MonoBehaviour
 
         while (playerCamera.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y <= 14f)
         {
-        
+
             //if(playerCamera.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y <= 15f)
-            playerCamera.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y +=1.5f * Time.deltaTime;
+            playerCamera.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y += 1.5f * Time.deltaTime;
             //if(playerCamera.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset.y <= 10f)
             playerCamera.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset.y += 1f * Time.deltaTime;
             yield return null;
@@ -161,7 +181,65 @@ public class BossEvent : MonoBehaviour
 
     public IEnumerator HalfEvent()
     {
+        GameManager.instance.keyLock = true;
+        BookObj.SetActive(false);
+        PlayerUI.SetActive(false);
+        playerCamera.SetActive(false);
+        onHalfLoop = true;
+        Debug.Log("µé¾î¿È");
+        bool wallMove = true;
+        StartCam[4].SetActive(true);
+        StartCam[4].GetComponent<PlayableDirector>().Play();
         boss.GetComponent<Animator>().SetTrigger("OnHalf");
+        while (StartCam[4].GetComponent<PlayableDirector>().time < 1.59f)
+        {
+            if (wallMove && StartCam[4].GetComponent<PlayableDirector>().time >= 1.2f)
+            {
+                for (int i = 0; i < bombs.Length; i++)
+                {
+                    bombs[i].Play();
+                }
+                for (int i = 0; i < wall.Length; i++)
+                {
+                    KnockBack(wall[i]);
+                }
+                wallMove = false;
+            }
+            yield return null;
+        }
+        float currtime = 0f;
+        while (currtime < 1.5f)
+        {
+            currtime += Time.deltaTime;
+            yield return null;
+        }
+        StartCam[4].GetComponent<PlayableDirector>().Stop();
+
+
+
+        StartCam[4].SetActive(false);
+        onHalfLoop = false;
+        GameManager.instance.keyLock = false;
+        BookObj.SetActive(true);
+        PlayerUI.SetActive(true);
+        playerCamera.SetActive(true);
+        boss.GetComponent<BossAI>().ChangeState(BossAI_State.Idle);
+
+        for (int i = 0; i < fireBall.Length; i++)
+        {
+            fireBall[i].isBossHpHalf = true;
+        }
         yield return null;
+    }
+
+    void KnockBack(GameObject other)
+    {
+        other.AddComponent<Rigidbody>();
+
+        //other.GetComponent<MeshCollider>().enabled = false;
+        other.GetComponent<Rigidbody>().useGravity = true;
+        Vector3 dir = other.transform.position - Center.transform.position;
+        dir.y = 0f;
+        other.gameObject.GetComponent<Rigidbody>().AddForce(dir.normalized * 100, ForceMode.Impulse);
     }
 }

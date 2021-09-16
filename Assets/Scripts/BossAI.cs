@@ -139,7 +139,7 @@ public class BossAI : MonoBehaviour
     {
 
     }
-    void ChangeState(BossAI_State nextState)
+    public void ChangeState(BossAI_State nextState)
     {
         state = nextState;
         coolTime = 4f;
@@ -189,7 +189,7 @@ public class BossAI : MonoBehaviour
     }
     IEnumerator CoroutinePhaseTwo()
     {
-        anim.SetTrigger("PhaseTwo");
+        anim.SetTrigger("OnHalf");
         yield break;
     }
 
