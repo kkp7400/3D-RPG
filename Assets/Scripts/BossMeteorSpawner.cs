@@ -14,11 +14,11 @@ public class BossMeteorSpawner : MonoBehaviour
     public GameObject indicator;
     ParticleSystem effect;
     public GameObject hitBox;
-    //public bool isBossHpHalf;
+    public bool isBossHpHalf;
     // Start is called before the first frame update
     void Start()
     {
-        //isBossHpHalf = false;
+        isBossHpHalf = false;
         coolTime = Random.Range(5,10);
         transform.localRotation = Quaternion.Euler(90, 0, 0);
         indicator = transform.FindChild("CircleIndicator").gameObject;
@@ -28,12 +28,14 @@ public class BossMeteorSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(isBossHpHalf)
-        if (coolTime >= 0f) coolTime -= Time.deltaTime;
-        if (coolTime <= 0f)
+        if (isBossHpHalf)
         {
-            StartCoroutine(Fire());
-            coolTime = Random.Range(5, 10);
+            if (coolTime >= 0f) coolTime -= Time.deltaTime;
+            if (coolTime <= 0f)
+            {
+                StartCoroutine(Fire());
+                coolTime = Random.Range(5, 10);
+            }
         }
     }
 

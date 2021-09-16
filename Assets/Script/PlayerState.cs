@@ -36,7 +36,7 @@ public class PlayerState : MonoBehaviour
     void Start()
     {
         DB = GameObject.Find("GM").GetComponent<DataBase>();
-        isAlive = false;
+        isAlive = true;
         input = GetComponent<PlayerInput>();
         movement = GetComponent<PlayerMovement>();
         anim = GetComponent<Animator>();
@@ -55,15 +55,15 @@ public class PlayerState : MonoBehaviour
         }
         if (anim.GetAnimatorTransitionInfo(0).IsUserName("AttackToIdle"))
             book[1].SetActive(true);
-
-        if(GameManager.instance.nowHP <= 0 && !isAlive)
+        if(GameManager.instance.nowHP <= 0 && isAlive)
         {
 
             ChangeState(Player_State.Die);
-            isAlive = true;
+            isAlive = false;
         }
-        if(onHit)
+        if(onHit&& GameManager.instance.nowHP >= 0)
         {
+            GameManager.instance.isOpen = false;
             ChangeState(Player_State.Hit);
             //state = Player_State.Hit;
             onHit = false;
@@ -347,6 +347,7 @@ public class PlayerState : MonoBehaviour
     IEnumerator CoroutineHit()
     {
         anim.SetTrigger("OnHit");
+        GameManager.instance.isOpen = false;
         yield break;
     }
     IEnumerator CoroutineDown()
@@ -360,20 +361,20 @@ public class PlayerState : MonoBehaviour
     IEnumerator CoroutineDie()
     {
         anim.SetTrigger("OnDie");
-        
         yield return new WaitForSeconds(3f);
         if (SceneManager.GetActiveScene().name == "DunGeon") LoadingSceneManager.LoadScene("SampleScene");
         GameManager.instance.nowHP = GameManager.instance.maxHP;
-        isAlive = false;
+        isAlive = true;
         DB.SaveData();
         yield break;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Chop" || other.tag == "Strike" || other.tag == "Slash")
-        {
-            onHit = true;
-        }
-    }   
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.tag == "Chop" || other.tag == "Strike" || other.tag == "Slash")
+    //    {
+    //        onHit = true;
+    //    }
+    //}
+
 }

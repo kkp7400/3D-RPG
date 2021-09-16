@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.UI;
 using Cinemachine;
 
 public class BossEvent : MonoBehaviour
@@ -16,17 +17,19 @@ public class BossEvent : MonoBehaviour
     public GameObject boss;
     GameObject bossText;
     public GameObject[] bridge;
-
+    public GameObject BossUI;
+    public GameObject BossHP;
     public bool bossBattleStart = false;
     // Start is called before the first frame update
     void Start()
     {
         playerCharacter = GameObject.Find("Player").gameObject;
         BookObj = GameObject.Find("BookObj").gameObject;
-
         PlayerUI = GameObject.Find("PlayerUI").gameObject;
         playerCamera = GameObject.Find("PlayerCamera").gameObject;
         bossText = GameObject.Find("BossText").gameObject;
+        BossUI = GameObject.Find("Canvas").transform.Find("BossUI").gameObject;
+        BossHP = GameObject.Find("Canvas").transform.Find("BossUI").transform.Find("BossHP").gameObject;
     }
 
     // Update is called once per frame
@@ -35,6 +38,14 @@ public class BossEvent : MonoBehaviour
         if (StartTrigger.GetComponent<StageTrigger>().isStart == true)
         {
             StartCoroutine(StartEvent());
+        }
+        if(bossBattleStart)
+        {
+            BossHP.GetComponent<Image>().fillAmount = boss.GetComponent<BossAI>().HP / boss.GetComponent<BossAI>().MaxHP;
+         }
+        if(GameManager.instance.nowHP<=0f)
+        {
+            BossUI.SetActive(false);
         }
     }
 
@@ -139,6 +150,7 @@ public class BossEvent : MonoBehaviour
         GameManager.instance.keyLock = false;
         BookObj.SetActive(true);
         PlayerUI.SetActive(true);
+        BossUI.SetActive(true);
         bossBattleStart = true;
     }
 }

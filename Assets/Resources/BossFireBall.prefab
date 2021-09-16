@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 656510963860381288}
   - component: {fileID: 8154693940794217050}
   - component: {fileID: 7191813008440020636}
+  - component: {fileID: 3924620448285193755}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 193237597152861022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_Children: []
   m_Father: {fileID: 786347206360207035}
   m_RootOrder: 3
@@ -95,6 +96,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3924620448285193755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193237597152861022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68c3cd91ff74bfa4682f975b08267579, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!1 &791700651813159681
 GameObject:
   m_ObjectHideFlags: 0
@@ -4731,7 +4745,7 @@ GameObject:
   - component: {fileID: 6700947091732565599}
   m_Layer: 0
   m_Name: BossFireBall
-  m_TagString: Untagged
+  m_TagString: BossFireball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8573,7 +8587,7 @@ ParticleSystem:
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
@@ -9635,6 +9649,7 @@ MonoBehaviour:
   coolTime: 0
   indicator: {fileID: 4544589221586941898}
   hitBox: {fileID: 193237597152861022}
+  isBossHpHalf: 0
 --- !u!1 &791925962901162665
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,6 +19,7 @@ TagManager:
   - Slash
   - Strike
   - Chop
+  - BossFireball
   layers:
   - Default
   - TransparentFX

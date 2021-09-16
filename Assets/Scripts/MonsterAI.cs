@@ -11,11 +11,11 @@ public enum AI_State
 public class MonsterAI : MonoBehaviour
 {
     public TextMesh damageText;
+    public float HP;
+    public DataBase DB;
     public GameObject Coin;
     public GameObject Star;
     public GameObject Damage;
-    public float HP;
-    public DataBase DB;
     public UI_Equip equip;
     public bool isDead = false;
     

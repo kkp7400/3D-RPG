@@ -8,6 +8,7 @@ public class MonsterWeapon : MonoBehaviour
     public DataBase DB;
     public float knockPower;
     public float knockCool;
+    public PlayerState player;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,7 @@ public class MonsterWeapon : MonoBehaviour
         if (this.tag == "Strike") atk = 40f;
         Center = GameObject.Find("Boss");
         knockCool = 0f;
+        player = GameObject.Find("Player").GetComponent<PlayerState>();
     }
 
     // Update is called once per frame
@@ -44,6 +46,7 @@ public class MonsterWeapon : MonoBehaviour
             {
                 StartCoroutine(KnockBack(other.gameObject));
                 knockCool = 3f;
+                player.onHit = true;
             }
         }
 
@@ -51,14 +54,14 @@ public class MonsterWeapon : MonoBehaviour
 
     IEnumerator KnockBack(GameObject other)
     {
-        //float knockTime = 1;
-        while (!other.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Hit"))
+        float knockTime = 1;
+        while (/*!other.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Hit")*/knockTime>=0f)
         {
             Vector3 dir = other.transform.position - Center.transform.position;
             dir.y = 0f;
             other.gameObject.GetComponent<Rigidbody>().AddForce(dir.normalized * knockPower, ForceMode.Impulse);
            // Debug.Log("³Ë¹é?");
-            //knockTime -= Time.deltaTime;
+            knockTime -= Time.deltaTime;
             yield return null;
         }
     }

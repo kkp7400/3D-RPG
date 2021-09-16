@@ -15,15 +15,20 @@ public class BossAI : MonoBehaviour
     public BossAI_State state;
     NavMeshAgent nav;
     Animator anim;
-    public float hp;
+    public float MaxHP;
+    public float HP;
     private GameObject player;
     public float coolTime;
     bool onPhaseTwo = false;
+    public TextMesh damageText;
+    public DataBase DB;
+    public UI_Equip equip;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
-        hp = 10000f;
+        HP = 10000f;
+        MaxHP = 10000f;
         anim = this.GetComponent<Animator>();
         state = BossAI_State.Idle;
         nav = this.GetComponent<NavMeshAgent>();
@@ -35,6 +40,9 @@ public class BossAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!DB) DB = GameObject.Find("GM").GetComponent<DataBase>();
+        if (!equip) equip = GameObject.Find("Canvas").GetComponent<UI_Equip>();
+
         if (!bossEvent.bossBattleStart) return;
         
 
@@ -51,7 +59,7 @@ public class BossAI : MonoBehaviour
 
     void UpdateIdle()
     {
-        if (hp <= 5000 && !onPhaseTwo)
+        if (HP <= 5000 && !onPhaseTwo)
         {
             ChangeState(BossAI_State.PhaseTwo);
             onPhaseTwo = true;
@@ -183,5 +191,80 @@ public class BossAI : MonoBehaviour
     {
         anim.SetTrigger("PhaseTwo");
         yield break;
+    }
+
+    bool onBlizard;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Meteor")
+        {
+            HP -= (DB.info.SP_Meteor * 0.1f + 1f) * (equip.ATK + 1f) * DB.spell[2].damage;
+            float damage = (DB.info.SP_Meteor * 0.1f + 1f) * (equip.ATK + 1f) * DB.spell[2].damage;
+            damageText.text = "-" + System.Math.Round(damage).ToString();
+            damageText.gameObject.SetActive(true);
+        }
+        if (other.tag == "Blizard")
+        {
+            onBlizard = true;
+            StartCoroutine(Blizard());
+        }
+        if (other.tag == "Shield")
+        {
+            transform.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(-1000, 0, -1000));
+            HP -= (DB.info.SP_Shild * 0.1f + 1f) * (equip.ATK + 1f) * DB.spell[4].damage;
+
+            float damage = (DB.info.SP_Shild * 0.1f + 1f) * (equip.ATK + 1f) * DB.spell[4].damage;
+            damageText.text = "-" + System.Math.Round(damage).ToString();
+            damageText.gameObject.SetActive(true);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Blizard")
+        {
+            onBlizard = false;
+            StopCoroutine(Blizard());
+        }
+    }
+
+    void OnParticleCollision(GameObject other)
+    {
+        //Debug.Log("�浹�ǵ�!");
+        if (other.tag == "FirePunch")
+        {
+            HP -= (DB.info.SP_FirePunch * 0.1f + 1f) * (equip.ATK + 1f) * DB.spell[0].damage;
+
+            float damage = (DB.info.SP_FirePunch * 0.1f + 1f) * (equip.ATK + 1f) * DB.spell[0].damage;
+            damageText.text = "-" + System.Math.Round(damage).ToString();
+            damageText.gameObject.SetActive(true);
+        }
+        if (other.tag == "EnergyBall")
+        {
+            HP -= (DB.info.SP_EnergyBall * 0.1f + 1f) * (equip.ATK + 1f) * DB.spell[1].damage;
+            float damage = (DB.info.SP_EnergyBall * 0.1f + 1f) * (equip.ATK + 1f) * DB.spell[1].damage;
+            damageText.text = "-" + System.Math.Round(damage).ToString();
+            damageText.gameObject.SetActive(true);
+        }
+        //Rigidbody body = other.GetComponent<Rigidbody>();
+        //if (body)
+        //{
+        //    Vector3 direction = other.transform.position - transform.position;
+        //    direction = direction.normalized;
+        //    body.AddForce(direction * 5);
+        //}
+    }
+
+
+    IEnumerator Blizard()
+    {
+        while (onBlizard)
+        {
+            HP -= (DB.info.SP_Blizard * 0.1f + 1f) * (equip.ATK + 1f) * DB.spell[3].damage;
+            float damage = (DB.info.SP_Blizard * 0.1f + 1f) * (equip.ATK + 1f) * DB.spell[3].damage;
+            damageText.text = "-" + System.Math.Round(damage).ToString();
+            damageText.gameObject.SetActive(true);
+            yield return new WaitForSeconds(1f);
+        }
     }
 }
