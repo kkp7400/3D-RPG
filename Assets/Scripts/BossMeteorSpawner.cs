@@ -78,7 +78,7 @@ public class BossMeteorSpawner : MonoBehaviour
         }
 
         hitBox.transform.position = showRagePos;
-        float hitBoxTime = 0.5f;
+        float hitBoxTime = 0.25f;
         hitBox.SetActive(true);
         while (hitBoxTime >= 0)
         {

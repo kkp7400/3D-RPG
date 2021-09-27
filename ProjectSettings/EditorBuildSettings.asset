@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DunGeon.unity
     guid: 6337070e0ca181c4c9d1271c5f168f2b
+  - enabled: 1
+    path: Assets/Scenes/End.unity
+    guid: 573103922d5551e49b6def8305c32fa0
   m_configObjects: {}

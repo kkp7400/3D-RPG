@@ -278,6 +278,14 @@ public class SkillManager : MonoBehaviour
         {
             bookFx[i].SetActive(false);
         }
+        for (int i = 0; i < spellArrow.skill.Count; i++)
+        {
+            if (spellArrow.skill[i].Profile.GetComponent<Image>().sprite.name == "Meteor"|| spellArrow.skill[i].Profile.GetComponent<Image>().sprite.name == "Blizard")
+            {
+                if (spellArrow.skill[i].nowCount >= 0)
+                spellArrow.skill[i].nowCount -= 1;
+            }
+        }
     }
     public IEnumerator Blizard(Vector3 point, int index)
     {

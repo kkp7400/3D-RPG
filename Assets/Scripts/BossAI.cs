@@ -23,6 +23,7 @@ public class BossAI : MonoBehaviour
     public TextMesh damageText;
     public DataBase DB;
     public UI_Equip equip;
+    bool isDead = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,7 +45,13 @@ public class BossAI : MonoBehaviour
         if (!equip) equip = GameObject.Find("Canvas").GetComponent<UI_Equip>();
 
         if (!bossEvent.bossBattleStart) return;
-        
+
+        if (HP <= 0&& !isDead)
+        {
+
+            ChangeState(BossAI_State.Death);
+            isDead = true;
+        }
 
         switch (state)
         {
@@ -137,12 +144,22 @@ public class BossAI : MonoBehaviour
     }
     void UpdateDeath()
     {
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Death"))
+        {
+            if (anim.GetCurrentAnimatorStateInfo(0).length > anim.GetCurrentAnimatorStateInfo(0).normalizedTime)
+            {
+                if (bossEvent.isEnd == true) return;
+                bossEvent.isEnd = true;
+                return;
+            }
+        }
 
+        return;
     }
     public void ChangeState(BossAI_State nextState)
     {
         state = nextState;
-        coolTime = 4f;
+        coolTime = 6f;
         StopAllCoroutines();
 
         switch (state)
@@ -184,7 +201,7 @@ public class BossAI : MonoBehaviour
 
     IEnumerator CoroutineDeath()
     {
-
+        anim.SetTrigger("OnDead");
         yield break;
     }
     IEnumerator CoroutinePhaseTwo()
@@ -200,8 +217,8 @@ public class BossAI : MonoBehaviour
         {
             HP -= (DB.info.SP_Meteor * 0.1f + 1f) * (equip.ATK + 1f) * DB.spell[2].damage;
             float damage = (DB.info.SP_Meteor * 0.1f + 1f) * (equip.ATK + 1f) * DB.spell[2].damage;
-            damageText.text = "-" + System.Math.Round(damage).ToString();
-            damageText.gameObject.SetActive(true);
+            //damageText.text = "-" + System.Math.Round(damage).ToString();
+            //damageText.gameObject.SetActive(true);
         }
         if (other.tag == "Blizard")
         {
@@ -214,8 +231,8 @@ public class BossAI : MonoBehaviour
             HP -= (DB.info.SP_Shild * 0.1f + 1f) * (equip.ATK + 1f) * DB.spell[4].damage;
 
             float damage = (DB.info.SP_Shild * 0.1f + 1f) * (equip.ATK + 1f) * DB.spell[4].damage;
-            damageText.text = "-" + System.Math.Round(damage).ToString();
-            damageText.gameObject.SetActive(true);
+            //damageText.text = "-" + System.Math.Round(damage).ToString();
+            //damageText.gameObject.SetActive(true);
         }
     }
 
@@ -236,15 +253,15 @@ public class BossAI : MonoBehaviour
             HP -= (DB.info.SP_FirePunch * 0.1f + 1f) * (equip.ATK + 1f) * DB.spell[0].damage;
 
             float damage = (DB.info.SP_FirePunch * 0.1f + 1f) * (equip.ATK + 1f) * DB.spell[0].damage;
-            damageText.text = "-" + System.Math.Round(damage).ToString();
-            damageText.gameObject.SetActive(true);
+           //damageText.text = "-" + System.Math.Round(damage).ToString();
+           // damageText.gameObject.SetActive(true);
         }
         if (other.tag == "EnergyBall")
         {
             HP -= (DB.info.SP_EnergyBall * 0.1f + 1f) * (equip.ATK + 1f) * DB.spell[1].damage;
             float damage = (DB.info.SP_EnergyBall * 0.1f + 1f) * (equip.ATK + 1f) * DB.spell[1].damage;
-            damageText.text = "-" + System.Math.Round(damage).ToString();
-            damageText.gameObject.SetActive(true);
+           // damageText.text = "-" + System.Math.Round(damage).ToString();
+           // damageText.gameObject.SetActive(true);
         }
         //Rigidbody body = other.GetComponent<Rigidbody>();
         //if (body)
@@ -262,8 +279,8 @@ public class BossAI : MonoBehaviour
         {
             HP -= (DB.info.SP_Blizard * 0.1f + 1f) * (equip.ATK + 1f) * DB.spell[3].damage;
             float damage = (DB.info.SP_Blizard * 0.1f + 1f) * (equip.ATK + 1f) * DB.spell[3].damage;
-            damageText.text = "-" + System.Math.Round(damage).ToString();
-            damageText.gameObject.SetActive(true);
+            //damageText.text = "-" + System.Math.Round(damage).ToString();
+            //damageText.gameObject.SetActive(true);
             yield return new WaitForSeconds(1f);
         }
     }

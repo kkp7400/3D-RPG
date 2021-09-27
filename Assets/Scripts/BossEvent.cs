@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Cinemachine;
 
 public class BossEvent : MonoBehaviour
@@ -25,7 +26,11 @@ public class BossEvent : MonoBehaviour
     public GameObject[] wall;
     public ParticleSystem[] bombs;
     public BossMeteorSpawner[] fireBall;
+    public GameObject deadZone;
     bool halfEvent;
+    public bool isEnd = false;
+    public bool isEndEvent = true;
+    public Image fadePanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +43,7 @@ public class BossEvent : MonoBehaviour
         BossHP = GameObject.Find("Canvas").transform.Find("BossUI").transform.Find("BossHP").gameObject;
         bombs = GameObject.Find("Bomb").transform.GetComponentsInChildren<ParticleSystem>();
         fireBall = GameObject.Find("BossFireBallPack").transform.GetComponentsInChildren<BossMeteorSpawner>();
+        fadePanel = GameObject.Find("Canvas").transform.Find("FadePanel").GetComponent<Image>();
         onHalfLoop = false;
         halfEvent = false;
     }
@@ -71,6 +77,11 @@ public class BossEvent : MonoBehaviour
             transform.rotation =
                 Quaternion.Slerp(transform.rotation, targetRotation, 1.5f * Time.deltaTime);
         }
+        if (isEnd&& isEndEvent)
+        {
+            StartCoroutine(EndEvent());
+            isEndEvent = false;
+        }
     }
 
     public IEnumerator StartEvent()
@@ -79,9 +90,14 @@ public class BossEvent : MonoBehaviour
         PlayerUI.SetActive(false);
 
         playerCharacter.transform.position = playerEventPos.position;
+
+
+        deadZone.SetActive(true);
+
         GameManager.instance.keyLock = true;
         StartTrigger.GetComponent<StageTrigger>().isStart = false;
         playerCamera.SetActive(false);
+
 
 
         StartCam[0].SetActive(true);
@@ -232,6 +248,21 @@ public class BossEvent : MonoBehaviour
         yield return null;
     }
 
+    public IEnumerator EndEvent()
+    {
+        float fadeCount = 0;
+        while (fadeCount < 1.0f)
+        {
+            fadeCount += 0.01f;
+            yield return new WaitForSeconds(0.01f);
+            fadePanel.color = new Color(0, 0, 0, fadeCount);
+        }
+        Destroy(GameObject.Find("PlayerPack").gameObject);
+        
+        SceneManager.LoadScene("End");
+        yield return null;
+    }
+
     void KnockBack(GameObject other)
     {
         other.AddComponent<Rigidbody>();
@@ -240,6 +271,7 @@ public class BossEvent : MonoBehaviour
         other.GetComponent<Rigidbody>().useGravity = true;
         Vector3 dir = other.transform.position - Center.transform.position;
         dir.y = 0f;
-        other.gameObject.GetComponent<Rigidbody>().AddForce(dir.normalized * 100, ForceMode.Impulse);
+        other.transform.FindChild("Cube").GetComponent<BoxCollider>().enabled = false;
+        other.gameObject.GetComponent<Rigidbody>().AddForce(dir.normalized * 10, ForceMode.Impulse);
     }
 }
